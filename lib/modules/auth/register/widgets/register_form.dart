@@ -38,7 +38,7 @@ class RegisterForm extends GetView<RegisterController> {
               label: 'Senha',
               validator: Validatorless.multiple([
                 Validatorless.min(6, 'Senha deve ter pelo menos 6 caracteres'),
-                Validatorless.required('E-mail obrigatório'),
+                Validatorless.required('Senha obrigatório'),
               ]),
               controller: _passwordEC,
             ),
@@ -51,7 +51,7 @@ class RegisterForm extends GetView<RegisterController> {
               validator: Validatorless.multiple([
                 Validatorless.compare(
                     _passwordEC, 'Senha não coincide com a senha digita acima'),
-                Validatorless.required('E-mail obrigatório'),
+                Validatorless.required('Confirma senha obrigatório'),
               ]),
               controller: _confirmPasswordEC,
             ),
@@ -60,7 +60,9 @@ class RegisterForm extends GetView<RegisterController> {
             ),
             CustomElevatedButton(
               onPressed: () {
-                if (_formKey.currentState!.validate()) {}
+                if (_formKey.currentState!.validate()) {
+                  controller.register(_emailEC.text, _passwordEC.text);
+                }
               },
               label: 'Registrar-se',
             ),

@@ -4,6 +4,10 @@ import 'forgot_password_controller.dart';
 class ForgotPasswordBindings implements Bindings {
   @override
   void dependencies() {
-    Get.put(ForgotPasswordController());
+    Get.put(
+      ForgotPasswordController(
+        userService: Get.find(),
+      ),
+    );
   }
 }

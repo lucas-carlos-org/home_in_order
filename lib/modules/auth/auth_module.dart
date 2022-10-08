@@ -8,6 +8,8 @@ import 'package:home_in_order/modules/auth/login/login_bindings.dart';
 import 'package:home_in_order/modules/auth/login/login_page.dart';
 import 'package:home_in_order/modules/auth/register/register_bindings.dart';
 import 'package:home_in_order/modules/auth/register/register_page.dart';
+import 'package:home_in_order/modules/auth/verification_user/verification_user_bindings.dart';
+import 'package:home_in_order/modules/auth/verification_user/verification_user_page.dart';
 
 
 class AuthModule implements Module {
@@ -27,6 +29,11 @@ class AuthModule implements Module {
       name: '/forgot-password',
       page: () => const ForgotPasswordPage(),
       binding: ForgotPasswordBindings(),
+    ),
+    GetPage<dynamic>(
+      name: '/verification-user',
+      page: () => const VerificationUserPage(),
+      binding: VerificationUserBindings(),
     ),
   ];
 }
