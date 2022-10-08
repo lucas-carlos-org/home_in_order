@@ -6,7 +6,9 @@ mixin LoaderMixin on GetxController {
     ever<bool>(loaderRx, (loading) async {
       if (loading) {
         await Get.dialog<Navigator>(
-          const Center(child: CircularProgressIndicator.adaptive()),
+          const Center(
+            child: CircularProgressIndicator(),
+          ),
           barrierDismissible: false,
         );
       } else {

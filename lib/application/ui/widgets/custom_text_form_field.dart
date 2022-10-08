@@ -1,5 +1,6 @@
-// ignore_for_file: avoid_bool_literals_in_conditional_expressions
+// ignore_for_file: avoid_bool_literals_in_conditional_expressions, must_be_immutable
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:home_in_order/application/ui/theme/app_colors.dart';
 import 'package:home_in_order/application/ui/theme/text_styles.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
@@ -14,6 +15,14 @@ class CustomTextFormField extends StatelessWidget {
     this.prefixIcon,
     this.onChanged,
     this.value,
+    this.inputFormatters,
+    this.keyboardType,
+    this.maxLength,
+    this.minLines,
+    this.maxLines,
+    this.textInputAction,
+    this.expands = false,
+    this.enabled = true,
     Key? key,
   })  : _obscureTextVN = ValueNotifier<bool>(obscureText),
         assert(
@@ -31,6 +40,14 @@ class CustomTextFormField extends StatelessWidget {
   final IconData? prefixIcon;
   final ValueNotifier<bool> _obscureTextVN;
   final String? value;
+  final List<TextInputFormatter>? inputFormatters;
+  final TextInputType? keyboardType;
+  int? maxLength;
+  int? minLines;
+  int? maxLines;
+  bool expands;
+  bool enabled;
+  TextInputAction? textInputAction;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +55,9 @@ class CustomTextFormField extends StatelessWidget {
       valueListenable: _obscureTextVN,
       builder: (_, obscureTextValue, child) {
         return TextFormField(
+          keyboardType: keyboardType,
+          inputFormatters: inputFormatters,
+          enabled: enabled,
           onChanged: onChanged,
           controller: controller,
           initialValue: value,
@@ -48,15 +68,22 @@ class CustomTextFormField extends StatelessWidget {
             fillColor: const Color(0xffF7F8F9),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
-              borderSide: const BorderSide(color: AppColors.greyBorder, width: 2),
+              borderSide:
+                  const BorderSide(color: AppColors.greyBorder, width: 2),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
-              borderSide: const BorderSide(color: AppColors.greyBorder, width: 2),
+              borderSide:
+                  const BorderSide(color: AppColors.greyBorder, width: 2),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
-              borderSide: const BorderSide(color: AppColors.greyBorder, width: 2),
+              borderSide:
+                  const BorderSide(color: AppColors.greyBorder, width: 2),
+            ),
+            disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.r),
+              borderSide: const BorderSide(color: Color(0xffF7F8F9), width: 2),
             ),
             suffixIcon: obscureText
                 ? IconButton(
@@ -66,13 +93,17 @@ class CustomTextFormField extends StatelessWidget {
                       _obscureTextVN.value = !obscureTextValue;
                     },
                     icon: Icon(
-                      obscureTextValue ? Icons.visibility_rounded : Icons.visibility_off_rounded,
+                      obscureTextValue
+                          ? Icons.visibility_rounded
+                          : Icons.visibility_off_rounded,
                       color: AppColors.greyDark.withOpacity(0.3),
                     ),
                   )
                 : suffixIcon,
             hintText: label,
-            hintStyle: TextStyles.titleMono2,
+            hintStyle: enabled == false
+                ? TextStyle(color: Colors.grey[400])
+                : TextStyles.titleMono2,
           ),
         );
       },

@@ -33,9 +33,9 @@ class ForgotPasswordForm extends GetView<ForgotPasswordController> {
             ),
             CustomElevatedButton(
               onPressed: () {
-                /*   if (_formKey.currentState!.validate()) {
-                  controller.login(_emailEC.text, _passwordEC.text);
-                } */
+                  if (_formKey.currentState!.validate()) {
+                  controller.forgotPassword(_emailEC.text);
+                }
               },
               label: 'Enviar email',
             ),

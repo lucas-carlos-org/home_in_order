@@ -5,7 +5,8 @@ import 'package:home_in_order/application/ui/theme/text_styles.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
 import 'package:home_in_order/modules/onboarding/onboarding_controller.dart';
 
-class OnboardingSelectedButton extends GetView<OnboardingController> {
+class OnboardingSelectedButton
+    extends GetView<OnboardingController> {
   const OnboardingSelectedButton({
     Key? key,
     required this.label,
@@ -37,7 +38,8 @@ class OnboardingSelectedButton extends GetView<OnboardingController> {
         child: Center(
           child: Text(
             label,
-            style: TextStyles.textButton.copyWith(color: isSelected ? AppColors.primaryColor : Colors.grey),
+            style: TextStyles.textButton.copyWith(
+                color: isSelected ? AppColors.primaryColor : Colors.grey),
           ),
         ),
       ),

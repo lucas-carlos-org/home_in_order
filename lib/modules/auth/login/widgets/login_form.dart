@@ -62,7 +62,9 @@ class LoginForm extends GetView<LoginController> {
             ),
             CustomElevatedButton(
               onPressed: () {
-                if (_formKey.currentState!.validate()) {}
+                if (_formKey.currentState!.validate()) {
+                  controller.loginWithEmail(_emailEC.text, _passwordEC.text);
+                }
               },
               label: 'Entrar',
             ),

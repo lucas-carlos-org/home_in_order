@@ -13,25 +13,26 @@ class LoginPage extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: CustomScrollView(
-      slivers: [
-        SliverFillRemaining(
-          hasScrollBody: false,
-          child: IntrinsicHeight(
-            child: Column(
-              children: [
-                bodyImageHeader(),
-                LoginForm(),
-                const LoginDivider(label: 'Ou login com'),
-                bodySocialButtons(),
-                const Spacer(),
-                bodyCreateAccount(),
-              ],
+      body: CustomScrollView(
+        slivers: [
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: IntrinsicHeight(
+              child: Column(
+                children: [
+                  bodyImageHeader(),
+                  LoginForm(),
+                  const LoginDivider(label: 'Ou login com'),
+                  bodySocialButtons(),
+                  const Spacer(),
+                  bodyCreateAccount(),
+                ],
+              ),
             ),
-          ),
-        )
-      ],
-    ));
+          )
+        ],
+      ),
+    );
   }
 
   Container bodyImageHeader() {
@@ -74,7 +75,7 @@ class LoginPage extends GetView<LoginController> {
                 iconPath: 'assets/icons/facebook.svg',
               ),
               CustomSocialButton(
-                onPressed: () {},
+                onPressed: () => controller.loginWithGoogle(),
                 iconPath: 'assets/icons/google.svg',
               ),
             ],

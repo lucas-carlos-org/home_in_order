@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:home_in_order/application/ui/navigator/navigator_service.dart';
 
 mixin MessagesMixin on GetxController {
   void messageListener(Rxn<MessageModel> message) {
     ever<MessageModel?>(message, (model) {
       if (model != null) {
-        Get.snackbar(
-          model.title,
-          model.message,
-          backgroundColor: model.type.color(),
+        var snackBar = SnackBar(
+          content: Text(model.message),
         );
+        ScaffoldMessenger.of(NavigationService.navigatorKey.currentContext!)
+            .showSnackBar(snackBar);
       }
     });
   }

@@ -22,6 +22,12 @@ mixin TextStyles {
     color: AppColors.black,
   );
 
+  static TextStyle titleDisable = title.copyWith(
+    fontWeight: FontWeight.normal,
+    fontSize: 16.sp,
+    color: AppColors.greyBorder,
+  );
+
   static TextStyle link = title.copyWith(
     fontSize: 16.sp,
     color: AppColors.black,

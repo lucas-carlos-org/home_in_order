@@ -5,7 +5,10 @@ class LoginBindings implements Bindings {
   @override
   void dependencies() {
     Get.put(
-      LoginController(),
+      LoginController(
+        userService: Get.find(),
+        authService: Get.find()
+      ),
     );
   }
 }
