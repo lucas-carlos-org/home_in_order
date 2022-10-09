@@ -22,7 +22,7 @@ class LoginPage extends GetView<LoginController> {
                 children: [
                   bodyImageHeader(),
                   LoginForm(),
-                  const LoginDivider(label: 'Ou login com'),
+                  const LoginDivider(label: 'Ou '),
                   bodySocialButtons(),
                   const Spacer(),
                   bodyCreateAccount(),
@@ -67,18 +67,10 @@ class LoginPage extends GetView<LoginController> {
       padding: EdgeInsets.symmetric(horizontal: 22.w),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              CustomSocialButton(
-                onPressed: () {},
-                iconPath: 'assets/icons/facebook.svg',
-              ),
-              CustomSocialButton(
-                onPressed: () => controller.loginWithGoogle(),
-                iconPath: 'assets/icons/google.svg',
-              ),
-            ],
+          CustomSocialButton(
+            onPressed: () => controller.loginWithGoogle(),
+            iconPath: 'assets/icons/google.svg',
+            label: 'Login com o Google',
           ),
           SizedBox(
             height: 36.h,
