@@ -5,7 +5,9 @@ class HomeContractorBindings implements Bindings {
   @override
   void dependencies() {
     Get.put(
-      HomeContractorController(userService: Get.find()),
+      HomeContractorController(
+        authService: Get.find(),
+      ),
     );
   }
 }

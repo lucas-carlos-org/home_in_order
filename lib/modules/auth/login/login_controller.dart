@@ -40,7 +40,8 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
               name: user.displayName,
               imageAvatar: user.photoURL,
               isFirstTime: true,
-              userType: null),
+              userType: null,
+              id: user.uid),
         );
         loading(false);
         message(
@@ -73,7 +74,8 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
             name: credentials.user!.displayName,
             imageAvatar: credentials.user!.photoURL,
             isFirstTime: true,
-            userType: null),
+            userType: null,
+            id: credentials.user!.uid),
       );
       loading(false);
       message(MessageModel.info(

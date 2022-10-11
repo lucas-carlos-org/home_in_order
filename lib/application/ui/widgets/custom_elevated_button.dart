@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:home_in_order/application/ui/theme/app_colors.dart';
 import 'package:home_in_order/application/ui/theme/text_styles.dart';
 
-class CustomElevatedButton extends StatelessWidget {
+class CustomElevatedButton extends StatefulWidget {
   const CustomElevatedButton({
     Key? key,
     required this.label,
@@ -25,17 +25,27 @@ class CustomElevatedButton extends StatelessWidget {
   final VoidCallback? onPressed;
 
   @override
+  State<CustomElevatedButton> createState() => _CustomElevatedButtonState();
+}
+
+class _CustomElevatedButtonState extends State<CustomElevatedButton> {
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width,
-      height: heigth,
+      width: widget.width,
+      height: widget.heigth,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: widget.onPressed,
         style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius)), primary: color ?? AppColors.primaryColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              widget.borderRadius,
+            ),
+          ),
+          primary: widget.color ?? AppColors.primaryColor,
         ),
         child: Text(
-          label,
+          widget.label,
           style: TextStyles.textButton,
         ),
       ),

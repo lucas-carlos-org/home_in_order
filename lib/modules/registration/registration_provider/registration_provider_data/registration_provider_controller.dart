@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:home_in_order/application/auth/auth_service.dart';
-import 'package:home_in_order/domain/models/user_personal_information_model.dart';
+import 'package:home_in_order/domain/models/user_provider_information_model.dart';
 import 'package:home_in_order/domain/services/registration/registration_service.dart';
 
 class RegistrationProviderController extends GetxController {
@@ -20,13 +20,12 @@ class RegistrationProviderController extends GetxController {
   var hasCnpj = false.obs;
   var city = ''.obs;
 
-
   Future<void> setPersonalInformations(
-      UserPersonalInformationModel userAuthModel) async {
+      UserProviderInformationModel userAuthModel) async {
     try {
       final user = _authService.user;
 
-      await _registrationService.saveUserPersonalgeInformationOnStorage(
+      await _registrationService.saveProviderInformationOnStorage(
         user!.uid,
         userAuthModel,
       );

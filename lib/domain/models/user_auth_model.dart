@@ -11,6 +11,7 @@ class UserAuthModel {
     this.completeRegisterData,
     this.completeRegisterPhoto,
     this.isFirstTime,
+    this.id,
   });
   String? name;
   String? email;
@@ -20,6 +21,7 @@ class UserAuthModel {
   bool? completeRegisterData;
   bool? completeRegisterPhoto;
   bool? isFirstTime;
+  String? id;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -31,6 +33,7 @@ class UserAuthModel {
       'completeRegisterData': completeRegisterData,
       'completeRegisterPhoto': completeRegisterPhoto,
       'isFirstTime': isFirstTime,
+      'id': id,
     };
   }
 
@@ -51,6 +54,7 @@ class UserAuthModel {
           : null,
       isFirstTime:
           map['isFirstTime'] != null ? map['isFirstTime'] as bool : null,
+      id: map['id'] != null ? map['id'] as String : null,
     );
   }
 

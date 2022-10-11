@@ -2,17 +2,36 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
-import 'package:home_in_order/application/ui/widgets/custom_elevated_button.dart';
 import 'package:home_in_order/application/ui/widgets/custom_title.dart';
 import 'package:lottie/lottie.dart';
 
-class SuccesPage extends StatelessWidget {
+class SuccesPage extends StatefulWidget {
   const SuccesPage({
     Key? key,
     required this.userType,
+    required this.label,
   }) : super(key: key);
 
   final String userType;
+  final String label;
+
+  @override
+  State<SuccesPage> createState() => _SuccesPageState();
+}
+
+class _SuccesPageState extends State<SuccesPage> {
+  bool isGoToHome = false;
+  void awaitToGoHome() {
+    Future.delayed(const Duration(seconds: 6), () {
+      Get.offAllNamed('/home-${widget.userType}');
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    awaitToGoHome();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,18 +45,12 @@ class SuccesPage extends StatelessWidget {
             children: [
               Lottie.asset('assets/icons/success_icon.json',
                   repeat: false, height: 250.h),
-              const CustomTitle(
+              CustomTitle(
                 title: 'Cadastro Finalizado',
-                subTitle:
-                    'Você finalizou a etapa de cadastro, agora basta apenas ir para a home e começar a utilizar o aplicativo! Seja bem-vindo(a)',
-                isCenterTitle: true,
+                subTitle: widget.label,
+                isCenterTitle: false,
               ),
-              CustomElevatedButton(
-                label: 'Ir para home',
-                onPressed: () {
-                  Get.offAllNamed('/home-$userType');
-                },
-              )
+              const CircularProgressIndicator()
             ],
           ),
         ),

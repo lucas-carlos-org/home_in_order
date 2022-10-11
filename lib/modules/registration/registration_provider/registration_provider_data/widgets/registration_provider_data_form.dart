@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,7 +7,7 @@ import 'package:home_in_order/application/ui/widgets/custom_dropdown_widget.dart
 import 'package:home_in_order/application/ui/widgets/custom_elevated_button.dart';
 import 'package:home_in_order/application/ui/widgets/custom_text_form_field.dart';
 import 'package:home_in_order/application/ui/widgets/info_widget.dart';
-import 'package:home_in_order/domain/models/user_personal_information_model.dart';
+import 'package:home_in_order/domain/models/user_provider_information_model.dart';
 import 'package:home_in_order/modules/registration/registration_provider/registration_provider_data/registration_provider_controller.dart';
 import 'package:home_in_order/modules/registration/registration_provider/registration_provider_data/widgets/custom_textformfield_multiline.dart';
 
@@ -19,16 +17,16 @@ class RegistrationForm extends GetView<RegistrationProviderController> {
   RegistrationForm({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
-  final nameEC = TextEditingController();
-  final middleNameEC = TextEditingController();
-  final phoneEC = TextEditingController();
-  final cpfOrCnpjEC = TextEditingController();
-  final cpfEC = TextEditingController();
-  final cnpjEC = TextEditingController();
-  final atuationAreaEC = TextEditingController();
-  final descriptionServiceEC = TextEditingController();
-  final experienceEC = TextEditingController();
-  final cityEC = TextEditingController();
+  final nameEC = ''.obs;
+  final middleNameEC = ''.obs;
+  final phoneEC = ''.obs;
+  final cpfOrCnpjEC = ''.obs;
+  final cpfEC = ''.obs;
+  final cnpjEC = ''.obs;
+  final atuationAreaEC = ''.obs;
+  final descriptionServiceEC = ''.obs;
+  final experienceEC = ''.obs;
+  final cityEC = ''.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +40,9 @@ class RegistrationForm extends GetView<RegistrationProviderController> {
               children: [
                 Expanded(
                   child: CustomTextFormField(
-                    controller: nameEC,
+                    onChanged: (value) {
+                      nameEC.value = value;
+                    },
                     label: 'Nome',
                     validator: Validatorless.multiple([
                       Validatorless.required('Nome obrigatório'),
@@ -55,7 +55,9 @@ class RegistrationForm extends GetView<RegistrationProviderController> {
                 ),
                 Expanded(
                   child: CustomTextFormField(
-                    controller: middleNameEC,
+                    onChanged: (value) {
+                      middleNameEC.value = value;
+                    },
                     label: 'Sobrenome',
                     validator: Validatorless.multiple([
                       Validatorless.required('Sobrenome obrigatório'),
@@ -69,7 +71,9 @@ class RegistrationForm extends GetView<RegistrationProviderController> {
               height: 16.h,
             ),
             CustomTextFormField(
-              controller: phoneEC,
+              onChanged: (value) {
+                phoneEC.value = value;
+              },
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
                 TelefoneInputFormatter(),
@@ -91,7 +95,7 @@ class RegistrationForm extends GetView<RegistrationProviderController> {
                     child: CustomTextFormField(
                       onChanged: (value) {
                         if (value.isNotEmpty) {
-                          cpfEC.text = value;
+                          cpfEC.value = value;
                           controller.hasCpf.value = true;
                           controller.hasCnpj.value = false;
                         } else {
@@ -122,7 +126,7 @@ class RegistrationForm extends GetView<RegistrationProviderController> {
                     child: CustomTextFormField(
                       onChanged: (value) {
                         if (value.isNotEmpty) {
-                          cnpjEC.text = value;
+                          cnpjEC.value = value;
                           controller.hasCnpj.value = true;
                           controller.hasCpf.value = false;
                         } else {
@@ -155,7 +159,9 @@ class RegistrationForm extends GetView<RegistrationProviderController> {
             Stack(
               children: [
                 CustomTextFormField(
-                  controller: atuationAreaEC,
+                  onChanged: (value) {
+                    atuationAreaEC.value = value;
+                  },
                   label: 'Área de atuação ',
                   validator: Validatorless.multiple([
                     Validatorless.required('Área de atuação obrigatório'),
@@ -178,6 +184,9 @@ class RegistrationForm extends GetView<RegistrationProviderController> {
               height: 16.h,
             ),
             CustomTextformfieldMultiline(
+              onChanged: (value){
+                descriptionServiceEC.value = value; 
+              },
               validator: Validatorless.multiple([
                 Validatorless.required('Descrição obrigatório'),
                 Validatorless.min(
@@ -190,8 +199,9 @@ class RegistrationForm extends GetView<RegistrationProviderController> {
             Stack(
               children: [
                 CustomTextFormField(
-                  controller: experienceEC,
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    experienceEC.value = value;
+                  },
                   label: 'Tempo de experiência',
                   validator: Validatorless.multiple([
                     Validatorless.required('Tempo obrigatório'),
@@ -214,38 +224,50 @@ class RegistrationForm extends GetView<RegistrationProviderController> {
               height: 16.h,
             ),
             CustomDropdownWidget(
+              hintText: 'Cidade de atuação',
               value: controller.city.value,
               onSaved: (value) {
-                cityEC.text = value;
+                cityEC.value = value;
               },
             ),
             SizedBox(
               height: 16.h,
             ),
-            CustomElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  controller.setPersonalInformations(
-                    UserPersonalInformationModel(
-                      name: nameEC.text.capitalizeFirst,
-                      lastName: middleNameEC.text.capitalizeFirst,
-                      phoneNumber: phoneEC.text,
-                      cpfOrCnpj: cpfEC.text.isNotEmpty
-                          ? cpfOrCnpjEC.text = cpfEC.text
-                          : cpfOrCnpjEC.text = cnpjEC.text,
-                      atuationArea: atuationAreaEC.text.capitalizeFirst,
-                      serviceDescription: descriptionServiceEC.text,
-                      expirenceTime: experienceEC.text,
-                      city: cityEC.text,
-                    ),
-                  );
-                  Get.offNamed(
-                    '/registration-provider-photo',
-                  );
-                }
-              },
-              label: 'Continuar',
-            ),
+            Obx(() {
+              return CustomElevatedButton(
+                onPressed: (nameEC.value.isEmpty ||
+                        middleNameEC.value.isEmpty ||
+                        phoneEC.value.isEmpty ||
+                        atuationAreaEC.value.isEmpty ||
+                        descriptionServiceEC.value.isEmpty ||
+                        experienceEC.value.isEmpty ||
+                        cityEC.value.isEmpty)
+                    ? null
+                    : () {
+                        if (_formKey.currentState!.validate()) {
+                          controller.setPersonalInformations(
+                            UserProviderInformationModel(
+                              name: nameEC.value.capitalizeFirst,
+                              lastName: middleNameEC.value.capitalizeFirst,
+                              phoneNumber: phoneEC.value,
+                              cpfOrCnpj: cpfEC.value.isNotEmpty
+                                  ? cpfOrCnpjEC.value = cpfEC.value
+                                  : cpfOrCnpjEC.value = cnpjEC.value,
+                              atuationArea:
+                                  atuationAreaEC.value.capitalizeFirst,
+                              serviceDescription: descriptionServiceEC.value,
+                              expirenceTime: experienceEC.value,
+                              city: cityEC.value,
+                            ),
+                          );
+                          Get.offNamed(
+                            '/registration-provider-photo',
+                          );
+                        }
+                      },
+                label: 'Continuar',
+              );
+            }),
             SizedBox(
               height: 27.h,
             ),

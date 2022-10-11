@@ -6,7 +6,8 @@ import 'package:home_in_order/application/ui/widgets/info_widget.dart';
 
 class CustomTextformfieldMultiline extends StatelessWidget {
   final String? Function(String?)? validator;
-  const CustomTextformfieldMultiline({Key? key, this.validator}) : super(key: key);
+  final void Function(String)? onChanged;
+  const CustomTextformfieldMultiline({Key? key, this.validator, this.onChanged}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +16,7 @@ class CustomTextformfieldMultiline extends StatelessWidget {
         TextFormField(
           validator: validator,
           maxLines: 4,
+          onChanged: onChanged,
           decoration: InputDecoration(
             filled: true,
             fillColor: const Color(0xffF7F8F9),
