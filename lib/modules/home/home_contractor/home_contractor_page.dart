@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
+import 'package:home_in_order/application/ui/widgets/custom_search_widget.dart';
 import 'package:home_in_order/modules/home/home_contractor/home_contractor_controller.dart';
+import 'package:home_in_order/modules/home/home_contractor/widget/home_provider_card.dart';
+import 'package:rxdart/rxdart.dart';
 
 class HomeContractorPage extends GetView<HomeContractorController> {
   const HomeContractorPage({Key? key}) : super(key: key);
@@ -10,56 +14,96 @@ class HomeContractorPage extends GetView<HomeContractorController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Row(
-          children: [
-            const Text('Olá, '),
-            const Text('Fulano de tal'),
-            Image.asset(
-              'assets/icons/home_user_emoji.png',
-            ),
-          ],
-        ),
-        actions: [
-          CircleAvatar(
-            radius: 25.r,
-            backgroundImage: const NetworkImage(
-                "https://images.vexels.com/media/users/3/145908/raw/52eabf633ca6414e60a7677b0b917d92-criador-de-avatar-masculino.jpg"),
-            backgroundColor: Colors.transparent,
-          )
-        ],
+        toolbarHeight: 70.h,
+        title: headerHomeContractorPage(),
       ),
-      body: SingleChildScrollView(
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 30.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Agendamento de Tarefas'),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.info_outline_rounded,
-                    size: 20.sp,
-                  ),
-                ),
-              ],
+            const CustomSearchWidget(hintText: 'Serviço, Localidade, Nome'),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.h),
+              child: Text(
+                'Prestadores de serviço',
+                style: TextStyle(fontSize: 16.h, fontWeight: FontWeight.w700),
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Prestadores de Serviço'),
-                TextButton(
-                  onPressed: () {
-                    controller.logout();
-                  },
-                  child: const Text('Ver mais'),
-                ),
-              ],
+            Expanded(
+              child: Obx(
+                () {
+                  return ListView.builder(
+                    physics: const BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics(),
+                    ),
+                    itemCount: controller.listProviders.length,
+                    itemBuilder: (context, index) {
+                      var provider = controller.listProviders[index];
+                      var providerInfo = controller.listProviderInfo[index];
+                      return HomeProviderCard(
+                        listProviderInfo: providerInfo,
+                        listProviders: provider,
+                        imageAvatar: '${provider.imageAvatar}',
+                        name:
+                            '${providerInfo.name} ${providerInfo.lastName![0]}.',
+                        service: '${providerInfo.atuationArea}',
+                      );
+                    },
+                  );
+                },
+              ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Padding headerHomeContractorPage() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Text(
+                'Olá, ',
+                style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.black),
+              ),
+              Obx(() {
+                return Text(
+                  controller.userModelInfo.value?.name ?? '',
+                  style: TextStyle(fontSize: 16.sp, color: Colors.black),
+                );
+              }),
+              SizedBox(
+                width: 4.w,
+              ),
+              Image.asset('assets/icons/emoji_home_contractor.png',
+                  height: 25.h)
+            ],
+          ),
+          InkWell(
+            onTap: () => Get.toNamed('/profile-contractor'),
+            child: Obx(
+              () {
+                return controller.userModel.value?.imageAvatar == null
+                    ? const SizedBox.shrink()
+                    : CircleAvatar(
+                        radius: 20.r,
+                        backgroundImage: NetworkImage(
+                            controller.userModel.value!.imageAvatar!),
+                        backgroundColor: Colors.transparent,
+                      );
+              },
+            ),
+          )
+        ],
       ),
     );
   }

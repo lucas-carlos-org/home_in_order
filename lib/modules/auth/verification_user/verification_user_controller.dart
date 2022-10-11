@@ -29,16 +29,26 @@ class VerificationUserController extends GetxController {
       final completeRegistrationData = docData?['completeRegisterData'];
       final completeRegistrationPhoto = docData?['completeRegisterPhoto'];
 
-      if (completeRegistrationPhoto == true) {
-        return Get.offAllNamed('/home-provider');
-      } else {
-        if (userType == null) {
-          return Get.offAllNamed('/onboarding');
-        } else if (completeRegistrationData == null) {
-          return Get.offAllNamed('/registration-provider-data');
+      if (userType == 'provider') {
+        if (completeRegistrationPhoto == true) {
+          return Get.offAllNamed('/home-provider');
         } else {
-          return Get.offAllNamed('/registration-provider-photo');
+          if (completeRegistrationData == null || completeRegistrationData == false) {
+            return Get.offAllNamed('/registration-provider-data');
+          } else if (completeRegistrationPhoto == null || completeRegistrationPhoto == false) {
+            return Get.offAllNamed('/registration-provider-photo');
+          }
         }
+      } else if (userType == 'contractor') {
+        if (completeRegistrationData == true) {
+          return Get.offAllNamed('/home-contractor');
+        } else {
+          if (completeRegistrationData == null || completeRegistrationData == false) {
+            return Get.offAllNamed('/registration-contractor-data');
+          }
+        }
+      } else {
+        return Get.offAllNamed('/onboarding');
       }
     }
   }

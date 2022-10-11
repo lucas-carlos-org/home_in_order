@@ -25,6 +25,7 @@ class RegistrationProviderPhotoController extends GetxController {
   final jobPhotoFour = ''.obs;
   final jobPhotoFive = ''.obs;
   final jobPhotoSix = ''.obs;
+  var listOfImages = <File>[].obs;
 
   Future<void> setCompleteRegistration() async {
     final user = _authService.user;
@@ -45,14 +46,40 @@ class RegistrationProviderPhotoController extends GetxController {
     profilePhoto.value = '';
   }
 
-  Future<void> uploadImages()async {
+  Future<void> uploadImages() async {
     final user = _authService.user;
 
     if (user != null) {
       final userId = user.uid;
       _registrationService.uploadImages(userId, File(profilePhoto.value));
     }
-    
-    
+  }
+
+  Future<void> uploadListOfImages() async {
+    final user = _authService.user;
+
+    if (jobPhotoOne.value.isNotEmpty) {
+      listOfImages.add(File(jobPhotoOne.value));
+    }
+    if (jobPhotoTwo.value.isNotEmpty) {
+      listOfImages.add(File(jobPhotoTwo.value));
+    }
+    if (jobPhotoThree.value.isNotEmpty) {
+      listOfImages.add(File(jobPhotoThree.value));
+    }
+    if (jobPhotoFour.value.isNotEmpty) {
+      listOfImages.add(File(jobPhotoFour.value));
+    }
+    if (jobPhotoFive.value.isNotEmpty) {
+      listOfImages.add(File(jobPhotoFive.value));
+    }
+    if (jobPhotoSix.value.isNotEmpty) {
+      listOfImages.add(File(jobPhotoSix.value));
+    }
+
+    if (user != null) {
+      final userId = user.uid;
+      _registrationService.uploadListImages(userId, listOfImages);
+    }
   }
 }

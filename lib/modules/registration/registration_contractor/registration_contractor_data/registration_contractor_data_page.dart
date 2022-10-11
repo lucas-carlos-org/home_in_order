@@ -2,12 +2,12 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
 import 'package:home_in_order/application/ui/widgets/custom_title.dart';
-import 'package:home_in_order/modules/registration/registration_provider/registration_provider_data/widgets/registration_provider_data_form.dart';
-import './registration_provider_controller.dart';
+import 'package:home_in_order/modules/registration/registration_contractor/registration_contractor_data/widgets/registration_contactor_form.dart';
+import './registration_contractor_data_controller.dart';
 
-class RegistrationProviderDataPage
-    extends GetView<RegistrationProviderController> {
-  const RegistrationProviderDataPage({Key? key}) : super(key: key);
+class RegistrationContractorDataPage
+    extends GetView<RegistrationContractorDataController> {
+  const RegistrationContractorDataPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +28,10 @@ class RegistrationProviderDataPage
                     child: const CustomTitle(
                       title: 'Complete seu cadastro ',
                       subTitle:
-                          'Que legal que você esta conosco nessa caminhada, porem antes de tudo precisamos de alguns dados sobre seus serviços! ',
+                          'Finalize seu cadastro para começar a utilizar o aplicativo!',
                     ),
                   ),
-                  RegistrationForm()
+                  RegistrationContactorForm()
                 ],
               ),
             ),

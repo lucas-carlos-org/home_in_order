@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
 import 'package:home_in_order/modules/home/home_provider/home_provider_controller.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomeProviderPage extends GetView<HomeProviderController> {
   const HomeProviderPage({Key? key}) : super(key: key);
@@ -68,7 +69,7 @@ class HomeProviderPage extends GetView<HomeProviderController> {
                         ),
                         Center(
                           child: Text(
-                            'Serviços Aivos',
+                            'Serviços Ativos',
                             style: TextStyle(
                                 fontSize: 22, fontWeight: FontWeight.bold),
                           ),
@@ -79,7 +80,7 @@ class HomeProviderPage extends GetView<HomeProviderController> {
                 ],
               ),
             ),
-              Center(
+            Center(
               child: TextButton(
                 onPressed: () {
                   controller.logout();
@@ -113,6 +114,7 @@ class HomeProviderPage extends GetView<HomeProviderController> {
                   Text(
                     controller.userModelInfo.value?.name ?? '',
                     style: TextStyle(fontSize: 16.sp, color: Colors.black),
+                    overflow: TextOverflow.ellipsis,
                   ),
                   SizedBox(
                     width: 4.w,

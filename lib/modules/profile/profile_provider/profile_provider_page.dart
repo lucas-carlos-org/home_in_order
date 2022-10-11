@@ -297,7 +297,7 @@ class ProfileProviderPage extends GetView<ProfileProviderController> {
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () => controller.logout(),
           child: const Text('Sair'),
         )
       ],

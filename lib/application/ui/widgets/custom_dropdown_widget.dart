@@ -6,7 +6,8 @@ class CustomDropdownWidget extends StatefulWidget {
   void Function(dynamic)? onSaved;
   String? Function(dynamic)? validator;
   String? value;
-  CustomDropdownWidget({Key? key, required this.value, required this.onSaved})
+  final String hintText;
+  CustomDropdownWidget({Key? key, required this.value, required this.onSaved, required this.hintText})
       : super(key: key);
 
   @override
@@ -36,7 +37,7 @@ class _CustomDropdownWidgetState extends State<CustomDropdownWidget> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             DropDownFormField(
-              hintText: 'Cidade de atuação',
+              hintText: widget.hintText,
               value: _myActivity,
               onSaved: widget.onSaved,
               onChanged: (value) {

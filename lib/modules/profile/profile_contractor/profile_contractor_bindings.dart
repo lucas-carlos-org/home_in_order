@@ -2,8 +2,13 @@ import 'package:get/get.dart';
 import './profile_contractor_controller.dart';
 
 class ProfileContractorBindings implements Bindings {
-    @override
-    void dependencies() {
-        Get.put(ProfileContractorController());
-    }
+  @override
+  void dependencies() {
+    Get.put(
+      ProfileContractorController(
+        authService: Get.find(),
+        userService: Get.find(),
+      ),
+    );
+  }
 }

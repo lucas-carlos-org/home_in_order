@@ -73,9 +73,11 @@ class RegistrationPhotoForm
                 children: [
                   JobPhotoWidget(
                     photoFile: controller.jobPhotoFour,
-                    onPressed: () => controller.getImageJob(
-                      controller.jobPhotoFour,
-                    ),
+                    onPressed: () {
+                      controller.getImageJob(
+                        controller.jobPhotoFour,
+                      );
+                    },
                   ),
                   JobPhotoWidget(
                     photoFile: controller.jobPhotoFive,
@@ -96,23 +98,28 @@ class RegistrationPhotoForm
           SizedBox(
             height: 16.h,
           ),
-          CustomElevatedButton(
-            onPressed: () {
-              if (controller.profilePhoto.isNotEmpty &&
-                  controller.jobPhotoOne.isNotEmpty &&
-                  controller.jobPhotoTwo.isNotEmpty &&
-                  controller.jobPhotoThree.isNotEmpty &&
-                  controller.jobPhotoFive.isNotEmpty &&
-                  controller.jobPhotoFive.isNotEmpty &&
-                  controller.jobPhotoSix.isNotEmpty) {
-                controller.uploadImages();
-                controller.setCompleteRegistration();
-                Get.offAll(
-                  const SuccesPage(userType: 'provider'),
-                );
-              }
+          Obx(
+            () {
+              return CustomElevatedButton(
+                onPressed: (controller.profilePhoto.isEmpty ||
+                        controller.jobPhotoOne.value.isEmpty ||
+                        controller.jobPhotoTwo.value.isEmpty ||
+                        controller.jobPhotoThree.value.isEmpty)
+                    ? null
+                    : () {
+                        controller.uploadImages();
+                        controller.uploadListOfImages();
+                        controller.setCompleteRegistration();
+                        Get.offAll(
+                          const SuccesPage(
+                              userType: 'provider',
+                              label:
+                                  'Você finalizou a etapa de cadastro, aguarde enquanto preparamos tudo para você!'),
+                        );
+                      },
+                label: 'Continuar',
+              );
             },
-            label: 'Continuar',
           ),
         ],
       ),
