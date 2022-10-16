@@ -39,4 +39,8 @@ class UserServiceImpl implements IUserService {
   @override
   Future<User?> register(String email, String password) =>
       _userRepository.register(email, password);
+
+  @override
+  Future<void> updateDeviceToken(String userId) =>
+      _userRepository.updateDeviceToken(userId);
 }

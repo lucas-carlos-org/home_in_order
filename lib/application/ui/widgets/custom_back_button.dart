@@ -17,6 +17,7 @@ class CustomBackButton extends StatelessWidget {
           height: 41.h,
           width: 41.w,
           decoration: BoxDecoration(
+            color: Colors.white,
             border: Border.all(
               color: AppColors.greyBorder,
             ),

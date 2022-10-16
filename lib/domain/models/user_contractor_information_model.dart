@@ -20,7 +20,7 @@ class UserContractorInformationModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'name': name,
-      'lastName': lastName,
+      'last_name': lastName,
       'adress': adress,
       'number': number,
       'cidade': city,
@@ -30,7 +30,7 @@ class UserContractorInformationModel {
   factory UserContractorInformationModel.fromMap(Map<String, dynamic> map) {
     return UserContractorInformationModel(
       name: map['name'] != null ? map['name'] as String : null,
-      lastName: map['lastName'] != null ? map['lastName'] as String : null,
+      lastName: map['last_name'] != null ? map['last_name'] as String : null,
       adress: map['adress'] != null ? map['adress'] as String : null,
       number: map['number'] != null ? map['number'] as String : null,
       city: map['cidade'] != null ? map['cidade'] as String : null,

@@ -23,7 +23,7 @@ class _SuccesPageState extends State<SuccesPage> {
   bool isGoToHome = false;
   void awaitToGoHome() {
     Future.delayed(const Duration(seconds: 6), () {
-      Get.offAllNamed('/home-${widget.userType}');
+      Get.offAllNamed('/menu-${widget.userType}');
     });
   }
 

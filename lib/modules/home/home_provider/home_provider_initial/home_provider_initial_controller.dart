@@ -5,8 +5,8 @@ import 'package:home_in_order/domain/models/user_auth_model.dart';
 import 'package:home_in_order/domain/models/user_provider_information_model.dart';
 import 'package:home_in_order/domain/services/user/user_service.dart';
 
-class HomeProviderController extends GetxController {
-  HomeProviderController({
+class HomeProviderInitialController extends GetxController {
+  HomeProviderInitialController({
     required IUserService userService,
     required AuthService authService,
   })  : _userService = userService,
@@ -17,6 +17,7 @@ class HomeProviderController extends GetxController {
   final userModelInfo = Rxn<UserProviderInformationModel>();
   final userModel = Rxn<UserAuthModel>();
   final avatarImage = ''.obs;
+  final userId = ''.obs;
 
   @override
   void onInit() {
@@ -32,8 +33,9 @@ class HomeProviderController extends GetxController {
     final user = _authService.user;
 
     if (user != null) {
+      userId.value = user.uid;
       final docRef = await FirebaseFirestore.instance
-          .collection("users/${user.uid}/userPersonalInformation/")
+          .collection("users/${user.uid}/personal_information/")
           .get();
       final userRef = await FirebaseFirestore.instance
           .collection('users')
@@ -43,12 +45,11 @@ class HomeProviderController extends GetxController {
       final docData = docRef.docs[0];
 
       userModel.value = UserAuthModel(
-          imageAvatar: userRef['imageAvatar']
-              .toString()
-              .replaceFirst("file:///", "https://"));
+          imageAvatar: userRef['image_avatar']
+              .toString());
 
       userModelInfo.value = UserProviderInformationModel(
-          name: '${docData['name']} ${docData['lastName'][0]}.');
+          name: '${docData['name']} ${docData['last_name'][0]}.');
     }
   }
 }

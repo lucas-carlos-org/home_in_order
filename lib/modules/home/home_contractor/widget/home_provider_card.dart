@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
 import 'package:home_in_order/domain/models/user_auth_model.dart';
 import 'package:home_in_order/domain/models/user_provider_information_model.dart';
@@ -11,6 +12,7 @@ class HomeProviderCard extends StatelessWidget {
     required this.service,
     required this.listProviders,
     required this.listProviderInfo,
+    required this.listProviderPhotos,
   }) : super(key: key);
 
   final String imageAvatar;
@@ -18,13 +20,21 @@ class HomeProviderCard extends StatelessWidget {
   final String service;
   final UserAuthModel listProviders;
   final UserProviderInformationModel listProviderInfo;
+  final List<String> listProviderPhotos;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: 10.h),
       child: InkWell(
-        onTap: () {},
+        onTap: () => Get.toNamed(
+          '/detail-provider',
+          arguments: [
+            listProviders,
+            listProviderInfo,
+            listProviderPhotos,
+          ],
+        ),
         child: SizedBox(
           width: double.infinity,
           height: 80.h,

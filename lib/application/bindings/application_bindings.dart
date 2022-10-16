@@ -8,15 +8,18 @@ import 'package:home_in_order/data/repositories/image_picker/image_picker_reposi
 import 'package:home_in_order/data/repositories/image_picker/image_picker_repository_impl.dart';
 import 'package:home_in_order/data/repositories/registration/registration_repository.dart';
 import 'package:home_in_order/data/repositories/registration/registration_repository_impl.dart';
+import 'package:home_in_order/data/repositories/request_services/request_services_repository.dart';
+import 'package:home_in_order/data/repositories/request_services/request_services_repository_impl.dart';
 import 'package:home_in_order/data/repositories/user/user_repository.dart';
 import 'package:home_in_order/data/repositories/user/user_repository_impl.dart';
 import 'package:home_in_order/domain/services/image_picker/image_picker_service.dart';
 import 'package:home_in_order/domain/services/image_picker/image_picker_service_impl.dart';
 import 'package:home_in_order/domain/services/registration/registration_service.dart';
 import 'package:home_in_order/domain/services/registration/registration_service_impl.dart';
+import 'package:home_in_order/domain/services/request_services/request_service.dart';
+import 'package:home_in_order/domain/services/request_services/request_service_impl.dart';
 import 'package:home_in_order/domain/services/user/user_service.dart';
 import 'package:home_in_order/domain/services/user/user_service_impl.dart';
-
 
 class ApplicationBindings implements Bindings {
   @override
@@ -43,6 +46,14 @@ class ApplicationBindings implements Bindings {
           fenix: true)
       ..lazyPut<IImagePickerService>(
           () => ImagePickerServiceImpl(imagePickerRepository: Get.find()),
+          fenix: true);
+
+    Get
+      ..lazyPut<IRequestServicesRepository>(
+          () => RequestServicesRepositoryImpl(),
+          fenix: true)
+      ..lazyPut<IRequestService>(
+          () => RequestServiceImpl(requestServicesRepository: Get.find()),
           fenix: true);
   }
 }

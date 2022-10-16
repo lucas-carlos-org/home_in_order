@@ -21,7 +21,7 @@ class ProfileProviderPage extends GetView<ProfileProviderController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  headerProfileProvider(),
+                  headerProfileProvider(context),
                   stackBodyProfile(),
                 ],
               ),
@@ -36,7 +36,7 @@ class ProfileProviderPage extends GetView<ProfileProviderController> {
     return Stack(
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30.w),
+          padding: EdgeInsets.symmetric(horizontal: 22.w),
           child: Container(
             height: 260.h,
             width: double.infinity,
@@ -287,20 +287,30 @@ class ProfileProviderPage extends GetView<ProfileProviderController> {
     );
   }
 
-  Row headerProfileProvider() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        const CustomBackButton(),
-        Text(
-          'Perfil',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
-        ),
-        TextButton(
-          onPressed: () => controller.logout(),
-          child: const Text('Sair'),
-        )
-      ],
+  Padding headerProfileProvider(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 5.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          /*  const CustomBackButton(), */
+          const SizedBox(width: 32.0),
+          Text(
+            'Perfil',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
+          ),
+          InkWell(
+            onTap: () => controller.logout(),
+            child: Text(
+              'Sair',
+              style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14.sp,
+                  color: Theme.of(context).primaryColor),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

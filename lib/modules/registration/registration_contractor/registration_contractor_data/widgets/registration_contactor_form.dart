@@ -6,7 +6,6 @@ import 'package:home_in_order/application/ui/widgets/custom_elevated_button.dart
 import 'package:home_in_order/application/ui/widgets/custom_text_form_field.dart';
 import 'package:home_in_order/application/ui/widgets/succes_page.dart';
 import 'package:home_in_order/domain/models/user_contractor_information_model.dart';
-import 'package:home_in_order/modules/home/home_contractor/home_contractor_page.dart';
 import 'package:home_in_order/modules/registration/registration_contractor/registration_contractor_data/registration_contractor_data_controller.dart';
 import 'package:home_in_order/modules/registration/registration_contractor/registration_contractor_data/widgets/profile_photo_widget.dart';
 import 'package:validatorless/validatorless.dart';

@@ -17,21 +17,27 @@ class HomeContractorController extends GetxController {
 
   var listProviders = <UserAuthModel>[].obs;
   var listProviderInfo = <UserProviderInformationModel>[].obs;
+  var listProviderPhotos = <String>[].obs;
+  var userId = '';
 
   @override
   void onInit() {
+    super.onInit();
     getUserData();
     getDocs();
-    super.onInit();
   }
 
   Future<void> getUserData() async {
     final user = _authService.user;
 
     if (user != null) {
+      userId = user.uid;
       final docRef = await FirebaseFirestore.instance
-          .collection("users/${user.uid}/userPersonalInformation/")
+          .collection('users')
+          .doc(user.uid)
+          .collection('personal_information')
           .get();
+
       final userRef = await FirebaseFirestore.instance
           .collection('users')
           .doc(user.uid)
@@ -40,46 +46,58 @@ class HomeContractorController extends GetxController {
       final docData = docRef.docs[0];
 
       userModel.value = UserAuthModel(
-          imageAvatar: userRef['imageAvatar']
+          imageAvatar: userRef['image_avatar']
               .toString()
               .replaceFirst("file:///", "https://"));
 
       userModelInfo.value = UserContractorInformationModel(
-          name: '${docData['name']} ${docData['lastName'][0]}.');
+          name: '${docData['name']} ${docData['last_name'][0]}.');
     }
   }
 
   Future getDocs() async {
-    QuerySnapshot user =
-        await FirebaseFirestore.instance.collection("users").get();
+    final user = await FirebaseFirestore.instance.collection('users').get();
     for (int i = 0; i < user.docs.length; i++) {
       var userProvider = user.docs[i];
-      QuerySnapshot userInfo = await FirebaseFirestore.instance
+      final userInfo = await FirebaseFirestore.instance
           .collection("users")
           .doc(userProvider.id)
-          .collection('userPersonalInformation')
+          .collection('personal_information')
           .get();
+
       final userInformation = userInfo.docs.first;
 
-      if (userProvider['userType'] == 'provider') {
+      if (userProvider['user_type'] == 'provider') {
+        final userPhotos = await FirebaseFirestore.instance
+            .collection("users")
+            .doc(userProvider.id)
+            .collection('job_images')
+            .get();
+
+        final photosOfProvider = userPhotos.docs;
+
+        for (var photo in photosOfProvider) {
+          listProviderPhotos.add(photo['get_image_job']);
+        }
+
         listProviders.add(
           UserAuthModel(
-            imageAvatar: userProvider['imageAvatar'],
-            diveceToken: userProvider['diveceToken'],
-            email: userProvider['email'],
-            userType: userProvider['userType'],
-          ),
+              imageAvatar: userProvider['image_avatar'],
+              deviceToken: userProvider['device_token'],
+              email: userProvider['email'],
+              userType: userProvider['user_type'],
+              id: userProvider['id']),
         );
 
         listProviderInfo.add(UserProviderInformationModel(
           name: userInformation['name'],
-          atuationArea: userInformation['atuationArea'],
+          atuationArea: userInformation['atuation_area'],
           city: userInformation['city'],
-          cpfOrCnpj: userInformation['cpfOrCnpj'],
-          expirenceTime: userInformation['expirenceTime'],
-          lastName: userInformation['lastName'],
-          phoneNumber: userInformation['phoneNumber'],
-          serviceDescription: userInformation['serviceDescription'],
+          cpfOrCnpj: userInformation['cpf_or_cnpj'],
+          experienceTime: userInformation['experience_time'],
+          lastName: userInformation['last_name'],
+          phoneNumber: userInformation['phone_number'],
+          serviceDescription: userInformation['service_description'],
         ));
       }
     }

@@ -1,11 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
 import 'package:home_in_order/application/ui/widgets/custom_search_widget.dart';
 import 'package:home_in_order/modules/home/home_contractor/home_contractor_controller.dart';
 import 'package:home_in_order/modules/home/home_contractor/widget/home_provider_card.dart';
-import 'package:rxdart/rxdart.dart';
 
 class HomeContractorPage extends GetView<HomeContractorController> {
   const HomeContractorPage({Key? key}) : super(key: key);
@@ -44,6 +42,7 @@ class HomeContractorPage extends GetView<HomeContractorController> {
                       return HomeProviderCard(
                         listProviderInfo: providerInfo,
                         listProviders: provider,
+                        listProviderPhotos: controller.listProviderPhotos,
                         imageAvatar: '${provider.imageAvatar}',
                         name:
                             '${providerInfo.name} ${providerInfo.lastName![0]}.',
@@ -88,20 +87,17 @@ class HomeContractorPage extends GetView<HomeContractorController> {
                   height: 25.h)
             ],
           ),
-          InkWell(
-            onTap: () => Get.toNamed('/profile-contractor'),
-            child: Obx(
-              () {
-                return controller.userModel.value?.imageAvatar == null
-                    ? const SizedBox.shrink()
-                    : CircleAvatar(
-                        radius: 20.r,
-                        backgroundImage: NetworkImage(
-                            controller.userModel.value!.imageAvatar!),
-                        backgroundColor: Colors.transparent,
-                      );
-              },
-            ),
+          Obx(
+            () {
+              return controller.userModel.value?.imageAvatar == null
+                  ? const SizedBox.shrink()
+                  : CircleAvatar(
+                      radius: 20.r,
+                      backgroundImage: NetworkImage(
+                          controller.userModel.value!.imageAvatar!),
+                      backgroundColor: Colors.transparent,
+                    );
+            },
           )
         ],
       ),

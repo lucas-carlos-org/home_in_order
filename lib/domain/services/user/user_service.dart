@@ -8,6 +8,7 @@ abstract class IUserService {
   Future<void> forgotPassword(String email);
   Future<void> logout();
   Future<void> saveUserOnStorage(String userId, UserAuthModel userAuthModel);
+    Future<void> updateDeviceToken(String userId);
   Future<String> getDeviceToken();
   Future<void> setUserType(String userId, String typeUser);
   

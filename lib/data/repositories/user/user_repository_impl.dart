@@ -85,8 +85,8 @@ class UserRepositoryImpl implements IUserRepository {
           FirebaseFirestore.instance.collection('users').doc(userId);
 
       Map<String, dynamic> data = <String, dynamic>{
-        "userType": typeUser,
-        "isFirstTime": false,
+        "user_type": typeUser,
+        "is_first_time": false,
       };
       await userModelType.update(data);
     } catch (e) {
@@ -139,6 +139,32 @@ class UserRepositoryImpl implements IUserRepository {
       } else {
         throw AuthException(message: e.message ?? 'Erro ao registrar usuario');
       }
+    }
+  }
+
+  @override
+  Future<void> updateDeviceToken(String userId) async {
+    try {
+      final docRef = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .get();
+      final updateCollectionRef =
+          FirebaseFirestore.instance.collection('users').doc(userId);
+
+      final deviceTokenValue = await getDeviceToken();
+      final colection = docRef.data();
+
+      if (colection != null) {
+        if (colection['device_token'] != deviceTokenValue) {
+          Map<String, dynamic> data = <String, dynamic>{
+            "device_token": deviceTokenValue,
+          };
+          await updateCollectionRef.update(data);
+        }
+      }
+    } catch (e) {
+      throw Failure(message: e.toString());
     }
   }
 }

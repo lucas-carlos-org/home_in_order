@@ -25,13 +25,13 @@ class VerificationUserController extends GetxController {
           .get();
 
       final docData = docRef.data();
-      final userType = docData?['userType'];
-      final completeRegistrationData = docData?['completeRegisterData'];
-      final completeRegistrationPhoto = docData?['completeRegisterPhoto'];
+      final userType = docData?['user_type'];
+      final completeRegistrationData = docData?['complete_register_data'];
+      final completeRegistrationPhoto = docData?['complete_register_photo'];
 
       if (userType == 'provider') {
         if (completeRegistrationPhoto == true) {
-          return Get.offAllNamed('/home-provider');
+          return Get.offAllNamed('/menu-provider');
         } else {
           if (completeRegistrationData == null || completeRegistrationData == false) {
             return Get.offAllNamed('/registration-provider-data');
@@ -41,7 +41,7 @@ class VerificationUserController extends GetxController {
         }
       } else if (userType == 'contractor') {
         if (completeRegistrationData == true) {
-          return Get.offAllNamed('/home-contractor');
+          return Get.offAllNamed('/menu-contractor');
         } else {
           if (completeRegistrationData == null || completeRegistrationData == false) {
             return Get.offAllNamed('/registration-contractor-data');

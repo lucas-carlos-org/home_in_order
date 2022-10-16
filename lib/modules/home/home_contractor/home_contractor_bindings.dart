@@ -5,6 +5,7 @@ class HomeContractorBindings implements Bindings {
   @override
   void dependencies() {
     Get.put(
+      permanent: true,
       HomeContractorController(
         authService: Get.find(),
       ),

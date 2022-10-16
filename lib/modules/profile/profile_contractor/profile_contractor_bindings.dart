@@ -5,8 +5,8 @@ class ProfileContractorBindings implements Bindings {
   @override
   void dependencies() {
     Get.put(
+      permanent: true,
       ProfileContractorController(
-        authService: Get.find(),
         userService: Get.find(),
       ),
     );

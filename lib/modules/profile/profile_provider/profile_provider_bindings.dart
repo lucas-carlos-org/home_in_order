@@ -5,8 +5,8 @@ class ProfileProviderBindings implements Bindings {
   @override
   void dependencies() {
     Get.put(
+      permanent: true,
       ProfileProviderController(
-        authService: Get.find(),
         userService: Get.find(),
       ),
     );

@@ -184,8 +184,8 @@ class RegistrationForm extends GetView<RegistrationProviderController> {
               height: 16.h,
             ),
             CustomTextformfieldMultiline(
-              onChanged: (value){
-                descriptionServiceEC.value = value; 
+              onChanged: (value) {
+                descriptionServiceEC.value = value;
               },
               validator: Validatorless.multiple([
                 Validatorless.required('Descrição obrigatório'),
@@ -256,7 +256,7 @@ class RegistrationForm extends GetView<RegistrationProviderController> {
                               atuationArea:
                                   atuationAreaEC.value.capitalizeFirst,
                               serviceDescription: descriptionServiceEC.value,
-                              expirenceTime: experienceEC.value,
+                              experienceTime: experienceEC.value,
                               city: cityEC.value,
                             ),
                           );
