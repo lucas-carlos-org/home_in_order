@@ -1,9 +1,8 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:home_in_order/application/exceptions/failure.dart';
-import 'package:home_in_order/domain/models/file_models.dart';
+import 'package:home_in_order/domain/models/file_model.dart';
 import 'package:home_in_order/domain/models/user_contractor_information_model.dart';
 import 'package:home_in_order/domain/models/user_provider_information_model.dart';
 import 'package:home_in_order/data/repositories/registration/registration_repository.dart';
@@ -16,7 +15,7 @@ class RegistrationRepositoryImpl implements IRegistrationRepository {
           FirebaseFirestore.instance.collection('users').doc(userId);
 
       Map<String, dynamic> data = <String, dynamic>{
-        "completeRegisterPhoto": true,
+        "complete_register_photo": true,
       };
       await userModelType.update(data);
     } catch (e) {
@@ -31,9 +30,9 @@ class RegistrationRepositoryImpl implements IRegistrationRepository {
       var collectionRef = FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
-          .collection('userPersonalInformation');
-      var collectionUser =
-          FirebaseFirestore.instance.collection('users').doc(userId);
+          .collection('personal_information');
+
+      var collectionUser = FirebaseFirestore.instance.collection('users').doc(userId);
 
       QuerySnapshot querySnapshot = await collectionRef.get();
 
@@ -42,7 +41,7 @@ class RegistrationRepositoryImpl implements IRegistrationRepository {
         Map<String, dynamic> userDataToMap = userData.toMap();
 
         Map<String, dynamic> data = <String, dynamic>{
-          "completeRegisterData": true,
+          "complete_register_data": true,
         };
 
         await collectionUser.update(data);
@@ -60,7 +59,8 @@ class RegistrationRepositoryImpl implements IRegistrationRepository {
       var collectionRef = FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
-          .collection('userPersonalInformation');
+          .collection('personal_information');
+
       var collectionUser =
           FirebaseFirestore.instance.collection('users').doc(userId);
 
@@ -71,7 +71,7 @@ class RegistrationRepositoryImpl implements IRegistrationRepository {
         Map<String, dynamic> userDataToMap = userData.toMap();
 
         Map<String, dynamic> data = <String, dynamic>{
-          "completeRegisterData": true,
+          "complete_register_data": true,
         };
 
         await collectionUser.update(data);
@@ -85,11 +85,7 @@ class RegistrationRepositoryImpl implements IRegistrationRepository {
   @override
   Future<void> uploadImages(String userId, File file) async {
     final FirebaseStorage feedStorage = FirebaseStorage.instanceFor();
-
-    final date = DateTime.now();
-
-    Reference refFeedBucket =
-        feedStorage.ref().child(userId).child('$date.jpeg');
+    Reference refFeedBucket =  feedStorage.ref().child(userId).child('profile_picture.jpeg');
 
     String downloadUrl;
 
@@ -100,7 +96,7 @@ class RegistrationRepositoryImpl implements IRegistrationRepository {
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
-          .update({'imageAvatar': downloadUrl});
+          .update({'image_avatar': downloadUrl});
     }
   }
 
@@ -108,23 +104,23 @@ class RegistrationRepositoryImpl implements IRegistrationRepository {
   Future<void> uploadListImages(String userId, List<File> files) async {
     final date = DateTime.now();
     final storageRef = FirebaseStorage.instance.ref();
-    var downloadUrls = <FileModels>[];
+    var downloadUrls = <FileModel>[];
 
     for (var i = 0; i < files.length; i++) {
       final refFeedBucket = storageRef.child(userId).child('$date[$i].png');
       await refFeedBucket.putFile(files[i]);
 
       var urls = await refFeedBucket.getDownloadURL();
-      downloadUrls.add(FileModels(pathFile: urls));
+      downloadUrls.add(FileModel(imagePath: urls));
     }
 
-    for (FileModels element in downloadUrls) {
+    for (var i = 0; i < downloadUrls.length; i++) {
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
-          .collection('jobImages')
+          .collection('job_images')
           .add(
-            ({'getImageJob': element.toJson()}),
+            ({'get_image_job': downloadUrls[i].imagePath}),
           );
     }
   }

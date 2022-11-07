@@ -32,10 +32,11 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
     try {
       loading(true);
       final user = await _userService.loginWithEmail(email, password);
+      await _userService.updateDeviceToken(user?.uid ?? '');
       if (user != null) {
         saveUserOnStorage(
           UserAuthModel(
-              diveceToken: deviceToken,
+              deviceToken: deviceToken,
               email: user.email,
               name: user.displayName,
               imageAvatar: user.photoURL,
@@ -67,9 +68,10 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
     try {
       loading(true);
       final credentials = await _userService.loginWithGoogle();
+      await _userService.updateDeviceToken(credentials.user!.uid);
       saveUserOnStorage(
         UserAuthModel(
-            diveceToken: deviceToken,
+            deviceToken: deviceToken,
             email: credentials.user!.email,
             name: credentials.user!.displayName,
             imageAvatar: credentials.user!.photoURL,

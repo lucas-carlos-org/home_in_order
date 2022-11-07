@@ -1,8 +1,10 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:home_in_order/application/exceptions/auth_exception.dart';
@@ -85,8 +87,8 @@ class UserRepositoryImpl implements IUserRepository {
           FirebaseFirestore.instance.collection('users').doc(userId);
 
       Map<String, dynamic> data = <String, dynamic>{
-        "userType": typeUser,
-        "isFirstTime": false,
+        "user_type": typeUser,
+        "is_first_time": false,
       };
       await userModelType.update(data);
     } catch (e) {
@@ -139,6 +141,66 @@ class UserRepositoryImpl implements IUserRepository {
       } else {
         throw AuthException(message: e.message ?? 'Erro ao registrar usuario');
       }
+    }
+  }
+
+  @override
+  Future<void> updateDeviceToken(String userId) async {
+    try {
+      final docRef = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .get();
+      final updateCollectionRef =
+          FirebaseFirestore.instance.collection('users').doc(userId);
+
+      final deviceTokenValue = await getDeviceToken();
+      final colection = docRef.data();
+
+      if (colection != null) {
+        if (colection['device_token'] != deviceTokenValue) {
+          Map<String, dynamic> data = <String, dynamic>{
+            "device_token": deviceTokenValue,
+          };
+          await updateCollectionRef.update(data);
+        }
+      }
+    } catch (e) {
+      throw Failure(message: e.toString());
+    }
+  }
+
+  @override
+  Future<void> deleteUserAccount(String userId) async {
+    try {
+      final collectionRef =
+          FirebaseFirestore.instance.collection('users').doc(userId);
+      await collectionRef.delete();
+      logout();
+    } catch (e) {
+      throw Failure(message: e.toString());
+    }
+  }
+
+  @override
+  Future<void> changeImageProfile(String userId, File file) async {
+    try {
+      final storageRef = FirebaseStorage.instance.ref();
+
+      Reference refFeedBucket =
+          storageRef.child(userId).child('profile_picture.jpeg');
+
+      TaskSnapshot uploadedFile = await refFeedBucket.putFile(file);
+
+      if (uploadedFile.state == TaskState.success) {
+        final downloadUrl = await refFeedBucket.getDownloadURL();
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userId)
+            .update({'image_avatar': downloadUrl});
+      }
+    } catch (e) {
+      throw Failure(message: e.toString());
     }
   }
 }

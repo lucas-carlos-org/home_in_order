@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:home_in_order/domain/models/user_auth_model.dart';
 import 'package:home_in_order/data/repositories/user/user_repository.dart';
@@ -39,4 +41,15 @@ class UserServiceImpl implements IUserService {
   @override
   Future<User?> register(String email, String password) =>
       _userRepository.register(email, password);
+
+  @override
+  Future<void> updateDeviceToken(String userId) =>
+      _userRepository.updateDeviceToken(userId);
+
+  @override
+  Future<void> deleteUserAccount(String userId) =>
+      _userRepository.deleteUserAccount(userId);
+
+  @override
+  Future<void> changeImageProfile(String userId, File file) => _userRepository.changeImageProfile(userId, file);
 }

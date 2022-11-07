@@ -4,13 +4,21 @@ import 'package:home_in_order/application/ui/theme/text_styles.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
 
 class CustomSearchWidget extends StatelessWidget {
-  const CustomSearchWidget({Key? key, required this.hintText})
-      : super(key: key);
+  const CustomSearchWidget({
+    Key? key,
+    required this.hintText,
+    required this.onChanged,
+    required this.suffixIcon,
+  }) : super(key: key);
+
   final String hintText;
+  final void Function(String)? onChanged;
+  final Widget? suffixIcon;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onChanged,
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,
@@ -34,6 +42,7 @@ class CustomSearchWidget extends StatelessWidget {
           Icons.search,
           color: Theme.of(context).primaryColor,
         ),
+        suffixIcon:suffixIcon,
         hintText: hintText,
         hintStyle: TextStyles.titleMono2,
       ),

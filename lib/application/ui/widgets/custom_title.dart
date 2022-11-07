@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
 
 class CustomTitle extends StatelessWidget {
-  const CustomTitle(
-      {Key? key,
-      required this.title,
-      required this.subTitle,
-      this.isCenterTitle = false})
-      : super(key: key);
+  const CustomTitle({
+    Key? key,
+    required this.title,
+    required this.subTitle,
+    this.isCenterTitle = false,
+    this.isCenterSubtitle = false,
+  }) : super(key: key);
 
   final String title;
   final String subTitle;
   final bool isCenterTitle;
+  final bool isCenterSubtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class CustomTitle extends StatelessWidget {
         Text(
           subTitle,
           maxLines: 4,
+          textAlign: isCenterSubtitle ? TextAlign.center : TextAlign.left,
           style: TextStyle(
               fontSize: 16.sp,
               color: Colors.grey.withOpacity(0.8),

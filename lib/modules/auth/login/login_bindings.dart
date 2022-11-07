@@ -7,7 +7,7 @@ class LoginBindings implements Bindings {
     Get.put(
       LoginController(
         userService: Get.find(),
-        authService: Get.find()
+        authService: Get.find(),
       ),
     );
   }

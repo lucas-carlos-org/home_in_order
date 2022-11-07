@@ -41,8 +41,7 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
             borderRadius: BorderRadius.circular(
               widget.borderRadius,
             ),
-          ),
-          primary: widget.color ?? AppColors.primaryColor,
+          ), backgroundColor: widget.color ?? AppColors.primaryColor,
         ),
         child: Text(
           widget.label,

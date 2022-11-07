@@ -5,9 +5,20 @@ import 'package:home_in_order/application/ui/utils/extensions/size_screen_extens
 import 'package:home_in_order/application/ui/widgets/info_widget.dart';
 
 class CustomTextformfieldMultiline extends StatelessWidget {
+  const CustomTextformfieldMultiline(
+      {Key? key,
+      this.validator,
+      this.onChanged,
+      this.hintText,
+      this.hasInfo = true,
+      this.infoMessage})
+      : super(key: key);
+
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
-  const CustomTextformfieldMultiline({Key? key, this.validator, this.onChanged}) : super(key: key);
+  final bool hasInfo;
+  final String? hintText;
+  final String? infoMessage;
 
   @override
   Widget build(BuildContext context) {
@@ -39,20 +50,22 @@ class CustomTextformfieldMultiline extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.r),
               borderSide: const BorderSide(color: Color(0xffF7F8F9), width: 2),
             ),
-            hintText: 'Descrição',
+            hintText: hintText ?? 'Descrição',
             hintStyle: TextStyles.titleMono2,
           ),
         ),
-        Positioned.fill(
-          right: -10,
-          top: -10,
-          child: Align(
-            alignment: Alignment.topRight,
-            child: InfoWidget(
-                infoMessage:
-                    'ex: Especialista em serviços hidráulicos, com mais de 10 anos de experiência em manutenção e troca de encanamentos!'),
-          ),
-        ),
+        hasInfo
+            ? Positioned.fill(
+                right: -10,
+                top: -10,
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: InfoWidget(
+                      infoMessage: infoMessage ??
+                          'ex: Especialista em serviços hidráulicos, com mais de 10 anos de experiência em manutenção e troca de encanamentos!'),
+                ),
+              )
+            : const SizedBox.shrink()
       ],
     );
   }

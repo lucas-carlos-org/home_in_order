@@ -1,11 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
 import 'package:home_in_order/application/ui/widgets/custom_search_widget.dart';
 import 'package:home_in_order/modules/home/home_contractor/home_contractor_controller.dart';
 import 'package:home_in_order/modules/home/home_contractor/widget/home_provider_card.dart';
-import 'package:rxdart/rxdart.dart';
 
 class HomeContractorPage extends GetView<HomeContractorController> {
   const HomeContractorPage({Key? key}) : super(key: key);
@@ -22,35 +21,46 @@ class HomeContractorPage extends GetView<HomeContractorController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const CustomSearchWidget(hintText: 'Serviço, Localidade, Nome'),
+            Obx(() {
+              return CustomSearchWidget(
+                hintText: 'Pesquisar por ${controller.selectedValue.value}',
+                onChanged: (value) => controller.searchItemByService(value),
+                suffixIcon: const SizedBox.shrink(),
+              );
+            }),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 10.h),
               child: Text(
                 'Prestadores de serviço',
-                style: TextStyle(fontSize: 16.h, fontWeight: FontWeight.w700),
+                style: TextStyle(
+                  fontSize: 16.h,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
             Expanded(
               child: Obx(
                 () {
-                  return ListView.builder(
-                    physics: const BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics(),
-                    ),
-                    itemCount: controller.listProviders.length,
-                    itemBuilder: (context, index) {
-                      var provider = controller.listProviders[index];
-                      var providerInfo = controller.listProviderInfo[index];
-                      return HomeProviderCard(
-                        listProviderInfo: providerInfo,
-                        listProviders: provider,
-                        imageAvatar: '${provider.imageAvatar}',
-                        name:
-                            '${providerInfo.name} ${providerInfo.lastName![0]}.',
-                        service: '${providerInfo.atuationArea}',
-                      );
-                    },
-                  );
+                  return controller.listProvider.isEmpty
+                      ? const Center(
+                          child: Text('Nenhum serviço encontrado'),
+                        )
+                      : ListView.builder(
+                          physics: const BouncingScrollPhysics(
+                            parent: AlwaysScrollableScrollPhysics(),
+                          ),
+                          itemCount: controller.listProvider.length,
+                          itemBuilder: (context, index) {
+                            var provider = controller.listProvider[index];
+                            return HomeProviderCard(
+                              listProvider: provider,
+                              listProviderPhotos: provider.photos,
+                              imageAvatar: provider.imageAvatar,
+                              name: '${provider.name} ${provider.lastName[0]}.',
+                              service: provider.atuationArea,
+                            );
+                          },
+                        );
                 },
               ),
             ),
@@ -62,7 +72,9 @@ class HomeContractorPage extends GetView<HomeContractorController> {
 
   Padding headerHomeContractorPage() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      padding: EdgeInsets.symmetric(
+        horizontal: 20.w,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -71,37 +83,51 @@ class HomeContractorPage extends GetView<HomeContractorController> {
               Text(
                 'Olá, ',
                 style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w900,
-                    color: Colors.black),
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.black,
+                ),
               ),
               Obx(() {
                 return Text(
-                  controller.userModelInfo.value?.name ?? '',
-                  style: TextStyle(fontSize: 16.sp, color: Colors.black),
+                  controller.userModel.value?.name ?? '',
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    color: Colors.black,
+                  ),
                 );
               }),
               SizedBox(
                 width: 4.w,
               ),
-              Image.asset('assets/icons/emoji_home_contractor.png',
-                  height: 25.h)
+              Text(
+                '🥰',
+                style: TextStyle(
+                  fontSize: 16.sp,
+                ),
+              )
             ],
           ),
-          InkWell(
-            onTap: () => Get.toNamed('/profile-contractor'),
-            child: Obx(
-              () {
-                return controller.userModel.value?.imageAvatar == null
-                    ? const SizedBox.shrink()
-                    : CircleAvatar(
-                        radius: 20.r,
-                        backgroundImage: NetworkImage(
-                            controller.userModel.value!.imageAvatar!),
-                        backgroundColor: Colors.transparent,
-                      );
-              },
-            ),
+          Obx(
+            () {
+              return controller.userModel.value?.imageAvatar == null
+                  ? const SizedBox.shrink()
+                  : InkWell(
+                      onTap: () {
+                        controller.changePage(2);
+                      },
+                      child: CachedNetworkImage(
+                        imageUrl: controller.userModel.value!.imageAvatar,
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                        imageBuilder: (context, imageProvider) => CircleAvatar(
+                          radius: 20.r,
+                          backgroundImage: imageProvider,
+                          backgroundColor: Colors.transparent,
+                        ),
+                      ),
+                    );
+            },
           )
         ],
       ),

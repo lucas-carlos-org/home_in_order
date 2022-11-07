@@ -6,7 +6,7 @@ class UserAuthModel {
     this.name,
     this.email,
     this.imageAvatar,
-    this.diveceToken,
+    this.deviceToken,
     this.userType,
     this.completeRegisterData,
     this.completeRegisterPhoto,
@@ -16,7 +16,7 @@ class UserAuthModel {
   String? name;
   String? email;
   String? imageAvatar;
-  String? diveceToken;
+  String? deviceToken;
   String? userType;
   bool? completeRegisterData;
   bool? completeRegisterPhoto;
@@ -27,12 +27,12 @@ class UserAuthModel {
     return <String, dynamic>{
       'name': name,
       'email': email,
-      'imageAvatar': imageAvatar,
-      'diveceToken': diveceToken,
-      'userType': userType,
-      'completeRegisterData': completeRegisterData,
-      'completeRegisterPhoto': completeRegisterPhoto,
-      'isFirstTime': isFirstTime,
+      'image_avatar': imageAvatar,
+      'device_token': deviceToken,
+      'user_type': userType,
+      'complete_register_data': completeRegisterData,
+      'complete_register_photo': completeRegisterPhoto,
+      'is_first_time': isFirstTime,
       'id': id,
     };
   }
@@ -42,18 +42,18 @@ class UserAuthModel {
       name: map['name'] != null ? map['name'] as String : null,
       email: map['email'] != null ? map['email'] as String : null,
       imageAvatar:
-          map['imageAvatar'] != null ? map['imageAvatar'] as String : null,
-      diveceToken:
-          map['diveceToken'] != null ? map['diveceToken'] as String : null,
-      userType: map['userType'] != null ? map['userType'] as String : null,
-      completeRegisterData: map['completeRegisterData'] != null
-          ? map['completeRegisterData'] as bool
+          map['image_avatar'] != null ? map['image_avatar'] as String : null,
+      deviceToken:
+          map['device_token'] != null ? map['device_token'] as String : null,
+      userType: map['user_type'] != null ? map['user_type'] as String : null,
+      completeRegisterData: map['complete_register_data'] != null
+          ? map['complete_register_data'] as bool
           : null,
-      completeRegisterPhoto: map['completeRegisterPhoto'] != null
-          ? map['completeRegisterPhoto'] as bool
+      completeRegisterPhoto: map['complete_register_photo'] != null
+          ? map['complete_register_photo'] as bool
           : null,
       isFirstTime:
-          map['isFirstTime'] != null ? map['isFirstTime'] as bool : null,
+          map['is_first_time'] != null ? map['is_first_time'] as bool : null,
       id: map['id'] != null ? map['id'] as String : null,
     );
   }

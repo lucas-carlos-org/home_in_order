@@ -1,7 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
-import 'package:home_in_order/domain/models/user_auth_model.dart';
-import 'package:home_in_order/domain/models/user_provider_information_model.dart';
+import 'package:home_in_order/domain/models/provider_model.dart';
 
 class HomeProviderCard extends StatelessWidget {
   const HomeProviderCard({
@@ -9,22 +10,28 @@ class HomeProviderCard extends StatelessWidget {
     required this.imageAvatar,
     required this.name,
     required this.service,
-    required this.listProviders,
-    required this.listProviderInfo,
+    required this.listProvider,
+    required this.listProviderPhotos,
   }) : super(key: key);
 
   final String imageAvatar;
   final String name;
   final String service;
-  final UserAuthModel listProviders;
-  final UserProviderInformationModel listProviderInfo;
+  final ProviderModel listProvider;
+  final List<String> listProviderPhotos;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: 10.h),
       child: InkWell(
-        onTap: () {},
+        onTap: () => Get.toNamed(
+          '/detail-provider',
+          arguments: [
+            listProvider,
+            listProviderPhotos,
+          ],
+        ),
         child: SizedBox(
           width: double.infinity,
           height: 80.h,
@@ -35,7 +42,16 @@ class HomeProviderCard extends StatelessWidget {
                 child: SizedBox(
                   width: 80.w,
                   height: 80.h,
-                  child: Image.network(imageAvatar, fit: BoxFit.cover),
+                  child: CachedNetworkImage(
+                    imageUrl: imageAvatar,
+                    placeholder: (context, url) => const Center(
+                      child: SizedBox(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  ),
                 ),
               ),
               Padding(
