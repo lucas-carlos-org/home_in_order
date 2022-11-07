@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:home_in_order/modules/chat/chat_bindings.dart';
-import 'package:home_in_order/modules/chat/chat_page.dart';
+import 'package:home_in_order/modules/chat/chat_list/chat_list_bindings.dart';
+import 'package:home_in_order/modules/chat/chat_list/chat_list_page.dart';
 import 'package:home_in_order/modules/home/home_provider/home_provider_initial/home_provider_initial_bindings.dart';
 import 'package:home_in_order/modules/home/home_provider/home_provider_initial/home_provider_initial_page.dart';
-import 'package:home_in_order/modules/profile/profile_provider/profile_provider_bindings.dart';
-import 'package:home_in_order/modules/profile/profile_provider/profile_provider_page.dart';
-import 'package:home_in_order/modules/schedule/schedule_bindings.dart';
-import 'package:home_in_order/modules/schedule/schedule_page.dart';
+import 'package:home_in_order/modules/profile/profile_user/profile_user_bindings.dart';
+import 'package:home_in_order/modules/profile/profile_user/profile_user_page.dart';
+import 'package:home_in_order/modules/schedule/schedule/schedule_bindings.dart';
+import 'package:home_in_order/modules/schedule/schedule/schedule_page.dart';
 
 class MenuProviderController extends GetxController {
   var currentIndex = 0.obs;
@@ -15,8 +15,8 @@ class MenuProviderController extends GetxController {
   final pages = <String>[
     '/home-provider',
     '/schedule',
-    '/chats',
-    '/profile-provider'
+    '/chat-list',
+    '/profile'
   ];
 
   void changePage(int index) {
@@ -44,19 +44,19 @@ class MenuProviderController extends GetxController {
       );
     }
 
-    if (settings.name == '/chats') {
+    if (settings.name == '/chat-list') {
       return GetPageRoute(
         settings: settings,
-        page: () => const ChatPage(),
-        binding: ChatBindings(),
+        page: () => const ChatListPage(),
+        binding: ChatListBindings(),
       );
     }
 
-    if (settings.name == '/profile-provider') {
+    if (settings.name == '/profile') {
       return GetPageRoute(
         settings: settings,
-        page: () => const ProfileProviderPage(),
-        binding: ProfileProviderBindings(),
+        page: () => const ProfileUserPage(),
+        binding: ProfileUserBindings(),
       );
     }
 

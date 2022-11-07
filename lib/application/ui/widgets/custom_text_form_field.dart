@@ -7,7 +7,7 @@ import 'package:home_in_order/application/ui/utils/extensions/size_screen_extens
 
 class CustomTextFormField extends StatelessWidget {
   CustomTextFormField({
-    required this.label,
+    this.label,
     this.controller,
     this.validator,
     this.obscureText = false,
@@ -31,7 +31,7 @@ class CustomTextFormField extends StatelessWidget {
         ),
         super(key: key);
 
-  final String label;
+  final String? label;
   final TextEditingController? controller;
   final Function(String)? onChanged;
   final FormFieldValidator<String>? validator;

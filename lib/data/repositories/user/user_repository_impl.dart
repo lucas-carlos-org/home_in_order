@@ -1,8 +1,10 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:home_in_order/application/exceptions/auth_exception.dart';
@@ -162,6 +164,40 @@ class UserRepositoryImpl implements IUserRepository {
           };
           await updateCollectionRef.update(data);
         }
+      }
+    } catch (e) {
+      throw Failure(message: e.toString());
+    }
+  }
+
+  @override
+  Future<void> deleteUserAccount(String userId) async {
+    try {
+      final collectionRef =
+          FirebaseFirestore.instance.collection('users').doc(userId);
+      await collectionRef.delete();
+      logout();
+    } catch (e) {
+      throw Failure(message: e.toString());
+    }
+  }
+
+  @override
+  Future<void> changeImageProfile(String userId, File file) async {
+    try {
+      final storageRef = FirebaseStorage.instance.ref();
+
+      Reference refFeedBucket =
+          storageRef.child(userId).child('profile_picture.jpeg');
+
+      TaskSnapshot uploadedFile = await refFeedBucket.putFile(file);
+
+      if (uploadedFile.state == TaskState.success) {
+        final downloadUrl = await refFeedBucket.getDownloadURL();
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userId)
+            .update({'image_avatar': downloadUrl});
       }
     } catch (e) {
       throw Failure(message: e.toString());

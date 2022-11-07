@@ -1,10 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:home_in_order/application/ui/widgets/custom_back_button.dart';
 import 'package:home_in_order/application/ui/widgets/custom_elevated_button.dart';
-import 'package:home_in_order/domain/models/user_auth_model.dart';
-import 'package:home_in_order/domain/models/user_provider_information_model.dart';
+import 'package:home_in_order/domain/models/provider_model.dart';
 import 'package:home_in_order/modules/details/detail_provider/detail_provider/widgets/card_info_provider.dart';
 import 'package:home_in_order/application/ui/widgets/card_photo_provider.dart';
 import './detail_provider_controller.dart';
@@ -16,9 +16,8 @@ class DetailProviderPage extends GetView<DetailProviderController> {
   Widget build(BuildContext context) {
     final data = Get.arguments;
 
-    final UserAuthModel userAuthModel = data[0];
-    final UserProviderInformationModel userProviderModel = data[1];
-    final List<String> userProviderPhotos = data[2];
+    final ProviderModel providerModel = data[0];
+    final List<String> userProviderPhotos = data[1];
 
     return Scaffold(
       appBar: AppBar(
@@ -33,7 +32,7 @@ class DetailProviderPage extends GetView<DetailProviderController> {
             child: IntrinsicHeight(
               child: Column(
                 children: [
-                  headerPageComponent(userAuthModel),
+                  headerPageComponent(providerModel),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 22.w),
                     child: Column(
@@ -43,7 +42,7 @@ class DetailProviderPage extends GetView<DetailProviderController> {
                           height: 16.h,
                         ),
                         Text(
-                          '${userProviderModel.name} ${userProviderModel.lastName![0]}.',
+                          '${providerModel.name} ${providerModel.lastName[0]}.',
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 22.sp),
                         ),
@@ -51,7 +50,7 @@ class DetailProviderPage extends GetView<DetailProviderController> {
                           height: 3.h,
                         ),
                         Text(
-                          '${userProviderModel.atuationArea}',
+                          providerModel.atuationArea,
                           style: TextStyle(
                               fontWeight: FontWeight.w400, fontSize: 14.sp),
                         ),
@@ -62,12 +61,11 @@ class DetailProviderPage extends GetView<DetailProviderController> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CardInfoProvider(
-                                title: 'Cidade',
-                                subTitle: '${userProviderModel.city}'),
+                                title: 'Cidade', subTitle: providerModel.city),
                             CardInfoProvider(
                                 title: 'Experiência',
                                 subTitle:
-                                    '${userProviderModel.experienceTime} anos'),
+                                    '${providerModel.experienceTime} anos'),
                             const CardInfoProvider(
                                 title: 'Avaliação', subTitle: '4.6'),
                           ],
@@ -84,7 +82,7 @@ class DetailProviderPage extends GetView<DetailProviderController> {
                           height: 12.h,
                         ),
                         Text(
-                          '${userProviderModel.serviceDescription}',
+                          providerModel.serviceDescription,
                           style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 14.sp,
@@ -114,12 +112,6 @@ class DetailProviderPage extends GetView<DetailProviderController> {
                             },
                           ),
                         )
-                        /*    Row(
-                            children: userProviderPhotos
-                                .map((e) => CardPhoto(
-                                      imagePath: e,
-                                    ))
-                                .toList()), */
                       ],
                     ),
                   ),
@@ -128,8 +120,12 @@ class DetailProviderPage extends GetView<DetailProviderController> {
                     padding: EdgeInsets.symmetric(horizontal: 22.w),
                     child: CustomElevatedButton(
                       label: 'Fazer Solicitação',
-                      onPressed: () => Get.toNamed('/contract-provider',
-                          arguments: [userAuthModel, userProviderModel]),
+                      onPressed: () => Get.toNamed(
+                        '/contract-provider',
+                        arguments: [
+                          providerModel,
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -144,7 +140,7 @@ class DetailProviderPage extends GetView<DetailProviderController> {
     );
   }
 
-  Stack headerPageComponent(UserAuthModel userAuthModel) {
+  Stack headerPageComponent(ProviderModel providerModel) {
     return Stack(
       children: [
         Container(
@@ -152,7 +148,7 @@ class DetailProviderPage extends GetView<DetailProviderController> {
           width: double.infinity,
           color: Colors.transparent,
           child: Image(
-            image: NetworkImage(userAuthModel.imageAvatar!),
+            image: CachedNetworkImageProvider(providerModel.imageAvatar),
             fit: BoxFit.cover,
           ),
         ),

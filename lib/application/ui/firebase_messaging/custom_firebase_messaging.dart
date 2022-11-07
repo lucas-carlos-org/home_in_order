@@ -10,9 +10,7 @@ class CustomFirebaseMessaging {
   factory CustomFirebaseMessaging() => _singleton;
 
   Future<void> inicialize() async {
-    await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(badge: true, sound: true);
-
-
+    await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(badge: true, sound: true, alert: true);
 
     FirebaseMessaging.onMessage.listen((message) {
       RemoteNotification? notification = message.notification;

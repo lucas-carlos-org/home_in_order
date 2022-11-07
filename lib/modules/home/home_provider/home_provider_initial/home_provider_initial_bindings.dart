@@ -7,7 +7,10 @@ class HomeProviderInitialBindings implements Bindings {
     Get.put(
       permanent: true,
       HomeProviderInitialController(
-          userService: Get.find(), authService: Get.find()),
+        userService: Get.find(),
+        authService: Get.find(),
+        receiveServices: Get.find(),
+      ),
     );
   }
 }

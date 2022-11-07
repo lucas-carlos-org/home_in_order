@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
+import 'package:home_in_order/modules/home/home_provider/home_pending_service/widgets/card_pending_service.dart';
 
 class HomePendingServicePage extends StatelessWidget {
   const HomePendingServicePage({Key? key, required this.userId})
@@ -17,10 +18,15 @@ class HomePendingServicePage extends StatelessWidget {
             .collection('users')
             .doc(userId)
             .collection('pending_services')
+            .orderBy('createAt')
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            return const Center(child: Text('Erro ao buscar dados!'));
+            return const Center(
+              child: Text(
+                'Erro ao buscar dados!',
+              ),
+            );
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -34,10 +40,19 @@ class HomePendingServicePage extends StatelessWidget {
           }
 
           return ListView(
-            children: snapshot.data!.docs.map((DocumentSnapshot document) {
-              final data =
-                  document.data()! as Map<String, dynamic>;
-              return const Text('SERVIÇO');
+            children: snapshot.data!.docs.map((document) {
+              final data = document.data()! as Map<String, dynamic>;
+              return CardPendingService(
+                documentId: document.id,
+                data: data,
+                avatar: data['imageAvatar'],
+                name: data['name'],
+                titleDescription: data['description'],
+                address: data['address'],
+                number: data['number'].toString(),
+                city: data['city'],
+                createAt: data['createAt'].toString(),
+              );
             }).toList(),
           );
         },

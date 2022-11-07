@@ -9,12 +9,13 @@ class MenuContractorPage extends GetView<MenuContractorController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Navigator(
-          key: Get.nestedKey(1),
-          initialRoute: '/home-contractor',
-          onGenerateRoute: controller.onGenerateRoute,
-        ),
-        bottomNavigationBar: Obx(() {
+      body: Navigator(
+        key: Get.nestedKey(1),
+        initialRoute: '/home-contractor',
+        onGenerateRoute: controller.onGenerateRoute,
+      ),
+      bottomNavigationBar: Obx(
+        () {
           return FlashyTabBar(
             selectedIndex: controller.currentIndex.value,
             showElevation: true,
@@ -35,8 +36,8 @@ class MenuContractorPage extends GetView<MenuContractorController> {
               ),
             ],
           );
-        })
-
-        );
+        },
+      ),
+    );
   }
 }

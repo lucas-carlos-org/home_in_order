@@ -5,7 +5,9 @@ class ContractProviderBindings implements Bindings {
     @override
     void dependencies() {
         Get.put(ContractProviderController(
-          requestService: Get.find()
+          requestService: Get.find(),
+          authService: Get.find(),
+          imagePickerService: Get.find()
         ));
     }
 }

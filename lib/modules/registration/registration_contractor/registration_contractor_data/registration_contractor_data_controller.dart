@@ -25,7 +25,12 @@ class RegistrationContractorDataController extends GetxController {
 
   Future<void> getImageProfile() async {
     final imageData = await _imagePickerService.getImageFromGallery();
-    profilePhoto.value = imageData.toString();
+
+    if (imageData == null) {
+      profilePhoto.value = '';
+    } else {
+      profilePhoto.value = imageData.toString();
+    }
   }
 
   void removePhoto() {

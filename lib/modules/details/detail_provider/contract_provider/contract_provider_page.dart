@@ -1,11 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
-import 'package:home_in_order/application/ui/widgets/card_photo_provider.dart';
 import 'package:home_in_order/application/ui/widgets/custom_back_button.dart';
-import 'package:home_in_order/application/ui/widgets/custom_elevated_button.dart';
-import 'package:home_in_order/domain/models/user_auth_model.dart';
-import 'package:home_in_order/domain/models/user_provider_information_model.dart';
+import 'package:home_in_order/domain/models/provider_model.dart';
+import 'package:home_in_order/modules/details/detail_provider/contract_provider/widgets/form_photo_provider.dart';
 import 'package:home_in_order/modules/registration/registration_provider/registration_provider_data/widgets/custom_textformfield_multiline.dart';
 import './contract_provider_controller.dart';
 
@@ -14,10 +13,8 @@ class ContractProviderPage extends GetView<ContractProviderController> {
 
   @override
   Widget build(BuildContext context) {
-    final data = Get.arguments;
-
-    final UserAuthModel userAuthModel = data[0];
-    final UserProviderInformationModel userProviderModel = data[1];
+    final descriptionEC = TextEditingController();
+    final titleDescriptionEC = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -34,13 +31,21 @@ class ContractProviderPage extends GetView<ContractProviderController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  headerComponent(userAuthModel),
-                  titleComponent(userProviderModel),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 22.w),
-                    child: const CustomTextformfieldMultiline(
-                      hasInfo: false,
-                      hintText: 'Resumo do seu problema',
+                  headerComponent(controller.providerModel.value!),
+                  titleComponent(controller.providerModel.value!),
+                  SizedBox(
+                    height: 12.h,
+                  ),
+                  Form(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 22.w),
+                      child: CustomTextformfieldMultiline(
+                        onChanged: (val) {
+                          descriptionEC.text = val;
+                        },
+                        hasInfo: false,
+                        hintText: 'Resumo do seu problema',
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -56,33 +61,21 @@ class ContractProviderPage extends GetView<ContractProviderController> {
                           style: TextStyle(
                               fontSize: 17.sp, fontWeight: FontWeight.w700),
                         ),
-                        SizedBox(
-                          height: 12.h,
+                        Text(
+                          '* As imagens não são obrigatórias mas será muito importante para o prestador saber o seu real problema!',
+                          style: TextStyle(
+                            fontSize: 10.sp,
+                          ),
                         ),
-                        /*  Row(
-                          children: const [
-                            CardPhoto(),
-                            CardPhoto(),
-                            CardPhoto(),
-                          ],
-                        ) */
+                        SizedBox(
+                          height: 16.h,
+                        ),
+                        FormPhotoProvider(
+                          descriptionEC: descriptionEC,
+                          titleDescriptionEC: titleDescriptionEC,
+                        )
                       ],
                     ),
-                  ),
-                  const Spacer(),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 22.w),
-                    child: CustomElevatedButton(
-                      label: 'Solicitar',
-                      onPressed: () {
-                        controller.sendPushNotification(userAuthModel.deviceToken!);
-                        Get.back();
-                        Get.back();
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 36.h,
                   ),
                 ],
               ),
@@ -93,7 +86,7 @@ class ContractProviderPage extends GetView<ContractProviderController> {
     );
   }
 
-  Padding titleComponent(UserProviderInformationModel userProviderModel) {
+  Padding titleComponent(ProviderModel providerModel) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 22.w),
       child: Column(
@@ -103,14 +96,14 @@ class ContractProviderPage extends GetView<ContractProviderController> {
             height: 16.h,
           ),
           Text(
-            '${userProviderModel.name} ${userProviderModel.lastName![0]}.',
+            '${providerModel.name} ${providerModel.lastName[0]}.',
             style: TextStyle(fontWeight: FontWeight.w500, fontSize: 22.sp),
           ),
           SizedBox(
             height: 3.h,
           ),
           Text(
-            '${userProviderModel.atuationArea}',
+            providerModel.atuationArea,
             style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14.sp),
           ),
           SizedBox(
@@ -121,7 +114,7 @@ class ContractProviderPage extends GetView<ContractProviderController> {
     );
   }
 
-  Stack headerComponent(UserAuthModel userAuthModel) {
+  Stack headerComponent(ProviderModel providerModel) {
     return Stack(
       children: [
         Container(
@@ -129,7 +122,7 @@ class ContractProviderPage extends GetView<ContractProviderController> {
           width: double.infinity,
           color: Colors.transparent,
           child: Image(
-            image: NetworkImage(userAuthModel.imageAvatar!),
+            image: CachedNetworkImageProvider(providerModel.imageAvatar),
             fit: BoxFit.cover,
           ),
         ),

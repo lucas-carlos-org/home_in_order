@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:home_in_order/domain/models/user_auth_model.dart';
 
@@ -9,6 +11,8 @@ abstract class IUserRepository {
   Future<void> logout();
   Future<void> saveUserOnStorage(String userId, UserAuthModel userAuthModel);
   Future<void> updateDeviceToken(String userId);
+  Future<void> deleteUserAccount(String userId);
+  Future<void> changeImageProfile(String userId, File file);
   Future<String> getDeviceToken();
   Future<void> setUserType(String userId, String typeUser);
 }

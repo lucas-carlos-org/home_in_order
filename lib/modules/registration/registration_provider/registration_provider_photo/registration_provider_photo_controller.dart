@@ -34,16 +34,30 @@ class RegistrationProviderPhotoController extends GetxController {
 
   Future<void> getImageProfile() async {
     final imageData = await _imagePickerService.getImageFromGallery();
-    profilePhoto.value = imageData.toString();
+
+    if (imageData == null) {
+      profilePhoto.value = '';
+    } else {
+      profilePhoto.value = imageData.toString();
+    }
   }
 
   Future<void> getImageJob(RxString stringVal) async {
     final imageData = await _imagePickerService.getImageFromGallery();
-    stringVal.value = imageData.toString();
+
+    if (imageData == null) {
+      stringVal.value = '';
+    } else {
+      stringVal.value = imageData.toString();
+    }
   }
 
   void removePhoto() {
     profilePhoto.value = '';
+  }
+
+  void removePhotoFromList(RxString photoName) {
+    photoName.value = '';
   }
 
   Future<void> uploadImages() async {

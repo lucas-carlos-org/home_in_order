@@ -32,8 +32,7 @@ class RegistrationRepositoryImpl implements IRegistrationRepository {
           .doc(userId)
           .collection('personal_information');
 
-      var collectionUser =
-          FirebaseFirestore.instance.collection('users').doc(userId);
+      var collectionUser = FirebaseFirestore.instance.collection('users').doc(userId);
 
       QuerySnapshot querySnapshot = await collectionRef.get();
 
@@ -86,11 +85,7 @@ class RegistrationRepositoryImpl implements IRegistrationRepository {
   @override
   Future<void> uploadImages(String userId, File file) async {
     final FirebaseStorage feedStorage = FirebaseStorage.instanceFor();
-
-    final date = DateTime.now();
-
-    Reference refFeedBucket =
-        feedStorage.ref().child(userId).child('$date.jpeg');
+    Reference refFeedBucket =  feedStorage.ref().child(userId).child('profile_picture.jpeg');
 
     String downloadUrl;
 
@@ -116,7 +111,7 @@ class RegistrationRepositoryImpl implements IRegistrationRepository {
       await refFeedBucket.putFile(files[i]);
 
       var urls = await refFeedBucket.getDownloadURL();
-      downloadUrls.add(FileModel(pathFile: urls));
+      downloadUrls.add(FileModel(imagePath: urls));
     }
 
     for (var i = 0; i < downloadUrls.length; i++) {
@@ -125,7 +120,7 @@ class RegistrationRepositoryImpl implements IRegistrationRepository {
           .doc(userId)
           .collection('job_images')
           .add(
-            ({'get_image_job': downloadUrls[i].pathFile}),
+            ({'get_image_job': downloadUrls[i].imagePath}),
           );
     }
   }

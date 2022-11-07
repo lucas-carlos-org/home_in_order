@@ -31,7 +31,7 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
   Future<void> loginWithEmail(String email, String password) async {
     try {
       loading(true);
-      final user = await _userService.loginWithEmail(email, password); 
+      final user = await _userService.loginWithEmail(email, password);
       await _userService.updateDeviceToken(user?.uid ?? '');
       if (user != null) {
         saveUserOnStorage(

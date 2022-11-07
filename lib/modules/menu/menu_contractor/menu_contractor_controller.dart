@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:home_in_order/modules/chat/chat_bindings.dart';
-import 'package:home_in_order/modules/chat/chat_page.dart';
+import 'package:home_in_order/modules/chat/chat_list/chat_list_bindings.dart';
+import 'package:home_in_order/modules/chat/chat_list/chat_list_page.dart';
 import 'package:home_in_order/modules/home/home_contractor/home_contractor_bindings.dart';
 import 'package:home_in_order/modules/home/home_contractor/home_contractor_page.dart';
-import 'package:home_in_order/modules/profile/profile_contractor/profile_contractor_bindings.dart';
-import 'package:home_in_order/modules/profile/profile_contractor/profile_contractor_page.dart';
-
+import 'package:home_in_order/modules/profile/profile_user/profile_user_bindings.dart';
+import 'package:home_in_order/modules/profile/profile_user/profile_user_page.dart';
 
 class MenuContractorController extends GetxController {
   var currentIndex = 0.obs;
 
   final pages = <String>[
     '/home-contractor',
-    '/chats',
-    '/profile-contractor'
+    '/chat-list',
+    '/profile',
   ];
 
   void changePage(int index) {
@@ -34,19 +33,19 @@ class MenuContractorController extends GetxController {
       );
     }
 
-    if (settings.name == '/chats') {
+    if (settings.name == '/chat-list') {
       return GetPageRoute(
         settings: settings,
-        page: () => const ChatPage(),
-        binding: ChatBindings(),
+        page: () => const ChatListPage(),
+        binding: ChatListBindings(),
       );
     }
 
-    if (settings.name == '/profile-contractor') {
+    if (settings.name == '/profile') {
       return GetPageRoute(
         settings: settings,
-        page: () => const ProfileContractorPage(),
-        binding: ProfileContractorBindings(),
+        page: () => const ProfileUserPage(),
+        binding: ProfileUserBindings(),
       );
     }
 

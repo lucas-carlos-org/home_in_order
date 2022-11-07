@@ -4,7 +4,7 @@ import 'package:home_in_order/application/ui/utils/extensions/size_screen_extens
 import 'package:home_in_order/application/ui/widgets/custom_dropdown_widget.dart';
 import 'package:home_in_order/application/ui/widgets/custom_elevated_button.dart';
 import 'package:home_in_order/application/ui/widgets/custom_text_form_field.dart';
-import 'package:home_in_order/application/ui/widgets/succes_page.dart';
+import 'package:home_in_order/application/ui/widgets/success_page.dart';
 import 'package:home_in_order/domain/models/user_contractor_information_model.dart';
 import 'package:home_in_order/modules/registration/registration_contractor/registration_contractor_data/registration_contractor_data_controller.dart';
 import 'package:home_in_order/modules/registration/registration_contractor/registration_contractor_data/widgets/profile_photo_widget.dart';
@@ -101,7 +101,7 @@ class RegistrationContactorForm
                     validator: Validatorless.multiple([
                       Validatorless.required('Obrigatório'),
                     ]),
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.number,
                   ),
                 ),
               ],
@@ -141,7 +141,7 @@ class RegistrationContactorForm
                           ));
 
                           Get.offAll(
-                            const SuccesPage(
+                            const SuccessPage(
                               userType: 'contractor',
                               label:
                                   'Você finalizou a etapa de cadastro, aguarde enquanto preparamos tudo para você!',

@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,14 +21,26 @@ import 'package:home_in_order/modules/profile/profile_module.dart';
 import 'package:home_in_order/modules/registration/registration_module.dart';
 import 'package:home_in_order/modules/schedule/schedule_module.dart';
 
-Future<void> start() async {
-  WidgetsFlutterBinding.ensureInitialized();
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  debugPrint('Handling a background message ${message.messageId}');
+}
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  await CustomFirebaseMessaging().inicialize();
-  runApp(const App());
+Future<void> start() async {
+  runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+
+    await CustomFirebaseMessaging().inicialize();
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+
+    runApp(const App());
+  }, (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack));
 }
 
 class App extends StatelessWidget {
