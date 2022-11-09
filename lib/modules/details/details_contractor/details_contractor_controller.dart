@@ -126,7 +126,7 @@ class DetailsContractorController extends GetxController {
   }
 
   void changePage(int index) {
-    Future.delayed(Duration(milliseconds: 500), () {
+    Future.delayed(const Duration(milliseconds: 500), () {
       Get.put(MenuProviderController()).changePage(index);
     });
   }
