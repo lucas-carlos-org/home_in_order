@@ -60,16 +60,24 @@ class ChatListController extends GetxController {
     final userRef =
         await FirebaseFirestore.instance.collection('users').doc(userId).get();
 
-    return UserContractorInformationModel(
-      userType: userRef['user_type'],
-      imageAvatar: userRef['image_avatar'],
-      name: userData['name'],
-      lastName: userData['last_name'],
-      id: userId,
-      adress: userData['adress'],
-      city: userData['cidade'],
-      number: userData['number'],
-    );
+    return userRef['user_type'] == 'provider'
+        ? UserContractorInformationModel(
+            userType: userRef['user_type'],
+            imageAvatar: userRef['image_avatar'],
+            name: userData['name'],
+            lastName: userData['last_name'],
+            id: userId,
+          )
+        : UserContractorInformationModel(
+            userType: userRef['user_type'],
+            imageAvatar: userRef['image_avatar'],
+            name: userData['name'],
+            lastName: userData['last_name'],
+            id: userId,
+            adress: userData['adress'],
+            city: userData['cidade'],
+            number: userData['number'],
+          );
   }
 
   Future<void> navigateToDetail(String userId, String name,
