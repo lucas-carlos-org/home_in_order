@@ -35,6 +35,7 @@ class ForgotPasswordForm extends GetView<ForgotPasswordController> {
               onPressed: () {
                   if (_formKey.currentState!.validate()) {
                   controller.forgotPassword(_emailEC.text);
+                  Get.back();
                 }
               },
               label: 'Enviar email',

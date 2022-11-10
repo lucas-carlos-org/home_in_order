@@ -58,6 +58,7 @@ class SchedulePage extends GetView<ScheduleController> {
                         itemBuilder: (context, index) {
                           final scheduleData = controller.scheduleModel[index];
                           return ScheduleCard(
+                            address: scheduleData.address,
                             imageAvatar: '',
                             nameUser: scheduleData.userName,
                             description: scheduleData.description,

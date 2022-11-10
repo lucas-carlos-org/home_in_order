@@ -66,11 +66,15 @@ class ChatListController extends GetxController {
       name: userData['name'],
       lastName: userData['last_name'],
       id: userId,
+      adress: userData['adress'],
+      city: userData['cidade'],
+      number: userData['number'],
     );
   }
 
-  Future<void> navigateToDetail(String userId, String name) async {
-    await Get.toNamed('/chat-detail', arguments: [userId, name]);
+  Future<void> navigateToDetail(String userId, String name,
+      UserContractorInformationModel userData) async {
+    await Get.toNamed('/chat-detail', arguments: [userId, name, userData]);
     rooms.clear();
     await getUserRooms();
   }

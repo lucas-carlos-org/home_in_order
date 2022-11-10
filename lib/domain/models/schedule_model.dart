@@ -7,6 +7,7 @@ class ScheduleModel {
   final String userName;
   final String description;
   final String hour;
+  final String address;
   final String? date;
   ScheduleModel({
     required this.documentId,
@@ -15,6 +16,7 @@ class ScheduleModel {
     required this.userName,
     required this.description,
     required this.hour,
+    required this.address,
     this.date,
   });
 
@@ -27,6 +29,7 @@ class ScheduleModel {
       'date': date,
       'userName': userName,
       'description': description,
+      'address': address,
       'hour': hour,
     };
   }
@@ -39,6 +42,7 @@ class ScheduleModel {
       date: map['date'] as String,
       userName: map['userName'] as String,
       description: map['description'] as String,
+      address: map['address'] as String,
       hour: map['hour'] as String,
     );
   }

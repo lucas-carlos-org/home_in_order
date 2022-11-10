@@ -56,6 +56,7 @@ class ScheduleController extends GetxController {
             idContractor: 'sadasdasd',
             idProvider: user.uid,
             date: date,
+            address: documents['address'],
             description: documents['description'],
             userName: documents['userName'],
             hour: documents['hour']);
@@ -64,14 +65,14 @@ class ScheduleController extends GetxController {
         scheduleModel.sort((a, b) {
           final dateA = a.date!.split('/').reversed.join('');
           final dateB = b.date!.split('/').reversed.join('');
-          return DateTime.parse(dateA).compareTo(DateTime.parse(dateB));
+          return DateTime.parse(dateB).compareTo(DateTime.parse(dateA));
         });
 
         scheduleModelByDate.add(scheduleModelData);
         scheduleModelByDate.sort((a, b) {
           final dateA = a.date!.split('/').reversed.join('');
           final dateB = b.date!.split('/').reversed.join('');
-          return DateTime.parse(dateA).compareTo(DateTime.parse(dateB));
+          return DateTime.parse(dateB).compareTo(DateTime.parse(dateA));
         });
       }
 

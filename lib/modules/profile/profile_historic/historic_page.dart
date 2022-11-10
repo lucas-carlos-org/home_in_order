@@ -48,39 +48,42 @@ class HistoricPage extends GetView<HistoricController> {
                         ? const Center(
                             child: CircularProgressIndicator(),
                           )
-                        : ListView(
-                            reverse: true,
-                            children: snapshot.data!.docs.map(
-                              (document) {
-                                var data =
-                                    document.data()! as Map<String, dynamic>;
+                        : ListView.builder(
+                            itemCount: snapshot.data!.docs.length,
+                            itemBuilder: (context, index) {
+                              int itemCount = snapshot.data!.docs.length;
+                              int reversedIndex = itemCount - 1 - index;
+                              final document =
+                                  snapshot.data!.docs[reversedIndex];
 
-                                DateTime dt =
-                                    (data['createAt'] as Timestamp).toDate();
+                              var data =
+                                  document.data()! as Map<String, dynamic>;
 
-                                return controller.userType == 'provider'
-                                    ? HistoricServiceCard(
-                                        date: dt,
-                                        avatar: data['image_avatar'],
-                                        name: data['name'],
-                                        titleDescription: data['description'],
-                                        status: data['status'] ?? '',
-                                        data: data,
-                                        documentId: document.id,
-                                        userType: controller.userType.value,
-                                      )
-                                    : HistoricServiceCard(
-                                        date: dt,
-                                        avatar: data['providerImage'],
-                                        name: data['providerName'],
-                                        titleDescription: data['description'],
-                                        status: data['status'] ?? '',
-                                        data: data,
-                                        documentId: document.id,
-                                        userType: controller.userType.value,
-                                      );
-                              },
-                            ).toList(),
+                              DateTime dt =
+                                  (data['createAt'] as Timestamp).toDate();
+
+                              return controller.userType == 'provider'
+                                  ? HistoricServiceCard(
+                                      date: dt,
+                                      avatar: data['image_avatar'],
+                                      name: data['name'],
+                                      titleDescription: data['description'],
+                                      status: data['status'] ?? '',
+                                      data: data,
+                                      documentId: document.id,
+                                      userType: controller.userType.value,
+                                    )
+                                  : HistoricServiceCard(
+                                      date: dt,
+                                      avatar: data['providerImage'],
+                                      name: data['providerName'],
+                                      titleDescription: data['description'],
+                                      status: data['status'] ?? '',
+                                      data: data,
+                                      documentId: document.id,
+                                      userType: controller.userType.value,
+                                    );
+                            },
                           );
                   },
                 );

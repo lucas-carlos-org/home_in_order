@@ -28,7 +28,7 @@ class ForgotPasswordController extends GetxController
       loading(false);
       message(
         MessageModel.info(
-            title: 'Sucesso', message: 'Reset realizado com sucesso!'),
+            title: 'Sucesso', message: 'E-mail de reset enviado com sucesso!'),
       );
     } on AuthException catch (e) {
       loading(false);

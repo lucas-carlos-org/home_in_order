@@ -66,8 +66,10 @@ class DetailProviderPage extends GetView<DetailProviderController> {
                                 title: 'Experiência',
                                 subTitle:
                                     '${providerModel.experienceTime} anos'),
-                            const CardInfoProvider(
-                                title: 'Avaliação', subTitle: '4.6'),
+                            SizedBox(
+                              height: 95.h,
+                              width: 95.w,
+                            )
                           ],
                         ),
                         SizedBox(

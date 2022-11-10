@@ -23,6 +23,8 @@ class CustomTextFormField extends StatelessWidget {
     this.textInputAction,
     this.expands = false,
     this.enabled = true,
+    this.onTap,
+    this.readOnly = false,
     Key? key,
   })  : _obscureTextVN = ValueNotifier<bool>(obscureText),
         assert(
@@ -48,62 +50,70 @@ class CustomTextFormField extends StatelessWidget {
   bool expands;
   bool enabled;
   TextInputAction? textInputAction;
+  final VoidCallback? onTap;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
       valueListenable: _obscureTextVN,
       builder: (_, obscureTextValue, child) {
-        return TextFormField(
-          keyboardType: keyboardType,
-          inputFormatters: inputFormatters,
-          enabled: enabled,
-          onChanged: onChanged,
-          controller: controller,
-          initialValue: value,
-          validator: validator,
-          obscureText: obscureTextValue,
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: const Color(0xffF7F8F9),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.r),
-              borderSide:
-                  const BorderSide(color: AppColors.greyBorder, width: 2),
+        return InkWell(
+          onTap: onTap,
+          child: TextFormField(
+            keyboardType: keyboardType,
+            inputFormatters: inputFormatters,
+            readOnly: readOnly,
+            enabled: enabled,
+            onChanged: onChanged,
+            controller: controller,
+            initialValue: value,
+            validator: validator,
+            maxLength: maxLength,
+            obscureText: obscureTextValue,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: const Color(0xffF7F8F9),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.r),
+                borderSide:
+                    const BorderSide(color: AppColors.greyBorder, width: 2),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.r),
+                borderSide:
+                    const BorderSide(color: AppColors.greyBorder, width: 2),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.r),
+                borderSide:
+                    const BorderSide(color: AppColors.greyBorder, width: 2),
+              ),
+              disabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.r),
+                borderSide:
+                    const BorderSide(color: Color(0xffF7F8F9), width: 2),
+              ),
+              suffixIcon: obscureText
+                  ? IconButton(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onPressed: () {
+                        _obscureTextVN.value = !obscureTextValue;
+                      },
+                      icon: Icon(
+                        obscureTextValue
+                            ? Icons.visibility_rounded
+                            : Icons.visibility_off_rounded,
+                        color: AppColors.greyDark.withOpacity(0.3),
+                      ),
+                    )
+                  : suffixIcon,
+              hintText: label,
+              hintStyle: enabled == false
+                  ? TextStyle(color: Colors.grey[400])
+                  : TextStyles.titleMono2,
             ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.r),
-              borderSide:
-                  const BorderSide(color: AppColors.greyBorder, width: 2),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.r),
-              borderSide:
-                  const BorderSide(color: AppColors.greyBorder, width: 2),
-            ),
-            disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.r),
-              borderSide: const BorderSide(color: Color(0xffF7F8F9), width: 2),
-            ),
-            suffixIcon: obscureText
-                ? IconButton(
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onPressed: () {
-                      _obscureTextVN.value = !obscureTextValue;
-                    },
-                    icon: Icon(
-                      obscureTextValue
-                          ? Icons.visibility_rounded
-                          : Icons.visibility_off_rounded,
-                      color: AppColors.greyDark.withOpacity(0.3),
-                    ),
-                  )
-                : suffixIcon,
-            hintText: label,
-            hintStyle: enabled == false
-                ? TextStyle(color: Colors.grey[400])
-                : TextStyles.titleMono2,
           ),
         );
       },

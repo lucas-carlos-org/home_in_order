@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
@@ -11,10 +12,12 @@ class ScheduleCard extends GetView<ScheduleController> {
     required this.description,
     required this.hour,
     required this.documentId,
+    required this.address,
   }) : super(key: key);
 
   final String imageAvatar;
   final String nameUser;
+  final String address;
   final String description;
   final String hour;
   final String documentId;
@@ -29,7 +32,7 @@ class ScheduleCard extends GetView<ScheduleController> {
             padding: const EdgeInsets.all(8.0),
             child: Container(
               width: double.infinity,
-              height: 71.h,
+              height: 90.h,
               decoration: BoxDecoration(
                 color: Colors.greenAccent.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(10.r),
@@ -59,7 +62,27 @@ class ScheduleCard extends GetView<ScheduleController> {
                                     fontWeight: FontWeight.w400),
                                 overflow: TextOverflow.ellipsis,
                               ),
-                            )
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.place_outlined,
+                                  size: 12.sp,
+                                ),
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                Text(
+                                  address,
+                                  style: TextStyle(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ],
@@ -89,7 +112,20 @@ class ScheduleCard extends GetView<ScheduleController> {
           ),
           Positioned.fill(
             child: InkWell(
-              onTap: () => controller.deleteSchedule(documentId),
+              onTap: () => CoolAlert.show(
+                context: context,
+                type: CoolAlertType.confirm,
+                title: 'Confirmação',
+                text: 'Você tem certeza que deseja deletar este agendamento?',
+                confirmBtnText: 'Sim',
+                cancelBtnText: 'Não',
+                onCancelBtnTap: () => Get.back(),
+                onConfirmBtnTap: () {
+                  controller.deleteSchedule(documentId);
+                  Get.back();
+                },
+                confirmBtnColor: Colors.green,
+              ),
               child: Align(
                 alignment: Alignment.topRight,
                 child: Container(

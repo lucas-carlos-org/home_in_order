@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:home_in_order/application/auth/auth_service.dart';
 import 'package:home_in_order/domain/models/chat_message_model.dart';
+import 'package:home_in_order/domain/models/user_contractor_information_model.dart';
 import 'package:home_in_order/domain/services/chat/chat_service.dart';
 import 'package:home_in_order/modules/menu/menu_provider/menu_provider_controller.dart';
 
@@ -20,6 +21,8 @@ class ChatDetailController extends GetxController {
     final data = Get.arguments;
     receiverId = data[0];
     userName.value = data[1];
+    userData.value = data[2];
+
     getUserType();
     onMessageReceiver();
   }
@@ -28,6 +31,7 @@ class ChatDetailController extends GetxController {
   final IChatService _chatService;
   late RxList<ChatMessageModel> messages;
   String? receiverId;
+  final userData = Rxn<UserContractorInformationModel>();
   var userName = ''.obs;
   var userType = ''.obs;
 
@@ -39,7 +43,7 @@ class ChatDetailController extends GetxController {
     }
   }
 
-  void changePage(int index){
+  void changePage(int index) {
     Get.put(MenuProviderController()).changePage(index);
   }
 

@@ -35,7 +35,8 @@ class ChatListPage extends GetView<ChatListController> {
                       onTap: () {
                         controller.navigateToDetail(
                             item.userInformation!.id!,
-                            '${item.userInformation?.name} ${item.userInformation?.lastName?[0]}.');
+                            '${item.userInformation?.name} ${item.userInformation?.lastName?[0]}.',
+                            item.userInformation!);
                       },
                       imageAvatar: item.userInformation?.imageAvatar ?? '',
                       name:

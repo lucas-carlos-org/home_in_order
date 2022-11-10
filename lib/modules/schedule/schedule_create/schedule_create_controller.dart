@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_in_order/application/auth/auth_service.dart';
 import 'package:home_in_order/domain/models/schedule_model.dart';
+import 'package:home_in_order/domain/models/user_contractor_information_model.dart';
 import 'package:home_in_order/domain/services/schedule/schedule_service.dart';
 import 'package:intl/intl.dart';
 
@@ -17,7 +18,9 @@ class ScheduleCreateController extends GetxController {
 
   @override
   void onInit() {
-    scheduleUserName.value = Get.arguments;
+    final arguments = Get.arguments;
+    scheduleUserName.value = arguments[0];
+    userData.value = arguments[1];
     providerId.value = _authService.user!.uid;
     super.onInit();
   }
@@ -25,6 +28,7 @@ class ScheduleCreateController extends GetxController {
   final scheduleUserName = ''.obs;
   final dateTime = Rxn<DateTime?>();
   final timeOfDay = Rxn<TimeOfDay?>();
+  final userData = Rxn<UserContractorInformationModel>();
   final providerId = ''.obs;
 
   String dateFormat(DateTime date) {

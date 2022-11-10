@@ -37,8 +37,13 @@ class ChatDetailPage extends GetView<ChatDetailController> {
                           controller.changePage(
                             1,
                           );
-                          Get.toNamed('/schedule-create',
-                              arguments: controller.userName.value);
+                          Get.toNamed(
+                            '/schedule-create',
+                            arguments: [
+                              controller.userName.value,
+                              controller.userData.value
+                            ],
+                          );
                         },
                         icon: const Icon(
                           Icons.calendar_month_outlined,
