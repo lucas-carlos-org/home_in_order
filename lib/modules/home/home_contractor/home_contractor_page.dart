@@ -30,20 +30,34 @@ class HomeContractorPage extends GetView<HomeContractorController> {
             }),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 10.h),
-              child: Text(
-                'Prestadores de serviço',
-                style: TextStyle(
-                  fontSize: 16.h,
-                  fontWeight: FontWeight.w700,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Prestadores de serviço',
+                    style: TextStyle(
+                      fontSize: 16.h,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  IconButton(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onPressed: () => controller.getDocs(),
+                    icon: Icon(
+                      Icons.refresh_rounded,
+                      size: 20.sp,
+                    ),
+                  ),
+                ],
               ),
             ),
             Expanded(
               child: Obx(
                 () {
-                  return controller.listProvider.isEmpty
+                  return controller.searching.value == true
                       ? const Center(
-                          child: Text('Nenhum serviço encontrado'),
+                          child: CircularProgressIndicator(),
                         )
                       : ListView.builder(
                           physics: const BouncingScrollPhysics(
@@ -52,13 +66,18 @@ class HomeContractorPage extends GetView<HomeContractorController> {
                           itemCount: controller.listProvider.length,
                           itemBuilder: (context, index) {
                             var provider = controller.listProvider[index];
-                            return HomeProviderCard(
-                              listProvider: provider,
-                              listProviderPhotos: provider.photos,
-                              imageAvatar: provider.imageAvatar,
-                              name: '${provider.name} ${provider.lastName[0]}.',
-                              service: provider.atuationArea,
-                            );
+                            return controller.listProvider.isEmpty
+                                ? const Center(
+                                    child: Text(
+                                        'Nenhum prestador de serviço encontrado!'))
+                                : HomeProviderCard(
+                                    listProvider: provider,
+                                    listProviderPhotos: provider.photos,
+                                    imageAvatar: provider.imageAvatar,
+                                    name:
+                                        '${provider.name} ${provider.lastName[0]}.',
+                                    service: provider.atuationArea,
+                                  );
                           },
                         );
                 },

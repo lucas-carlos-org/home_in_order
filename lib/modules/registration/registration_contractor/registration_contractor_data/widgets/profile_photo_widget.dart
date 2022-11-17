@@ -18,8 +18,8 @@ class ProfilePhotoContractorWidget
             ? InkWell(
                 onTap: () => controller.getImageProfile(),
                 child: Container(
-                  height: 110.h,
-                  width: 110.w,
+                  height: 110,
+                  width: 110,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(80),
                     border: Border.all(
@@ -36,8 +36,8 @@ class ProfilePhotoContractorWidget
                 ),
               )
             : SizedBox(
-                height: 110.h,
-                width: 110.w,
+                height: 110,
+                width: 110,
                 child: Stack(
                   clipBehavior: Clip.none,
                   fit: StackFit.expand,

@@ -2,6 +2,7 @@ import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
+import 'package:home_in_order/domain/models/schedule_model.dart';
 import 'package:home_in_order/modules/schedule/schedule/widgets/schedule_card.dart';
 import 'schedule_controller.dart';
 
@@ -58,12 +59,22 @@ class SchedulePage extends GetView<ScheduleController> {
                         itemBuilder: (context, index) {
                           final scheduleData = controller.scheduleModel[index];
                           return ScheduleCard(
+                            scheduleModel: ScheduleModel(
+                              docId: scheduleData.docId,
+                              idContractor: scheduleData.idContractor,
+                              idProvider: scheduleData.idProvider,
+                              userName: scheduleData.userName,
+                              description: scheduleData.description,
+                              hour: scheduleData.hour,
+                              address: scheduleData.address,
+                            ),
+                            idContractor: scheduleData.idContractor,
                             address: scheduleData.address,
                             imageAvatar: '',
                             nameUser: scheduleData.userName,
                             description: scheduleData.description,
                             hour: scheduleData.hour.toString(),
-                            documentId: scheduleData.documentId,
+                            documentId: scheduleData.docId,
                           );
                         },
                       ),

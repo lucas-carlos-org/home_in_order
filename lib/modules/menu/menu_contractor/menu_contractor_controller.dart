@@ -6,12 +6,15 @@ import 'package:home_in_order/modules/home/home_contractor/home_contractor_bindi
 import 'package:home_in_order/modules/home/home_contractor/home_contractor_page.dart';
 import 'package:home_in_order/modules/profile/profile_user/profile_user_bindings.dart';
 import 'package:home_in_order/modules/profile/profile_user/profile_user_page.dart';
+import 'package:home_in_order/modules/schedule/contractor/schedule_contractor_bindings.dart';
+import 'package:home_in_order/modules/schedule/contractor/schedule_contractor_page.dart';
 
 class MenuContractorController extends GetxController {
   var currentIndex = 0.obs;
 
   final pages = <String>[
     '/home-contractor',
+    '/schedule-contractor',
     '/chat-list',
     '/profile',
   ];
@@ -30,6 +33,14 @@ class MenuContractorController extends GetxController {
         settings: settings,
         page: () => const HomeContractorPage(),
         binding: HomeContractorBindings(),
+      );
+    }
+
+    if (settings.name == '/schedule-contractor') {
+      return GetPageRoute(
+        settings: settings,
+        page: () => const ScheduleContractorPage(),
+        binding: ScheduleContractorBindings(),
       );
     }
 

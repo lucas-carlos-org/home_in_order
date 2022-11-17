@@ -11,6 +11,7 @@ class CustomTextformfieldMultiline extends StatelessWidget {
       this.onChanged,
       this.hintText,
       this.hasInfo = true,
+      this.readOnly = false,
       this.infoMessage})
       : super(key: key);
 
@@ -19,12 +20,14 @@ class CustomTextformfieldMultiline extends StatelessWidget {
   final bool hasInfo;
   final String? hintText;
   final String? infoMessage;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         TextFormField(
+          readOnly: readOnly,
           validator: validator,
           maxLines: 4,
           onChanged: onChanged,

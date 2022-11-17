@@ -2,25 +2,31 @@ import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
+import 'package:home_in_order/application/ui/utils/helpers/date_helper.dart';
+import 'package:home_in_order/domain/models/schedule_model.dart';
 import 'package:home_in_order/modules/schedule/schedule/schedule_controller.dart';
 
 class ScheduleCard extends GetView<ScheduleController> {
   const ScheduleCard({
     Key? key,
     required this.imageAvatar,
+    required this.idContractor,
     required this.nameUser,
     required this.description,
     required this.hour,
     required this.documentId,
     required this.address,
+    required this.scheduleModel,
   }) : super(key: key);
 
   final String imageAvatar;
+  final String idContractor;
   final String nameUser;
   final String address;
   final String description;
   final String hour;
   final String documentId;
+  final ScheduleModel scheduleModel;
 
   @override
   Widget build(BuildContext context) {
@@ -31,77 +37,87 @@ class ScheduleCard extends GetView<ScheduleController> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              width: double.infinity,
-              height: 90.h,
               decoration: BoxDecoration(
-                color: Colors.greenAccent.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(10.r),
+                gradient: const LinearGradient(colors: [
+                  Color(0xff5089FF),
+                  Color(0xff246BFD),
+                ]),
+                border: Border.all(color: Colors.blue[700]!),
+                borderRadius: BorderRadius.circular(8.r),
               ),
-              child: Center(
+              height: 80,
+              width: double.infinity,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 22.w),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  /*  crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween, */
                   children: [
-                    Row(
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              nameUser,
-                              style: TextStyle(
-                                  fontSize: 16.sp, fontWeight: FontWeight.w700),
-                            ),
-                            SizedBox(
-                              width: 150.w,
-                              child: Text(
-                                description,
-                                maxLines: 1,
-                                style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w400),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.place_outlined,
-                                  size: 12.sp,
-                                ),
-                                SizedBox(
-                                  width: 5.w,
-                                ),
-                                Text(
-                                  address,
-                                  style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.access_time,
-                          size: 15.sp,
-                        ),
-                        SizedBox(
-                          width: 5.w,
-                        ),
                         Text(
                           hour,
                           style: TextStyle(
-                              fontSize: 20.sp,
-                              color: Colors.green,
-                              fontWeight: FontWeight.w500),
+                              fontSize: 22.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      width: 12.w,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          description,
+                          style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white),
+                        ),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              'Contratante: ',
+                              style: TextStyle(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            Text(
+                              nameUser,
+                              style: TextStyle(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.place,
+                              size: 16,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              address,
+                              style: TextStyle(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -110,38 +126,45 @@ class ScheduleCard extends GetView<ScheduleController> {
               ),
             ),
           ),
-          Positioned.fill(
-            child: InkWell(
-              onTap: () => CoolAlert.show(
-                context: context,
-                type: CoolAlertType.confirm,
-                title: 'Confirmação',
-                text: 'Você tem certeza que deseja deletar este agendamento?',
-                confirmBtnText: 'Sim',
-                cancelBtnText: 'Não',
-                onCancelBtnTap: () => Get.back(),
-                onConfirmBtnTap: () {
-                  controller.deleteSchedule(documentId);
-                  Get.back();
-                },
-                confirmBtnColor: Colors.green,
-              ),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  height: 20.h,
-                  width: 20.w,
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(
-                      60.r,
+          Align(
+            alignment: Alignment.topRight,
+            child: Container(
+              width: 20,
+              alignment: Alignment.topRight,
+              child: InkWell(
+                onTap: () => CoolAlert.show(
+                  context: context,
+                  type: CoolAlertType.confirm,
+                  title: 'Confirmação',
+                  text: 'Você tem certeza que deseja deletar este agendamento?',
+                  confirmBtnText: 'Sim',
+                  cancelBtnText: 'Não',
+                  onCancelBtnTap: () => Get.back(),
+                  onConfirmBtnTap: () {
+                    controller.deleteSchedule(documentId, scheduleModel);
+                    controller.deleteScheduleContractor(
+                        idContractor, documentId, scheduleModel);
+                    Get.back();
+                  },
+                  confirmBtnColor: Colors.green,
+                ),
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    height: 20,
+                    width: 20,
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(
+                        60.r,
+                      ),
                     ),
-                  ),
-                  child: Center(
-                    child: Icon(
-                      Icons.close,
-                      size: 15.sp,
-                      color: Colors.white,
+                    child: Center(
+                      child: Icon(
+                        Icons.close,
+                        size: 15.sp,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),

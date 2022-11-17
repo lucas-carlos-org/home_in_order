@@ -52,8 +52,8 @@ class ScheduleController extends GetxController {
         final date = dateFormat.format(dateToDatetime);
 
         final scheduleModelData = ScheduleModel(
-            documentId: documents.id,
-            idContractor: 'sadasdasd',
+            docId: documents['docId'],
+            idContractor: documents['idContractor'],
             idProvider: user.uid,
             date: date,
             address: documents['address'],
@@ -80,8 +80,17 @@ class ScheduleController extends GetxController {
     }
   }
 
-  Future<void> deleteSchedule(String documentId) async {
-    await _iScheduleService.cancelSchedule(_authService.user!.uid, documentId);
+  Future<void> deleteSchedule(
+      String documentId, ScheduleModel scheduleModel) async {
+    await _iScheduleService.cancelSchedule(
+        _authService.user!.uid, documentId, scheduleModel);
+    getScheduleUser();
+  }
+
+  Future<void> deleteScheduleContractor(String contractorId, String documentId,
+      ScheduleModel scheduleModel) async {
+    await _iScheduleService.cancelSchedule(
+        contractorId, documentId, scheduleModel);
     getScheduleUser();
   }
 

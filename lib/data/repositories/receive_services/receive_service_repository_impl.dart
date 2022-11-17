@@ -47,14 +47,16 @@ class ReceiveServiceRepositoryImpl implements IReceiveServiceRepository {
         ),
         data: jsonEncode(
           <String, dynamic>{
-            'notification': <String, dynamic>{'body': body, 'title': title},
-            'priority': 'high',
-            'data': <String, dynamic>{
-              'click_action': 'FLUTTER_NOTIFICATION_RECEIVED',
-              'id': '1',
-              'status': 'done',
-            },
             "to": token,
+            "notification": {
+              "title": title,
+              "body": body,
+            }, // remove this
+            "data": {
+              "channelId": "session_alert",
+              "title": title,
+              "body": body,
+            }
           },
         ),
       );

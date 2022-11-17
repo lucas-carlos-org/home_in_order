@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "707879564902",
+    "firebase_url": "https://home-in-order-9a786-default-rtdb.firebaseio.com",
     "project_id": "home-in-order-9a786",
     "storage_bucket": "home-in-order-9a786.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "707879564902-8vu6kkcqlarrvb8igerqp4am94t326h7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.lucascarlosj.home_in_order",
+            "certificate_hash": "377ddb92f10c803244f455da0d69dac7af8f0914"
+          }
+        },
         {
           "client_id": "707879564902-5slq8ign02uhgomlo5j6nggis8u0vh5j.apps.googleusercontent.com",
           "client_type": 3
@@ -27,7 +36,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "707879564902-5slq8ign02uhgomlo5j6nggis8u0vh5j.apps.googleusercontent.com",
+              "client_id": "111614857297961906335",
               "client_type": 3
             }
           ]

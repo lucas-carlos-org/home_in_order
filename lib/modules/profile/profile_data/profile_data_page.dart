@@ -36,6 +36,7 @@ class ProfileDataPage extends GetView<ProfileDataController> {
                                     children: [
                                       Expanded(
                                         child: CustomTextFormField(
+                                          readOnly: true,
                                           value: controller
                                               .providerModel.value!.name!,
                                           validator: Validatorless.multiple([
@@ -50,6 +51,7 @@ class ProfileDataPage extends GetView<ProfileDataController> {
                                       ),
                                       Expanded(
                                         child: CustomTextFormField(
+                                          readOnly: true,
                                           value: controller
                                               .providerModel.value!.lastName!,
                                           validator: Validatorless.multiple([
@@ -65,6 +67,7 @@ class ProfileDataPage extends GetView<ProfileDataController> {
                                     height: 16.h,
                                   ),
                                   CustomTextFormField(
+                                    readOnly: true,
                                     value: controller
                                         .providerModel.value!.phoneNumber!,
                                   ),
@@ -72,6 +75,7 @@ class ProfileDataPage extends GetView<ProfileDataController> {
                                     height: 16.h,
                                   ),
                                   CustomTextFormField(
+                                    readOnly: true,
                                     value: controller
                                         .providerModel.value!.cpfOrCnpj!,
                                   ),
@@ -79,6 +83,7 @@ class ProfileDataPage extends GetView<ProfileDataController> {
                                     height: 16.h,
                                   ),
                                   CustomTextFormField(
+                                    readOnly: true,
                                     value: controller
                                         .providerModel.value!.atuationArea!,
                                   ),
@@ -86,6 +91,7 @@ class ProfileDataPage extends GetView<ProfileDataController> {
                                     height: 16.h,
                                   ),
                                   CustomTextformfieldMultiline(
+                                    readOnly: true,
                                     hasInfo: false,
                                     hintText: controller.providerModel.value!
                                         .serviceDescription!,
@@ -94,6 +100,7 @@ class ProfileDataPage extends GetView<ProfileDataController> {
                                     height: 16.h,
                                   ),
                                   CustomTextFormField(
+                                    readOnly: true,
                                     value: controller
                                         .providerModel.value!.experienceTime!,
                                   ),
@@ -101,17 +108,18 @@ class ProfileDataPage extends GetView<ProfileDataController> {
                                     height: 16.h,
                                   ),
                                   CustomTextFormField(
+                                    readOnly: true,
                                     value:
                                         controller.providerModel.value!.city!,
                                   ),
-                                  const Spacer(),
+                                  /*  const Spacer(),
                                   CustomElevatedButton(
                                     label: 'Salvar',
                                     onPressed: () {},
                                   ),
                                   SizedBox(
                                     height: 39.h,
-                                  ),
+                                  ), */
                                 ],
                               ),
                             )
@@ -127,6 +135,7 @@ class ProfileDataPage extends GetView<ProfileDataController> {
                                     children: [
                                       Expanded(
                                         child: CustomTextFormField(
+                                          readOnly: true,
                                           value: controller
                                               .contractorModel.value!.name!,
                                           validator: Validatorless.multiple([
@@ -141,6 +150,7 @@ class ProfileDataPage extends GetView<ProfileDataController> {
                                       ),
                                       Expanded(
                                         child: CustomTextFormField(
+                                          readOnly: true,
                                           value: controller
                                               .contractorModel.value!.lastName!,
                                           validator: Validatorless.multiple([
@@ -156,6 +166,7 @@ class ProfileDataPage extends GetView<ProfileDataController> {
                                     height: 16.h,
                                   ),
                                   CustomTextFormField(
+                                    readOnly: true,
                                     value: controller
                                         .contractorModel.value!.adress!,
                                   ),
@@ -163,6 +174,7 @@ class ProfileDataPage extends GetView<ProfileDataController> {
                                     height: 16.h,
                                   ),
                                   CustomTextFormField(
+                                    readOnly: true,
                                     value: controller
                                         .contractorModel.value!.number!,
                                   ),
@@ -170,17 +182,18 @@ class ProfileDataPage extends GetView<ProfileDataController> {
                                     height: 16.h,
                                   ),
                                   CustomTextFormField(
+                                    readOnly: true,
                                     value:
                                         controller.contractorModel.value!.city!,
                                   ),
-                                  const Spacer(),
+                                  /*  const Spacer(),
                                   CustomElevatedButton(
                                     label: 'Salvar',
                                     onPressed: () {},
                                   ),
                                   SizedBox(
                                     height: 39.h,
-                                  ),
+                                  ), */
                                 ],
                               ),
                             );

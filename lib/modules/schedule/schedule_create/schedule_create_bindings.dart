@@ -7,6 +7,7 @@ class ScheduleCreateBindings implements Bindings {
     Get.put(
       ScheduleCreateController(
         scheduleService: Get.find(),
+        requestServices: Get.find(),
         authService: Get.find()
       ),
     );

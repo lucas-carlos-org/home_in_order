@@ -5,12 +5,22 @@ import 'package:home_in_order/domain/models/schedule_model.dart';
 
 class ScheduleRepositoryImpl implements IScheduleRepository {
   @override
-  Future<void> cancelSchedule(String userId, String documentId) async {
+  Future<void> cancelSchedule(
+      String userId, String documentId, ScheduleModel scheduleModel) async {
     try {
-      await FirebaseFirestore.instance
+      var collection = FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
-          .collection('schedule').doc(documentId).delete();
+          .collection('schedule');
+
+      var snapshot = await collection
+          .where('docId', isEqualTo: scheduleModel.docId)
+          .limit(1)
+          .get();
+      snapshot.docs.first.reference.delete();
+      for (var doc in snapshot.docs) {
+        await doc.reference.delete();
+      }
     } catch (e) {
       throw Failure(message: 'Error ao deletar agendamento!');
     }

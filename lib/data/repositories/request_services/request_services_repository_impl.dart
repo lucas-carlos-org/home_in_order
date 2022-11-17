@@ -38,10 +38,9 @@ class RequestServicesRepositoryImpl implements IRequestServicesRepository {
           files: await uploadServiceListImages(userId, requestServiceModel.files));
 
       final requestServiceModelData = requestServiceFinal;
-      Map<String, dynamic> requestServiceModelToMap = requestServiceModelData.toMap();
+      Map<String, dynamic> requestServiceModelToMap =
+          requestServiceModelData.toMap();
       await collectionRef.set(requestServiceModelToMap);
-    /*   await colRefUser.set(requestServiceModelToMap);
-      await colRefCurrentUser.set(requestServiceModelToMap); */
     } catch (e) {
       throw Failure(message: 'Error ao salvar dados do usuario!');
     }
@@ -129,18 +128,14 @@ class RequestServicesRepositoryImpl implements IRequestServicesRepository {
         ),
         data: jsonEncode(
           <String, dynamic>{
-            'notification': <String, dynamic>{
-              'body': body,
-              'title': title,
-            },
-            'priority': 'high',
-            'data': {
-              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-              'id': '1',
-              'status': 'done',
-              'route': '/home-provider'
-            },
             "to": token,
+            "notification": {
+              "title": title,
+              "body": body,
+            }, // remove this
+            "data": {
+              "channelId": "session_alert",
+            }
           },
         ),
       );

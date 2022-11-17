@@ -177,25 +177,19 @@ class ScheduleCreatePage extends GetView<ScheduleCreateController> {
                                   controller.timeOfDay.value!.hour,
                                   controller.timeOfDay.value!.minute,
                                 );
-
-                                controller.createSchedule(
-                                  ScheduleModel(
-                                    documentId: const Uuid().v4(),
-                                    idContractor: 'sadjiasjd',
-                                    idProvider:
-                                        controller.providerId.value.toString(),
-                                    date: dateFormat.format(
-                                      controller.dateTime.value!,
-                                    ),
-                                    address:
-                                        '${controller.userData.value!.adress}, ${controller.userData.value!.number}, ${controller.userData.value!.city}',
-                                    userName: controller.scheduleUserName.value,
-                                    description: descriptionEC.text,
-                                    hour: hourFormat.format(
-                                      hour,
-                                    ),
-                                  ),
+                                final documentId = const Uuid().v4();
+                                final scheduleModel = ScheduleModel(
+                                  docId: documentId,
+                                  idContractor:controller.userData.value!.id.toString(),
+                                  idProvider: controller.providerId.value.toString(),
+                                  date: dateFormat.format(controller.dateTime.value!),
+                                  address:'${controller.userData.value!.adress}, ${controller.userData.value!.number}, ${controller.userData.value!.city}',
+                                  userName: controller.scheduleUserName.value,
+                                  description: descriptionEC.text,
+                                  hour: hourFormat.format(hour),
                                 );
+                                controller.createSchedule(scheduleModel);
+                                controller.createScheduleContractor(controller.userData.value!.id.toString(), scheduleModel);
                                 await onBackClick();
                               },
                       );

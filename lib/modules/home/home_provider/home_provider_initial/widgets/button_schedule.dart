@@ -26,7 +26,7 @@ class ButtonSchedule extends GetView<HomeProviderInitialController> {
             Padding(
               padding: EdgeInsets.only(left: 26.w),
               child: Text(
-                'Agenda',
+                'Consultar Agenda',
                 style: TextStyle(
                     fontSize: 22.sp,
                     fontWeight: FontWeight.w700,

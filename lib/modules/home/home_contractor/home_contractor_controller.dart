@@ -47,6 +47,7 @@ class HomeContractorController extends GetxController {
   }
 
   Future getDocs() async {
+    searching.value = true;
     listProvider.clear();
     listProviderSearch.clear();
 
@@ -96,6 +97,7 @@ class HomeContractorController extends GetxController {
         listProviderSearch.add(providerModel);
       }
     }
+    searching.value = false;
   }
 
   void searchItemByService(String service) {

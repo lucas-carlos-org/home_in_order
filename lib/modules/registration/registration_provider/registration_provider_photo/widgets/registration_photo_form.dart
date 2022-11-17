@@ -72,37 +72,6 @@ class RegistrationPhotoForm
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 16,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  JobPhotoWidget(
-                    number: '4',
-                    photoFile: controller.jobPhotoFour,
-                    onPressed: () {
-                      controller.getImageJob(
-                        controller.jobPhotoFour,
-                      );
-                    },
-                  ),
-                  JobPhotoWidget(
-                    number: '5',
-                    photoFile: controller.jobPhotoFive,
-                    onPressed: () => controller.getImageJob(
-                      controller.jobPhotoFive,
-                    ),
-                  ),
-                  JobPhotoWidget(
-                    number: '6',
-                    photoFile: controller.jobPhotoSix,
-                    onPressed: () => controller.getImageJob(
-                      controller.jobPhotoSix,
-                    ),
-                  ),
-                ],
-              ),
             ],
           ),
           SizedBox(

@@ -27,6 +27,10 @@ class MenuContractorPage extends GetView<MenuContractorController> {
                 title: const Text('Home'),
               ),
               FlashyTabBarItem(
+                icon: const Icon(Icons.calendar_month_outlined),
+                title: const Text('Agenda'),
+              ),
+              FlashyTabBarItem(
                 icon: const Icon(Icons.chat),
                 title: const Text('Chats'),
               ),

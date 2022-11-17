@@ -1,7 +1,7 @@
 import 'dart:convert';
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class ScheduleModel {
-  final String documentId;
+  final String docId;
   final String idContractor;
   final String idProvider;
   final String userName;
@@ -10,7 +10,7 @@ class ScheduleModel {
   final String address;
   final String? date;
   ScheduleModel({
-    required this.documentId,
+    required this.docId,
     required this.idContractor,
     required this.idProvider,
     required this.userName,
@@ -23,7 +23,7 @@ class ScheduleModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'documentId': documentId,
+      'docId': docId,
       'idContractor': idContractor,
       'idProvider': idProvider,
       'date': date,
@@ -36,7 +36,7 @@ class ScheduleModel {
 
   factory ScheduleModel.fromMap(Map<String, dynamic> map) {
     return ScheduleModel(
-      documentId: map['documentId'] as String,
+      docId: map['docId'] as String,
       idContractor: map['idContractor'] as String,
       idProvider: map['idProvider'] as String,
       date: map['date'] as String,

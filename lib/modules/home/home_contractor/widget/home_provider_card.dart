@@ -37,21 +37,29 @@ class HomeProviderCard extends StatelessWidget {
           height: 80.h,
           child: Row(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10.r), // Image border
-                child: SizedBox(
-                  width: 80.w,
-                  height: 80.h,
-                  child: CachedNetworkImage(
-                    imageUrl: imageAvatar,
-                    placeholder: (context, url) => const Center(
-                      child: SizedBox(
-                        child: CircularProgressIndicator(),
-                      ),
+              CachedNetworkImage(
+                imageUrl: imageAvatar,
+                imageBuilder: (context, imageProvider) => Container(
+                  height: 80,
+                  width: 80,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.r),
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
                     ),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
                   ),
+                ),
+                placeholder: (context, url) => const SizedBox(
+                  height: 80,
+                  width: 80,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+                errorWidget: (context, url, error) => Icon(
+                  Icons.error,
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
               Padding(
