@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
@@ -59,7 +60,9 @@ class _SuccessPageState extends State<SuccessPage> {
                   ),
                 ],
               ),
-              const CircularProgressIndicator(),
+              const CupertinoActivityIndicator(
+                animating: true,
+              ),
             ],
           ),
         ),

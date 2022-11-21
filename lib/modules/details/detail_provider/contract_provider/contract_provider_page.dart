@@ -13,9 +13,7 @@ class ContractProviderPage extends GetView<ContractProviderController> {
 
   @override
   Widget build(BuildContext context) {
-    final descriptionEC = TextEditingController();
-    final titleDescriptionEC = TextEditingController();
-
+    
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0.h,
@@ -36,47 +34,9 @@ class ContractProviderPage extends GetView<ContractProviderController> {
                   SizedBox(
                     height: 12.h,
                   ),
-                  Form(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 22.w),
-                      child: CustomTextformfieldMultiline(
-                        onChanged: (val) {
-                          descriptionEC.text = val;
-                        },
-                        hasInfo: false,
-                        hintText: 'Resumo do seu problema',
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 16.h,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 22.w),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Fotos do problema',
-                          style: TextStyle(
-                              fontSize: 17.sp, fontWeight: FontWeight.w700),
-                        ),
-                        Text(
-                          '* As imagens não são obrigatórias mas será muito importante para o prestador saber o seu real problema!',
-                          style: TextStyle(
-                            fontSize: 10.sp,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        FormPhotoProvider(
-                          descriptionEC: descriptionEC,
-                          titleDescriptionEC: titleDescriptionEC,
-                        )
-                      ],
-                    ),
-                  ),
+                  FormPhotoProvider(
+                 
+                  )
                 ],
               ),
             ),

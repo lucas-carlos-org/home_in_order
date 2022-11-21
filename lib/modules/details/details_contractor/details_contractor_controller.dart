@@ -7,6 +7,7 @@ import 'package:home_in_order/domain/models/user_auth_model.dart';
 import 'package:home_in_order/domain/models/user_provider_information_model.dart';
 import 'package:home_in_order/domain/services/chat/chat_service.dart';
 import 'package:home_in_order/domain/services/receive_services/receive_services.dart';
+import 'package:home_in_order/modules/chat/chat_list/chat_list_controller.dart';
 import 'package:home_in_order/modules/menu/menu_provider/menu_provider_controller.dart';
 
 class DetailsContractorController extends GetxController {
@@ -127,7 +128,10 @@ class DetailsContractorController extends GetxController {
 
   void changePage(int index) {
     Future.delayed(const Duration(milliseconds: 500), () {
+      ChatListController chatListController = Get.put(ChatListController(authService: Get.find(), chatService: Get.find()));
+
       Get.put(MenuProviderController()).changePage(index);
+      chatListController.getUserRooms();
     });
   }
 

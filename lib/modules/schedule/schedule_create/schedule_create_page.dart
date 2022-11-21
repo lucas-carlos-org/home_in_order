@@ -121,37 +121,38 @@ class ScheduleCreatePage extends GetView<ScheduleCreateController> {
                           width: 10.w,
                         ),
                         Expanded(
-                            child: InkWell(
-                          onTap: () async {
-                            TimeOfDay? pickedHour = await showTimePicker(
-                              context: context,
-                              initialTime: TimeOfDay.now(),
-                              builder: (BuildContext context, Widget? child) {
-                                return Directionality(
-                                  textDirection: TextDirection.rtl,
-                                  child: child!,
-                                );
-                              },
-                            );
-                            controller.timeOfDay.value = pickedHour;
-                          },
-                          child: SizedBox(
-                            child: IgnorePointer(
-                              child: CustomTextFormField(
-                                label: controller.timeOfDay.value != null
-                                    ? controller.timeOfDay.value!
-                                        .format(context)
-                                    : 'Hora',
-                                suffixIcon: const IconButton(
-                                  onPressed: null,
-                                  icon: Icon(
-                                    Icons.access_time_filled_outlined,
+                          child: InkWell(
+                            onTap: () async {
+                              TimeOfDay? pickedHour = await showTimePicker(
+                                context: context,
+                                initialTime: TimeOfDay.now(),
+                                builder: (BuildContext context, Widget? child) {
+                                  return Directionality(
+                                    textDirection: TextDirection.rtl,
+                                    child: child!,
+                                  );
+                                },
+                              );
+                              controller.timeOfDay.value = pickedHour;
+                            },
+                            child: SizedBox(
+                              child: IgnorePointer(
+                                child: CustomTextFormField(
+                                  label: controller.timeOfDay.value != null
+                                      ? controller.timeOfDay.value!
+                                          .format(context)
+                                      : 'Hora',
+                                  suffixIcon: const IconButton(
+                                    onPressed: null,
+                                    icon: Icon(
+                                      Icons.access_time_filled_outlined,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        )),
+                        ),
                       ],
                     ),
                   ),
@@ -179,17 +180,25 @@ class ScheduleCreatePage extends GetView<ScheduleCreateController> {
                                 );
                                 final documentId = const Uuid().v4();
                                 final scheduleModel = ScheduleModel(
+                                  providerName: controller.providerName.value,
                                   docId: documentId,
-                                  idContractor:controller.userData.value!.id.toString(),
-                                  idProvider: controller.providerId.value.toString(),
-                                  date: dateFormat.format(controller.dateTime.value!),
-                                  address:'${controller.userData.value!.adress}, ${controller.userData.value!.number}, ${controller.userData.value!.city}',
+                                  idContractor:
+                                      controller.userData.value!.id.toString(),
+                                  idProvider:
+                                      controller.providerId.value.toString(),
+                                  date: dateFormat
+                                      .format(controller.dateTime.value!),
+                                  address:
+                                      '${controller.userData.value!.adress}, ${controller.userData.value!.number}, ${controller.userData.value!.city}',
                                   userName: controller.scheduleUserName.value,
                                   description: descriptionEC.text,
                                   hour: hourFormat.format(hour),
                                 );
                                 controller.createSchedule(scheduleModel);
-                                controller.createScheduleContractor(controller.userData.value!.id.toString(), scheduleModel);
+                                controller.createScheduleContractor(
+                                    controller.userData.value!.id.toString(),
+                                    scheduleModel);
+                                  controller.sendRPushNotificationOnCreateSchedule(controller.userData.value!.deviceToken.toString());
                                 await onBackClick();
                               },
                       );

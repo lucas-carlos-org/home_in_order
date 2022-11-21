@@ -60,6 +60,7 @@ class SchedulePage extends GetView<ScheduleController> {
                           final scheduleData = controller.scheduleModel[index];
                           return ScheduleCard(
                             scheduleModel: ScheduleModel(
+                              providerName: '',
                               docId: scheduleData.docId,
                               idContractor: scheduleData.idContractor,
                               idProvider: scheduleData.idProvider,

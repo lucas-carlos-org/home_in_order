@@ -156,30 +156,62 @@ class RegistrationForm extends GetView<RegistrationProviderController> {
             SizedBox(
               height: 16.h,
             ),
-            Stack(
-              children: [
-                CustomTextFormField(
-                  onChanged: (value) {
-                    atuationAreaEC.value = value;
-                  },
-                  label: 'Área de atuação ',
-                  validator: Validatorless.multiple([
-                    Validatorless.required('Área de atuação obrigatório'),
-                  ]),
-                  keyboardType: TextInputType.text,
-                ),
-                Positioned.fill(
-                  right: -10,
-                  top: -10,
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: InfoWidget(
-                        infoMessage:
-                            'ex: Diarista, Eletricista, Encanador, Marido de aluguel...'),
-                  ),
-                ),
+            CustomDropdownWidget(
+              items: const [
+                {
+                  "display": "Diarista",
+                  "value": "Diarista",
+                },
+                {
+                  "display": "Babá",
+                  "value": "Babá",
+                },
+                {
+                  "display": "Eletricista",
+                  "value": "Eletricista",
+                },
+                {
+                  "display": "Hidraulico",
+                  "value": "Hidraulico",
+                },
+                {
+                  "display": "Marido de Aluguel",
+                  "value": "Marido de Aluguel",
+                },
+                {
+                  "display": "Outro",
+                  "value": "Outro",
+                },
               ],
+              hintText: 'Área de atuação',
+              value: controller.atuationArea.value,
+              onSaved: (value) {
+                atuationAreaEC.value = value;
+                controller.atuationArea.value = value;
+              },
             ),
+            Obx(() {
+              return Visibility(
+                visible: controller.atuationArea.value == 'Outro',
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 16.h,
+                    ),
+                    CustomTextFormField(
+                      onChanged: (value) {
+                        atuationAreaEC.value = value;
+                      },
+                      label: 'Especifique a Área de atuação ',
+                      validator: Validatorless.multiple([
+                        Validatorless.required('Área de atuação obrigatório'),
+                      ]),
+                      keyboardType: TextInputType.text,
+                    ),
+                  ],
+                ),
+              );
+            }),
             SizedBox(
               height: 16.h,
             ),
@@ -224,6 +256,20 @@ class RegistrationForm extends GetView<RegistrationProviderController> {
               height: 16.h,
             ),
             CustomDropdownWidget(
+              items: const [
+                {
+                  "display": "Torres",
+                  "value": "Torres",
+                },
+                {
+                  "display": "Capão da Canoa",
+                  "value": "Capão da Canoa",
+                },
+                {
+                  "display": "Arroio do Sal",
+                  "value": "Arroio do Sal",
+                },
+              ],
               hintText: 'Cidade de atuação',
               value: controller.city.value,
               onSaved: (value) {
@@ -253,8 +299,7 @@ class RegistrationForm extends GetView<RegistrationProviderController> {
                               cpfOrCnpj: cpfEC.value.isNotEmpty
                                   ? cpfOrCnpjEC.value = cpfEC.value
                                   : cpfOrCnpjEC.value = cnpjEC.value,
-                              atuationArea:
-                                  atuationAreaEC.value.capitalizeFirst,
+                              atuationArea: atuationAreaEC.value.capitalizeFirst,
                               serviceDescription: descriptionServiceEC.value,
                               experienceTime: experienceEC.value,
                               city: cityEC.value,

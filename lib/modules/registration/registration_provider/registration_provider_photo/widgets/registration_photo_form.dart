@@ -36,15 +36,11 @@ class RegistrationPhotoForm
           Column(
             children: [
               Text(
-                'Foto do seu serviço',
+                'Fotos do seu serviço',
                 style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
               ),
-              Text(
-                '* Obrigatório pelo menos as três primeiras fotos!',
-                style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400),
-              ),
               SizedBox(
-                height: 8.h,
+                height: 15.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,

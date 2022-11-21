@@ -40,18 +40,18 @@ class CustomLocalNotification {
     );
   }
 
-  Future<void> androidNotification(
-      RemoteNotification notification, AndroidNotification android) async {
+  Future<void> androidNotification(String title, String body) async {
+    const android = AndroidInitializationSettings('@mipmap/ic_launcher');
     await flutterLocalNotificationsPlugin.show(
-      notification.hashCode,
-      notification.title,
-      notification.body,
+      1,
+      title,
+      body,
       NotificationDetails(
         android: AndroidNotificationDetails(
           channel.id,
           channel.name,
           channelDescription: channel.description,
-          icon: android.smallIcon,
+          icon: android.defaultIcon,
         ),
       ),
     );

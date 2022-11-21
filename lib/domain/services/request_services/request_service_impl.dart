@@ -13,10 +13,6 @@ class RequestServiceImpl implements IRequestService {
   void requestPermission() => _requestServicesRepository.requestPermission();
 
   @override
-  void sendPushMessage(String title, String body, String token) =>
-      _requestServicesRepository.sendPushMessage(title, body, token);
-
-  @override
   Future<void> sendRequestService(String curretUserId, String userId,
           RequestServiceModel requestServiceModel) =>
       _requestServicesRepository.sendRequestService(

@@ -19,6 +19,7 @@ class RegistrationProviderController extends GetxController {
   var hasCpf = false.obs;
   var hasCnpj = false.obs;
   var city = ''.obs;
+  var atuationArea = ''.obs;
 
   Future<void> setPersonalInformations(
       UserProviderInformationModel userAuthModel) async {

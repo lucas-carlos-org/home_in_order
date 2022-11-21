@@ -27,6 +27,7 @@ class HomeContractorController extends GetxController {
   var userId = '';
   var selectedValue = 'serviços'.obs;
   final searching = false.obs;
+  final isLoading = false.obs;
 
   Future<void> getUserData() async {
     final user = _authService.user;
@@ -40,13 +41,20 @@ class HomeContractorController extends GetxController {
           .get();
       final userRef = await firebase.collection('users').doc(user.uid).get();
       final docData = docRef.docs[0];
-      userModel.value = UserModel(
-          imageAvatar: userRef['image_avatar'],
-          name: '${docData['name']} ${docData['last_name'][0]}.');
+
+      final imageAvatar = userRef['image_avatar'];
+      final name = docData['name'];
+      final lastName = userRef['user_type'] == 'provider'
+          ? docData['last_name'][0]
+          : docData['lastName'][0];
+
+      userModel.value =
+          UserModel(imageAvatar: imageAvatar, name: '$name $lastName.');
     }
   }
 
   Future getDocs() async {
+    isLoading.value = true;
     searching.value = true;
     listProvider.clear();
     listProviderSearch.clear();
@@ -98,15 +106,17 @@ class HomeContractorController extends GetxController {
       }
     }
     searching.value = false;
+    isLoading.value = false;
   }
 
   void searchItemByService(String service) {
+    isLoading.value = true;
     if (service.isNotEmpty) {
       var newListProviders = listProviderSearch.where((m) {
         return m.atuationArea.toLowerCase().contains(service.toLowerCase());
       });
 
-      listProvider.isEmpty
+      newListProviders.isEmpty
           ? searching.value = true
           : searching.value = false;
 
@@ -116,6 +126,7 @@ class HomeContractorController extends GetxController {
       listProvider.clear();
       listProvider.addAll(listProviderSearch);
     }
+    isLoading.value = false;
   }
 
   void changePage(int index) {

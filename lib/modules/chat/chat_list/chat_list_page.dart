@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
@@ -53,7 +54,9 @@ class ChatListPage extends GetView<ChatListController> {
                     isLoading: controller.isLoading.value,
                     customReachMax: const SizedBox.shrink(),
                     customLoader: const Center(
-                      child: CircularProgressIndicator(),
+                      child: CupertinoActivityIndicator(
+                        animating: true,
+                      ),
                     ),
                     customEmptyList: const Center(
                       child: Text('Você não possui nenhum chat!'),

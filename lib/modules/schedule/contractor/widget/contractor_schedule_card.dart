@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
 import 'package:home_in_order/application/ui/utils/helpers/date_helper.dart';
-import 'package:intl/intl.dart';
 
 class ContractorScheduleCard extends StatelessWidget {
   const ContractorScheduleCard({

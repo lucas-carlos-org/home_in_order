@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 mixin LoaderMixin on GetxController {
@@ -7,7 +7,9 @@ mixin LoaderMixin on GetxController {
       if (loading) {
         await Get.dialog<Navigator>(
           const Center(
-            child: CircularProgressIndicator(),
+            child: CupertinoActivityIndicator(
+              animating: true,
+            ),
           ),
           barrierDismissible: false,
         );

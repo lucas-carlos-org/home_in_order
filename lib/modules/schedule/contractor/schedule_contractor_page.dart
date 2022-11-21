@@ -1,5 +1,6 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
@@ -46,7 +47,9 @@ class ScheduleContractorPage extends GetView<ScheduleContractorController> {
 
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(
-                          child: CircularProgressIndicator(),
+                          child: CupertinoActivityIndicator(
+                            animating: true,
+                          ),
                         );
                       }
 
@@ -67,7 +70,7 @@ class ScheduleContractorPage extends GetView<ScheduleContractorController> {
                             date: dateToDatetime,
                             description: data['description'],
                             hour: data['hour'],
-                            providerName: 'Joaozinho',
+                            providerName: data['providerName'],
                           );
                         }).toList(),
                       );

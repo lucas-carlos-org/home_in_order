@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
@@ -26,7 +27,9 @@ class ProfileDataPage extends GetView<ProfileDataController> {
                   return controller.userType.value == 'provider'
                       ? controller.providerModel.value == null
                           ? const Center(
-                              child: CircularProgressIndicator(),
+                              child: CupertinoActivityIndicator(
+                                animating: true,
+                              ),
                             )
                           : Padding(
                               padding: EdgeInsets.symmetric(horizontal: 22.w),
@@ -125,7 +128,9 @@ class ProfileDataPage extends GetView<ProfileDataController> {
                             )
                       : controller.contractorModel.value == null
                           ? const Center(
-                              child: CircularProgressIndicator(),
+                              child: CupertinoActivityIndicator(
+                                animating: true,
+                              ),
                             )
                           : Padding(
                               padding: EdgeInsets.symmetric(horizontal: 22.w),

@@ -22,6 +22,7 @@ import 'package:home_in_order/modules/profile/profile_module.dart';
 import 'package:home_in_order/modules/registration/registration_module.dart';
 import 'package:home_in_order/modules/schedule/schedule_module.dart';
 
+@pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   log("Handling a background message: ${message.messageId}");
 }
@@ -33,8 +34,8 @@ Future<void> start() async {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    await FirebaseMessaging.instance.getInitialMessage();
     await CustomFirebaseMessaging().inicialize();
 
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;

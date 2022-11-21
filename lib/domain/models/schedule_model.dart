@@ -8,12 +8,14 @@ class ScheduleModel {
   final String description;
   final String hour;
   final String address;
+  final String providerName;
   final String? date;
   ScheduleModel({
     required this.docId,
     required this.idContractor,
     required this.idProvider,
     required this.userName,
+    required this.providerName,
     required this.description,
     required this.hour,
     required this.address,
@@ -28,6 +30,7 @@ class ScheduleModel {
       'idProvider': idProvider,
       'date': date,
       'userName': userName,
+      'providerName': providerName,
       'description': description,
       'address': address,
       'hour': hour,
@@ -41,6 +44,7 @@ class ScheduleModel {
       idProvider: map['idProvider'] as String,
       date: map['date'] as String,
       userName: map['userName'] as String,
+      providerName: map['providerName'] as String,
       description: map['description'] as String,
       address: map['address'] as String,
       hour: map['hour'] as String,

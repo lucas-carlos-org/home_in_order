@@ -83,8 +83,7 @@ class UserRepositoryImpl implements IUserRepository {
   @override
   Future<void> setUserType(String userId, String typeUser) async {
     try {
-      final userModelType =
-          FirebaseFirestore.instance.collection('users').doc(userId);
+      final userModelType = FirebaseFirestore.instance.collection('users').doc(userId);
 
       Map<String, dynamic> data = <String, dynamic>{
         "user_type": typeUser,

@@ -7,18 +7,22 @@ import 'package:home_in_order/domain/models/request_service_model.dart';
 import 'package:home_in_order/domain/models/user_auth_model.dart';
 import 'package:home_in_order/domain/models/user_contractor_information_model.dart';
 import 'package:home_in_order/domain/services/image_picker/image_picker_service.dart';
+import 'package:home_in_order/domain/services/receive_services/receive_services.dart';
 import 'package:home_in_order/domain/services/request_services/request_service.dart';
 
 class ContractProviderController extends GetxController {
   ContractProviderController({
     required IRequestService requestService,
+    required IReceiveServices receiveServices,
     required AuthService authService,
     required IImagePickerService imagePickerService,
   })  : _requestService = requestService,
+        _receiveServices = receiveServices,
         _authService = authService,
         _imagePickerService = imagePickerService;
 
   final IRequestService _requestService;
+  final IReceiveServices _receiveServices;
   final AuthService _authService;
   final IImagePickerService _imagePickerService;
 
@@ -66,17 +70,23 @@ class ContractProviderController extends GetxController {
               .toString()
               .replaceFirst("file:///", "https://"));
 
+      final name = docData['name'];
+      final lastName = docData['lastName'][0];
+      final city = docData['city'];
+      final adress = docData['adress'];
+      final number = docData['number'];
+
       userModelInfo.value = UserContractorInformationModel(
-        name: '${docData['name']} ${docData['last_name'][0]}.',
-        city: docData['cidade'],
-        adress: docData['adress'],
-        number: docData['number'],
+        name: '$name $lastName.',
+        city: city,
+        adress: adress,
+        number: number,
       );
     }
   }
 
   Future<void> createNewRequestService(String providerId,
-      String descriptionText, String titleDescriptionText) async {
+      String descriptionText) async {
     if (problemPhotoOne.value.isNotEmpty) {
       listOfImages.add(FileModel(imagePath: problemPhotoOne.value));
     }
@@ -110,7 +120,7 @@ class ContractProviderController extends GetxController {
   }
 
   Future<void> sendPushNotification(String token) async {
-    _requestService.sendPushMessage('Nova Solicitação 😊',
+    _receiveServices.sendPushMessage('Nova Solicitação 😊',
         'Você recebeu uma nova solicitação de serviço!', token);
   }
 

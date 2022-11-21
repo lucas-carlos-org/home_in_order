@@ -52,6 +52,7 @@ class ScheduleController extends GetxController {
         final date = dateFormat.format(dateToDatetime);
 
         final scheduleModelData = ScheduleModel(
+            providerName: '',
             docId: documents['docId'],
             idContractor: documents['idContractor'],
             idProvider: user.uid,

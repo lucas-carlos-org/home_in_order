@@ -46,9 +46,14 @@ class ProfileUserController extends GetxController {
           .get();
       final userRef = await firebase.collection('users').doc(user.uid).get();
       final docData = docRef.docs[0];
-      userModel.value = UserModel(
-          imageAvatar: userRef['image_avatar'],
-          name: '${docData['name']} ${docData['last_name'][0]}.');
+      final imageAvatar = userRef['image_avatar'];
+      final name = docData['name'];
+      final lastName = userRef['user_type'] == 'provider'
+          ? docData['last_name'][0]
+          : docData['lastName'][0];
+
+      userModel.value =
+          UserModel(imageAvatar: imageAvatar, name: '$name $lastName.');
     }
   }
 

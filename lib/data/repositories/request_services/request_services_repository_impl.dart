@@ -35,7 +35,8 @@ class RequestServicesRepositoryImpl implements IRequestServicesRepository {
           createAt: requestServiceModel.createAt,
           number: requestServiceModel.number,
           status: null,
-          files: await uploadServiceListImages(userId, requestServiceModel.files));
+          files:
+              await uploadServiceListImages(userId, requestServiceModel.files));
 
       final requestServiceModelData = requestServiceFinal;
       Map<String, dynamic> requestServiceModelToMap =
@@ -111,36 +112,6 @@ class RequestServicesRepositoryImpl implements IRequestServicesRepository {
       log('[Alert] - O usuário concedeu permissão provisória');
     } else {
       log('[Error] - O usuário recusou ou não aceitou a permissão');
-    }
-  }
-
-  @override
-  void sendPushMessage(String title, String body, String token) async {
-    try {
-      await Dio().post(
-        'https://fcm.googleapis.com/fcm/send',
-        options: Options(
-          headers: <String, String>{
-            'Content-Type': 'application/json',
-            'Authorization':
-                'key=AAAApNDo9mY:APA91bFN6lUSl4465jZlWQwhpprzSlglC-e-v1jirL9fr-RtsipYC4Ak8bDe9ebulyD5HxsYv78Sta0hCF5J_H4B_a6pwIhPYySvcP-W1VoWfFvxrsVLLVtL9p_-wtgkFwYcf58oCkib',
-          },
-        ),
-        data: jsonEncode(
-          <String, dynamic>{
-            "to": token,
-            "notification": {
-              "title": title,
-              "body": body,
-            }, // remove this
-            "data": {
-              "channelId": "session_alert",
-            }
-          },
-        ),
-      );
-    } catch (e) {
-      log("Error push notification");
     }
   }
 }

@@ -110,6 +110,20 @@ class RegistrationContactorForm
               height: 16.h,
             ),
             CustomDropdownWidget(
+              items: const [
+                {
+                  "display": "Torres",
+                  "value": "Torres",
+                },
+                {
+                  "display": "Capão da Canoa",
+                  "value": "Capão da Canoa",
+                },
+                {
+                  "display": "Arroio do Sal",
+                  "value": "Arroio do Sal",
+                },
+              ],
               hintText: 'Cidade',
               value: controller.city.value,
               onSaved: (value) {

@@ -11,8 +11,7 @@ class RegistrationRepositoryImpl implements IRegistrationRepository {
   @override
   Future<void> setCompleteRegistration(String userId) async {
     try {
-      final userModelType =
-          FirebaseFirestore.instance.collection('users').doc(userId);
+      final userModelType = FirebaseFirestore.instance.collection('users').doc(userId);
 
       Map<String, dynamic> data = <String, dynamic>{
         "complete_register_photo": true,

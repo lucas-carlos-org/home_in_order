@@ -67,16 +67,18 @@ class ChatListController extends GetxController {
             name: userData['name'],
             lastName: userData['last_name'],
             id: userId,
+            deviceToken: userRef['device_token'],
           )
         : UserContractorInformationModel(
             userType: userRef['user_type'],
             imageAvatar: userRef['image_avatar'],
             name: userData['name'],
-            lastName: userData['last_name'],
+            lastName: userData['lastName'],
             id: userId,
             adress: userData['adress'],
-            city: userData['cidade'],
+            city: userData['city'],
             number: userData['number'],
+            deviceToken: userRef['device_token'],
           );
   }
 

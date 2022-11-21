@@ -1,6 +1,7 @@
 // ignore_for_file: unrelated_type_equality_checks, unnecessary_null_comparison
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:home_in_order/modules/profile/profile_historic/widgets/historic_service_card.dart';
@@ -33,7 +34,9 @@ class HistoricPage extends GetView<HistoricController> {
 
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
-                    child: CircularProgressIndicator(),
+                    child: CupertinoActivityIndicator(
+                            animating: true,
+                          ),
                   );
                 }
 
@@ -46,7 +49,9 @@ class HistoricPage extends GetView<HistoricController> {
                     return controller.userType.value == null ||
                             controller.userType.value.isEmpty
                         ? const Center(
-                            child: CircularProgressIndicator(),
+                            child: CupertinoActivityIndicator(
+                            animating: true,
+                          ),
                           )
                         : ListView.builder(
                             itemCount: snapshot.data!.docs.length,

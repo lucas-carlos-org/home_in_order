@@ -15,7 +15,7 @@ class ReceiveServiceRepositoryImpl implements IReceiveServiceRepository {
     NotificationSettings settings =
         await FirebaseMessaging.instance.requestPermission(
       alert: true,
-      announcement: true,
+      announcement: false,
       badge: true,
       carPlay: false,
       criticalAlert: false,
@@ -48,10 +48,6 @@ class ReceiveServiceRepositoryImpl implements IReceiveServiceRepository {
         data: jsonEncode(
           <String, dynamic>{
             "to": token,
-            "notification": {
-              "title": title,
-              "body": body,
-            }, // remove this
             "data": {
               "channelId": "session_alert",
               "title": title,

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
 import 'package:home_in_order/modules/home/home_provider/home_active_service/widgets/card_active_service.dart';
@@ -27,7 +28,9 @@ class HomeActiveServicePage extends StatelessWidget {
 
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CupertinoActivityIndicator(
+                animating: true,
+              ),
             );
           }
 

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
@@ -54,7 +55,9 @@ class HomeProviderCard extends StatelessWidget {
                   height: 80,
                   width: 80,
                   child: Center(
-                    child: CircularProgressIndicator(),
+                    child: CupertinoActivityIndicator(
+                      animating: true,
+                    ),
                   ),
                 ),
                 errorWidget: (context, url, error) => Icon(

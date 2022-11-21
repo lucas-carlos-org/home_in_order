@@ -7,7 +7,13 @@ class CustomDropdownWidget extends StatefulWidget {
   String? Function(dynamic)? validator;
   String? value;
   final String hintText;
-  CustomDropdownWidget({Key? key, required this.value, required this.onSaved, required this.hintText})
+  final List items;
+  CustomDropdownWidget(
+      {Key? key,
+      required this.value,
+      required this.onSaved,
+      required this.hintText,
+      required this.items})
       : super(key: key);
 
   @override
@@ -46,20 +52,7 @@ class _CustomDropdownWidgetState extends State<CustomDropdownWidget> {
                 });
                 _saveForm();
               },
-              dataSource: const [
-                {
-                  "display": "Torres",
-                  "value": "Torres",
-                },
-                {
-                  "display": "Capão da Canoa",
-                  "value": "Capão da Canoa",
-                },
-                {
-                  "display": "Arroio do Sal",
-                  "value": "Arroio do Sal",
-                },
-              ],
+              dataSource: widget.items,
               textField: 'display',
               valueField: 'value',
             ),
