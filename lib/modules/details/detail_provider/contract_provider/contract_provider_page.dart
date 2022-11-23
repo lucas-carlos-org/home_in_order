@@ -5,7 +5,6 @@ import 'package:home_in_order/application/ui/utils/extensions/size_screen_extens
 import 'package:home_in_order/application/ui/widgets/custom_back_button.dart';
 import 'package:home_in_order/domain/models/provider_model.dart';
 import 'package:home_in_order/modules/details/detail_provider/contract_provider/widgets/form_photo_provider.dart';
-import 'package:home_in_order/modules/registration/registration_provider/registration_provider_data/widgets/custom_textformfield_multiline.dart';
 import './contract_provider_controller.dart';
 
 class ContractProviderPage extends GetView<ContractProviderController> {
@@ -35,7 +34,6 @@ class ContractProviderPage extends GetView<ContractProviderController> {
                     height: 12.h,
                   ),
                   FormPhotoProvider(
-                 
                   )
                 ],
               ),

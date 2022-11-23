@@ -15,7 +15,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "707879564902-8vu6kkcqlarrvb8igerqp4am94t326h7.apps.googleusercontent.com",
+          "client_id": "707879564902-5dh2lbu5pvmf21ogkcri8s6en3tuq7do.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.lucascarlosj.home_in_order",
+            "certificate_hash": "a601fe81568ac1cb3217b4275168abfc25175898"
+          }
+        },
+        {
+          "client_id": "707879564902-7c64d41q67v8q2ttb95i8duiaj8fgubt.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "br.com.lucascarlosj.home_in_order",

@@ -30,43 +30,34 @@ class HomeProviderInitialPage extends GetView<HomeProviderInitialController> {
               'Solicitações',
               style: TextStyle(fontSize: 16.h, fontWeight: FontWeight.w700),
             ),
-            Obx(() {
-              return DefaultTabController(
-                length: 2,
-                initialIndex: 0,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    SizedBox(
-                      child: TabBar(
-                        labelColor: Theme.of(context).primaryColor,
-                        unselectedLabelColor: Colors.grey,
-                        tabs: const [
-                          Tab(text: 'Pendentes'),
-                          Tab(text: 'Ativas'),
-                        ],
-                      ),
+            Expanded(
+              child: DefaultTabController(
+                length: controller.myTabs.length,
+                child: Scaffold(
+                  appBar: AppBar(
+                    toolbarHeight: 10.h,
+                    bottom: TabBar(
+                      labelColor: Theme.of(context).primaryColor,
+                      unselectedLabelColor: Colors.grey,
+                      tabs: controller.myTabs,
                     ),
-                    Container(
-                      height: 350.h,
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          top: BorderSide(color: Colors.grey, width: 0.5),
-                        ),
-                      ),
-                      child: TabBarView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: [
-                          HomePendingServicePage(
-                              userId: controller.userId.value),
-                          HomeActiveServicePage(userId: controller.userId.value)
-                        ],
-                      ),
-                    ),
-                  ],
+                  ),
+                  body: TabBarView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: controller.myTabs.map((Tab tab) {
+                      final String label = tab.text!.toLowerCase();
+                      return Center(
+                        child: label == 'pendentes'
+                            ? HomePendingServicePage(
+                                userId: controller.userId.value)
+                            : HomeActiveServicePage(
+                                userId: controller.userId.value),
+                      );
+                    }).toList(),
+                  ),
                 ),
-              );
-            })
+              ),
+            ),
           ],
         ),
       ),

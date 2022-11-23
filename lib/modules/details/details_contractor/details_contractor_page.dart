@@ -168,7 +168,7 @@ class DetailsContractorPage extends GetView<DetailsContractorController> {
                             controller.dataValues['contractorId']);
                         controller.createChatRoom(controller.dataValues['id']);
                         Get.back();
-                        controller.changePage(0);
+                        controller.changePage();
                         CoolAlert.show(
                           context: context,
                           type: CoolAlertType.success,
@@ -176,7 +176,6 @@ class DetailsContractorPage extends GetView<DetailsContractorController> {
                           text:
                               "Voce aceitou negociar com o cliente. Acesse o chat com o mesmo para discutir os detalhes!",
                         );
-                        controller.changePage(2);
                       },
                     ),
                   ),

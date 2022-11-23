@@ -9,12 +9,13 @@ class MenuProviderPage extends GetView<MenuProviderController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Navigator(
-          key: Get.nestedKey(1),
-          initialRoute: '/home-provider',
-          onGenerateRoute: controller.onGenerateRoute,
-        ),
-        bottomNavigationBar: Obx(() {
+      body: Navigator(
+        key: Get.nestedKey(1),
+        initialRoute: '/home-provider',
+        onGenerateRoute: controller.onGenerateRoute,
+      ),
+      bottomNavigationBar: Obx(
+        () {
           return FlashyTabBar(
             selectedIndex: controller.currentIndex.value,
             showElevation: true,
@@ -22,15 +23,15 @@ class MenuProviderPage extends GetView<MenuProviderController> {
             backgroundColor: Colors.white,
             items: [
               FlashyTabBarItem(
-                icon: const Icon(Icons.home),
+                icon: const Icon(Icons.home_outlined),
                 title: const Text('Home'),
               ),
               FlashyTabBarItem(
-                icon: const Icon(Icons.event),
+                icon: const Icon(Icons.event_outlined),
                 title: const Text('Agenda'),
               ),
               FlashyTabBarItem(
-                icon: const Icon(Icons.chat),
+                icon: const Icon(Icons.chat_outlined),
                 title: const Text('Chats'),
               ),
               FlashyTabBarItem(
@@ -39,7 +40,8 @@ class MenuProviderPage extends GetView<MenuProviderController> {
               ),
             ],
           );
-        })
-        );
+        },
+      ),
+    );
   }
 }

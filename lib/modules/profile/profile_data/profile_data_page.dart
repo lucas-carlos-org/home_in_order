@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
-import 'package:home_in_order/application/ui/widgets/custom_elevated_button.dart';
 import 'package:home_in_order/application/ui/widgets/custom_text_form_field.dart';
 import 'package:home_in_order/modules/registration/registration_provider/registration_provider_data/widgets/custom_textformfield_multiline.dart';
 import 'package:validatorless/validatorless.dart';

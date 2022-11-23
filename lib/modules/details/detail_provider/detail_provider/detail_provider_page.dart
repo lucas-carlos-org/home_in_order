@@ -100,7 +100,7 @@ class DetailProviderPage extends GetView<DetailProviderController> {
                               fontWeight: FontWeight.w700, fontSize: 17.sp),
                         ),
                         SizedBox(
-                          height: 12.h,
+                          height: 8.h,
                         ),
                         SizedBox(
                           height: 100.h,
@@ -117,7 +117,9 @@ class DetailProviderPage extends GetView<DetailProviderController> {
                       ],
                     ),
                   ),
-                  const Spacer(),
+                  SizedBox(
+                    height: 8.h,
+                  ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 22.w),
                     child: CustomElevatedButton(
@@ -131,7 +133,7 @@ class DetailProviderPage extends GetView<DetailProviderController> {
                     ),
                   ),
                   SizedBox(
-                    height: 36.h,
+                    height: 16.h,
                   ),
                 ],
               ),

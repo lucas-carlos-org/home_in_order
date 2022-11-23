@@ -2,7 +2,6 @@ import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
-import 'package:home_in_order/application/ui/utils/helpers/date_helper.dart';
 import 'package:home_in_order/domain/models/schedule_model.dart';
 import 'package:home_in_order/modules/schedule/schedule/schedule_controller.dart';
 

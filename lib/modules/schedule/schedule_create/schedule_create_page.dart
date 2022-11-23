@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';

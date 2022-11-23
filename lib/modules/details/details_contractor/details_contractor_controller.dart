@@ -7,7 +7,6 @@ import 'package:home_in_order/domain/models/user_auth_model.dart';
 import 'package:home_in_order/domain/models/user_provider_information_model.dart';
 import 'package:home_in_order/domain/services/chat/chat_service.dart';
 import 'package:home_in_order/domain/services/receive_services/receive_services.dart';
-import 'package:home_in_order/modules/chat/chat_list/chat_list_controller.dart';
 import 'package:home_in_order/modules/menu/menu_provider/menu_provider_controller.dart';
 
 class DetailsContractorController extends GetxController {
@@ -76,6 +75,7 @@ class DetailsContractorController extends GetxController {
       'Olha que legal! 😁',
       'A sua solicitação de serviço foi aceita, para mais detalhes acesse a aba de chats!',
       token,
+
     );
   }
 
@@ -84,6 +84,7 @@ class DetailsContractorController extends GetxController {
       'Que pena! 🥺',
       'A sua solicitação de serviço não foi aceita!',
       token,
+
     );
   }
 
@@ -126,12 +127,10 @@ class DetailsContractorController extends GetxController {
     }
   }
 
-  void changePage(int index) {
+  void changePage() {
     Future.delayed(const Duration(milliseconds: 500), () {
-      ChatListController chatListController = Get.put(ChatListController(authService: Get.find(), chatService: Get.find()));
-
-      Get.put(MenuProviderController()).changePage(index);
-      chatListController.getUserRooms();
+      Get.put(MenuProviderController()).currentIndex.value = 2;
+      Get.put(MenuProviderController()).changePage;
     });
   }
 

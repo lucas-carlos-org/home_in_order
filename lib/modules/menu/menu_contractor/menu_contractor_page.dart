@@ -23,7 +23,7 @@ class MenuContractorPage extends GetView<MenuContractorController> {
             backgroundColor: Colors.white,
             items: [
               FlashyTabBarItem(
-                icon: const Icon(Icons.home),
+                icon: const Icon(Icons.home_outlined),
                 title: const Text('Home'),
               ),
               FlashyTabBarItem(
@@ -31,7 +31,7 @@ class MenuContractorPage extends GetView<MenuContractorController> {
                 title: const Text('Agenda'),
               ),
               FlashyTabBarItem(
-                icon: const Icon(Icons.chat),
+                icon: const Icon(Icons.chat_outlined),
                 title: const Text('Chats'),
               ),
               FlashyTabBarItem(

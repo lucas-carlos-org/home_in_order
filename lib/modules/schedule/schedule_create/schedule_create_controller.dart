@@ -47,7 +47,8 @@ class ScheduleCreateController extends GetxController {
 
     final userInformation = userInfo.docs.first;
 
-    providerName.value = '${userInformation['name']} ${userInformation['last_name'][0]}.';
+    providerName.value =
+        '${userInformation['name']} ${userInformation['last_name'][0]}.';
   }
 
   String dateFormat(DateTime date) {

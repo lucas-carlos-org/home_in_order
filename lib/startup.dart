@@ -1,15 +1,13 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:home_in_order/application/bindings/application_bindings.dart';
-import 'package:home_in_order/application/ui/firebase_messaging/custom_firebase_messaging.dart';
 import 'package:home_in_order/application/ui/navigator/navigator_service.dart';
+import 'package:home_in_order/application/ui/notification/notification_controller.dart';
 import 'package:home_in_order/application/ui/theme/home_in_order_ui_config.dart';
 import 'package:home_in_order/firebase_options.dart';
 import 'package:home_in_order/modules/auth/auth_module.dart';
@@ -22,11 +20,6 @@ import 'package:home_in_order/modules/profile/profile_module.dart';
 import 'package:home_in_order/modules/registration/registration_module.dart';
 import 'package:home_in_order/modules/schedule/schedule_module.dart';
 
-@pragma('vm:entry-point')
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  log("Handling a background message: ${message.messageId}");
-}
-
 Future<void> start() async {
   runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -34,9 +27,10 @@ Future<void> start() async {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-    await FirebaseMessaging.instance.getInitialMessage();
-    await CustomFirebaseMessaging().inicialize();
+
+    await NotificationController.initializeLocalNotifications(debug: true);
+    await NotificationController.initializeRemoteNotifications(debug: true);
+    await NotificationController.getInitialNotificationAction();
 
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
 
@@ -44,8 +38,21 @@ Future<void> start() async {
   }, (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack));
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
+
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  @override
+  void initState() {
+    NotificationController().addListener(() => setState(() {}));
+    NotificationController.startListeningNotificationEvents();
+    NotificationController.requestFirebaseToken();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

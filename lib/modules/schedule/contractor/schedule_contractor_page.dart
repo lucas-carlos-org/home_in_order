@@ -1,4 +1,3 @@
-import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -6,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
 import 'package:home_in_order/modules/schedule/contractor/schedule_contractor_controller.dart';
 import 'package:home_in_order/modules/schedule/contractor/widget/contractor_schedule_card.dart';
-import 'package:intl/intl.dart';
 
 class ScheduleContractorPage extends GetView<ScheduleContractorController> {
   const ScheduleContractorPage({Key? key}) : super(key: key);

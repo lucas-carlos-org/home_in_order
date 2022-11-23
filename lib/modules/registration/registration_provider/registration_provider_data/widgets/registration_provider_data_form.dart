@@ -70,24 +70,6 @@ class RegistrationForm extends GetView<RegistrationProviderController> {
             SizedBox(
               height: 16.h,
             ),
-            CustomTextFormField(
-              onChanged: (value) {
-                phoneEC.value = value;
-              },
-              inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly,
-                TelefoneInputFormatter(),
-              ],
-              label: 'Telefone celular',
-              validator: Validatorless.multiple([
-                Validatorless.required('Telefone obrigatório'),
-                Validatorless.min(14, 'Telefone inválido'),
-              ]),
-              keyboardType: TextInputType.number,
-            ),
-            SizedBox(
-              height: 16.h,
-            ),
             Obx(() {
               return Row(
                 children: [
@@ -119,37 +101,6 @@ class RegistrationForm extends GetView<RegistrationProviderController> {
                             ]),
                     ),
                   ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Expanded(
-                    child: CustomTextFormField(
-                      onChanged: (value) {
-                        if (value.isNotEmpty) {
-                          cnpjEC.value = value;
-                          controller.hasCnpj.value = true;
-                          controller.hasCpf.value = false;
-                        } else {
-                          controller.hasCnpj.value = false;
-                        }
-                      },
-                      enabled: controller.hasCpf.value == true ? false : true,
-                      label: 'CNPJ',
-                      keyboardType: TextInputType.number,
-                      inputFormatters: controller.hasCpf.value == true
-                          ? null
-                          : [
-                              FilteringTextInputFormatter.digitsOnly,
-                              CnpjInputFormatter(),
-                            ],
-                      validator: controller.hasCpf.value == true
-                          ? null
-                          : Validatorless.multiple([
-                              Validatorless.required('CNPJ obrigatório'),
-                              Validatorless.cnpj('CNPJ inválido')
-                            ]),
-                    ),
-                  ),
                 ],
               );
             }),
@@ -159,28 +110,28 @@ class RegistrationForm extends GetView<RegistrationProviderController> {
             CustomDropdownWidget(
               items: const [
                 {
-                  "display": "Diarista",
-                  "value": "Diarista",
-                },
-                {
                   "display": "Babá",
                   "value": "Babá",
+                },
+                {
+                  "display": "Diarista",
+                  "value": "Diarista",
                 },
                 {
                   "display": "Eletricista",
                   "value": "Eletricista",
                 },
                 {
-                  "display": "Hidraulico",
-                  "value": "Hidraulico",
+                  "display": "Encanador",
+                  "value": "Encanador",
                 },
                 {
                   "display": "Marido de Aluguel",
                   "value": "Marido de Aluguel",
                 },
                 {
-                  "display": "Outro",
-                  "value": "Outro",
+                  "display": "Outros",
+                  "value": "Outros",
                 },
               ],
               hintText: 'Área de atuação',
@@ -192,7 +143,7 @@ class RegistrationForm extends GetView<RegistrationProviderController> {
             ),
             Obx(() {
               return Visibility(
-                visible: controller.atuationArea.value == 'Outro',
+                visible: controller.atuationArea.value == 'Outros',
                 child: Column(
                   children: [
                     SizedBox(
@@ -283,7 +234,6 @@ class RegistrationForm extends GetView<RegistrationProviderController> {
               return CustomElevatedButton(
                 onPressed: (nameEC.value.isEmpty ||
                         middleNameEC.value.isEmpty ||
-                        phoneEC.value.isEmpty ||
                         atuationAreaEC.value.isEmpty ||
                         descriptionServiceEC.value.isEmpty ||
                         experienceEC.value.isEmpty ||
@@ -295,11 +245,12 @@ class RegistrationForm extends GetView<RegistrationProviderController> {
                             UserProviderInformationModel(
                               name: nameEC.value.capitalizeFirst,
                               lastName: middleNameEC.value.capitalizeFirst,
-                              phoneNumber: phoneEC.value,
+                              phoneNumber: '00000000',
                               cpfOrCnpj: cpfEC.value.isNotEmpty
                                   ? cpfOrCnpjEC.value = cpfEC.value
                                   : cpfOrCnpjEC.value = cnpjEC.value,
-                              atuationArea: atuationAreaEC.value.capitalizeFirst,
+                              atuationArea:
+                                  atuationAreaEC.value.capitalizeFirst,
                               serviceDescription: descriptionServiceEC.value,
                               experienceTime: experienceEC.value,
                               city: cityEC.value,

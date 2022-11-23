@@ -1,6 +1,5 @@
-// ignore_for_file: sort_constructors_first
+/* // ignore_for_file: sort_constructors_first
 
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class CustomLocalNotification {
@@ -36,8 +35,9 @@ class CustomLocalNotification {
   Future<void> inicializeNotifications() async {
     const android = AndroidInitializationSettings('@mipmap/ic_launcher');
     await flutterLocalNotificationsPlugin.initialize(
-      const InitializationSettings(android: android),
+      const InitializationSettings(android: android,),
     );
+
   }
 
   Future<void> androidNotification(String title, String body) async {
@@ -57,3 +57,4 @@ class CustomLocalNotification {
     );
   }
 }
+ */

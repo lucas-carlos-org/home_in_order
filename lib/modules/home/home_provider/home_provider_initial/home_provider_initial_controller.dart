@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_in_order/application/auth/auth_service.dart';
 import 'package:home_in_order/domain/models/provider_historic_model.dart';
@@ -8,7 +9,8 @@ import 'package:home_in_order/domain/services/receive_services/receive_services.
 import 'package:home_in_order/domain/services/user/user_service.dart';
 import 'package:home_in_order/modules/menu/menu_provider/menu_provider_controller.dart';
 
-class HomeProviderInitialController extends GetxController {
+class HomeProviderInitialController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   HomeProviderInitialController({
     required IUserService userService,
     required AuthService authService,
@@ -22,6 +24,13 @@ class HomeProviderInitialController extends GetxController {
     /* final data = Get.arguments;
     documentId = data[1]; */
     super.onInit();
+    tabController = TabController(vsync: this, length: myTabs.length);
+  }
+
+  @override
+  void onClose() {
+    tabController.dispose();
+    super.onClose();
   }
 
   final IUserService _userService;
@@ -32,6 +41,11 @@ class HomeProviderInitialController extends GetxController {
   final avatarImage = ''.obs;
   final userId = ''.obs;
   String? documentId;
+  late TabController tabController;
+  final List<Tab> myTabs = const [
+    Tab(text: 'Pendentes'),
+    Tab(text: 'Ativos'),
+  ];
 
   Future<void> logout() async {
     await _userService.logout();

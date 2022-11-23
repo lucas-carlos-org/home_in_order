@@ -1,6 +1,7 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
+/* import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:get/get.dart';
 import 'package:home_in_order/application/ui/firebase_messaging/custom_local_notification.dart';
-import 'package:home_in_order/application/ui/navigator/navigator_service.dart';
+import 'package:home_in_order/modules/menu/menu_provider/menu_provider_controller.dart';
 
 class CustomFirebaseMessaging {
   final CustomLocalNotification _customLocalNotification;
@@ -16,7 +17,6 @@ class CustomFirebaseMessaging {
             badge: true, sound: true, alert: true);
 
     FirebaseMessaging.onMessage.listen((message) {
-
       _customLocalNotification.androidNotification(
         message.data['title'],
         message.data['body'],
@@ -24,10 +24,11 @@ class CustomFirebaseMessaging {
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
-      if (message.data['route'] != null) {
-        NavigationService.navigatorKey.currentState
-            ?.pushNamed(message.data['route']);
+      if (message.data['payload'] != null || message.data['payload'] != '') {
+        final index = int.parse(message.data['payload'].toString());
+        Get.put(MenuProviderController()).changePage(index);
       }
     });
   }
 }
+ */
