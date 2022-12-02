@@ -98,13 +98,87 @@ class HistoricServiceCard extends GetView<HistoricController> {
                               )
                             ],
                           ),
-                          Text(
-                            formatDate.format(date),
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12.sp,
-                            ),
-                          )
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                formatDate.format(date),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12.sp,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5.h,
+                              ),
+                              status != 'Cancelado'
+                                  ? Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          border: Border.all(
+                                            color: Colors.green,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      height: 16.h,
+                                      child: Center(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 5.w,
+                                          ),
+                                          child: Text(
+                                            'Concluido',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 12.sp,
+                                              color: Colors.green,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  : Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          border: Border.all(
+                                            color: Colors.redAccent,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      height: 16.h,
+                                      child: Center(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 5.w,
+                                          ),
+                                          child: Text(
+                                            'Recusado',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 12.sp,
+                                              color: Colors.redAccent,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ) /*  Text(
+                                      'Concluido',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12.sp,
+                                        color: Colors.green,
+                                      ),
+                                    )
+                                  : Text(
+                                      'Recusado',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12.sp,
+                                        color: Colors.redAccent,
+                                      ),
+                                    ), */
+                            ],
+                          ),
                         ],
                       ),
                     ),

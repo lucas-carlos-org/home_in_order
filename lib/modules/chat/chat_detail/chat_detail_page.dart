@@ -24,32 +24,40 @@ class ChatDetailPage extends GetView<ChatDetailController> {
         actions: <Widget>[
           Obx(
             () => controller.userType.value == 'provider'
-                ? Row(
-                    children: [
-                      IconButton(
-                        tooltip:
-                            'O agendamento de horarios somente é possivel atraves do chat com usuario!',
-                        highlightColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        onPressed: () {
-                          Get.back();
-                          Get.back();
-                          controller.changePage(
-                            1,
-                          );
-                          Get.toNamed(
-                            '/schedule-create',
-                            arguments: [
-                              controller.userName.value,
-                              controller.userData.value
-                            ],
-                          );
-                        },
-                        icon: const Icon(
-                          Icons.calendar_month_outlined,
-                        ),
+                ? Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.w),
+                    child: InkWell(
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      onTap: () {
+                        Get.back();
+                        Get.back();
+                        controller.changePage(
+                          1,
+                        );
+                        Get.toNamed(
+                          '/schedule-create',
+                          arguments: [
+                            controller.userName.value,
+                            controller.userData.value
+                          ],
+                        );
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.calendar_month_outlined),
+                          Text(
+                            'Agendar',
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   )
                 : const SizedBox.shrink(),
           )
@@ -142,13 +150,27 @@ class ChatDetailPage extends GetView<ChatDetailController> {
               widthIcon: 12.w,
             ),
             Obx(() {
-              return Text(
-                controller.userName.value,
-                style: TextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black,
-                ),
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  controller.userType.value == 'provider'
+                      ? Text(
+                          'Cliente',
+                          style: TextStyle(fontSize: 12.sp),
+                        )
+                      : Text(
+                          'Prestador',
+                          style: TextStyle(fontSize: 12.sp),
+                        ),
+                  Text(
+                    controller.userName.value,
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
               );
             })
           ],

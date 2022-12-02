@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:home_in_order/application/ui/utils/extensions/size_screen_extension.dart';
+import 'package:home_in_order/application/ui/widgets/custom_back_button.dart';
 import 'package:home_in_order/modules/profile/profile_historic/widgets/historic_service_card.dart';
 import './historic_controller.dart';
 
@@ -14,7 +16,22 @@ class HistoricPage extends GetView<HistoricController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Histórico de Serviços'),
+        toolbarHeight: 90.h,
+        titleSpacing: 0,
+        automaticallyImplyLeading: false,
+        title: Row(
+          children: [
+            const CustomBackButton(),
+            Text(
+              'Histórico de serviços',
+              style: TextStyle(
+                fontSize: 22.sp,
+                fontWeight: FontWeight.w600,
+                color: const Color(0xff1976D2),
+              ),
+            ),
+          ],
+        ),
       ),
       body: Column(
         children: [
@@ -35,8 +52,8 @@ class HistoricPage extends GetView<HistoricController> {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
                     child: CupertinoActivityIndicator(
-                            animating: true,
-                          ),
+                      animating: true,
+                    ),
                   );
                 }
 
@@ -50,8 +67,8 @@ class HistoricPage extends GetView<HistoricController> {
                             controller.userType.value.isEmpty
                         ? const Center(
                             child: CupertinoActivityIndicator(
-                            animating: true,
-                          ),
+                              animating: true,
+                            ),
                           )
                         : ListView.builder(
                             itemCount: snapshot.data!.docs.length,

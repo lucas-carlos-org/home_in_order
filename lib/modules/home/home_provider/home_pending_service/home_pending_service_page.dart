@@ -38,7 +38,11 @@ class HomePendingServicePage extends StatelessWidget {
           }
 
           if (snapshot.data!.docs.isEmpty) {
-            return const Center(child: Text('Nenhum serviço pendente!'));
+            return const Center(
+              child: Text(
+                'Nenhuma solicitação de serviço pendente!',
+              ),
+            );
           }
 
           return ListView(

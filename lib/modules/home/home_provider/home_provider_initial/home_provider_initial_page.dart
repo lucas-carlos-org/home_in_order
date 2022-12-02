@@ -27,7 +27,7 @@ class HomeProviderInitialPage extends GetView<HomeProviderInitialController> {
               height: 30.h,
             ),
             Text(
-              'Solicitações',
+              'Serviços',
               style: TextStyle(fontSize: 16.h, fontWeight: FontWeight.w700),
             ),
             Expanded(

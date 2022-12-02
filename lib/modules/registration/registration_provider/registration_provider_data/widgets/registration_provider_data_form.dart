@@ -235,6 +235,7 @@ class RegistrationForm extends GetView<RegistrationProviderController> {
                 onPressed: (nameEC.value.isEmpty ||
                         middleNameEC.value.isEmpty ||
                         atuationAreaEC.value.isEmpty ||
+                        atuationAreaEC.value == 'Outros' ||
                         descriptionServiceEC.value.isEmpty ||
                         experienceEC.value.isEmpty ||
                         cityEC.value.isEmpty)
