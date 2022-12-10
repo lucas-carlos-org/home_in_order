@@ -39,8 +39,8 @@ class ProfileDataController extends GetxController {
       userRef['user_type'] == 'contractor'
           ? contractorModel.value = UserContractorInformationModel(
               adress: docData['adress'],
-              city: docData['cidade'],
-              lastName: docData['last_name'],
+              city: docData['city'],
+              lastName: docData['lastName'],
               name: docData['name'],
               number: docData['number'],
             )

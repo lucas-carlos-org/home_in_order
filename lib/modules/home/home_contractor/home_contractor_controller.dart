@@ -68,9 +68,10 @@ class HomeContractorController extends GetxController {
           .collection('personal_information')
           .get();
 
-      final userInformation = userInfo.docs.first;
-
-      if (userProvider['user_type'] == 'provider') {
+      if (userProvider['user_type'] == 'provider' &&
+          userProvider['complete_register_photo'] == true &&
+          userProvider['complete_register_data'] == true) {
+        final userInformation = userInfo.docs.first;
         final userPhotos = await firebase
             .collection("users")
             .doc(userProvider.id)
@@ -103,6 +104,8 @@ class HomeContractorController extends GetxController {
 
         listProvider.add(providerModel);
         listProviderSearch.add(providerModel);
+      } else {
+        continue;
       }
     }
     searching.value = false;
