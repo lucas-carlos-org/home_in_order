@@ -18,77 +18,85 @@ class HomeContractorPage extends GetView<HomeContractorController> {
         toolbarHeight: 70.h,
         title: headerHomeContractorPage(),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 30.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Obx(() {
-              return CustomSearchWidget(
-                hintText: 'Pesquisar por ${controller.selectedValue.value}',
-                onChanged: (value) => controller.searchItemByService(value),
-                suffixIcon: const SizedBox.shrink(),
-              );
-            }),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.h),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Prestadores de serviço',
-                    style: TextStyle(
-                      fontSize: 16.h,
-                      fontWeight: FontWeight.w700,
+      body: GestureDetector(
+        onTap: () {
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.focusedChild?.unfocus();
+          }
+        },
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 30.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Obx(() {
+                return CustomSearchWidget(
+                  hintText: 'Pesquisar por ${controller.selectedValue.value}',
+                  onChanged: (value) => controller.searchItemByService(value),
+                  suffixIcon: const SizedBox.shrink(),
+                );
+              }),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Prestadores de serviço',
+                      style: TextStyle(
+                        fontSize: 16.h,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                  ),
-                  IconAnimation(
-                    onPressed: () => controller.getDocs(),
-                  ),
-                ],
+                    IconAnimation(
+                      onPressed: () => controller.getDocs(),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              child: Obx(
-                () {
-                  return controller.isLoading.value
-                      ? const Center(
-                          child: CupertinoActivityIndicator(
-                            animating: true,
-                          ),
-                        )
-                      : controller.searching.value
-                          ? const Center(
-                              child: Text(
-                                  'Nenhum prestador de serviço encontrado!'),
-                            )
-                          : controller.listProvider.isNotEmpty
-                              ? ListView.builder(
-                                  physics: const BouncingScrollPhysics(
-                                    parent: AlwaysScrollableScrollPhysics(),
-                                  ),
-                                  itemCount: controller.listProvider.length,
-                                  itemBuilder: (context, index) {
-                                    var provider =
-                                        controller.listProvider[index];
-                                    return HomeProviderCard(
-                                      listProvider: provider,
-                                      listProviderPhotos: provider.photos,
-                                      imageAvatar: provider.imageAvatar,
-                                      name:
-                                          '${provider.name} ${provider.lastName[0]}.',
-                                      service: provider.atuationArea,
-                                    );
-                                  },
-                                )
-                              : const Center(
-                                  child: Text(
-                                      'Nenhum prestador de serviço encontrado!'),
-                                );
-                },
+              Expanded(
+                child: Obx(
+                  () {
+                    return controller.isLoading.value
+                        ? const Center(
+                            child: CupertinoActivityIndicator(
+                              animating: true,
+                            ),
+                          )
+                        : controller.searching.value
+                            ? const Center(
+                                child: Text(
+                                    'Nenhum prestador de serviço encontrado!'),
+                              )
+                            : controller.listProvider.isNotEmpty
+                                ? ListView.builder(
+                                    physics: const BouncingScrollPhysics(
+                                      parent: AlwaysScrollableScrollPhysics(),
+                                    ),
+                                    itemCount: controller.listProvider.length,
+                                    itemBuilder: (context, index) {
+                                      var provider =
+                                          controller.listProvider[index];
+                                      return HomeProviderCard(
+                                        listProvider: provider,
+                                        listProviderPhotos: provider.photos,
+                                        imageAvatar: provider.imageAvatar,
+                                        name:
+                                            '${provider.name} ${provider.lastName[0]}.',
+                                        service: provider.atuationArea,
+                                      );
+                                    },
+                                  )
+                                : const Center(
+                                    child: Text(
+                                        'Nenhum prestador de serviço encontrado!'),
+                                  );
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

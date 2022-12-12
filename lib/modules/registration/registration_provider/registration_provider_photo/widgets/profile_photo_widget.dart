@@ -17,8 +17,8 @@ class ProfilePhotoWidget extends GetView<RegistrationProviderPhotoController> {
             ? InkWell(
                 onTap: () => controller.getImageProfile(),
                 child: Container(
-                  height: 110.h,
-                  width: 110.w,
+                  height: 110,
+                  width: 110,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(80),
                     border: Border.all(
@@ -35,8 +35,8 @@ class ProfilePhotoWidget extends GetView<RegistrationProviderPhotoController> {
                 ),
               )
             : SizedBox(
-                height: 110.h,
-                width: 110.w,
+                height: 110,
+                width: 110,
                 child: Stack(
                   clipBehavior: Clip.none,
                   fit: StackFit.expand,
